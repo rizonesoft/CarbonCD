@@ -1,0 +1,961 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Japanese (Japan) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+#pragma code_page(932)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)\r\n"
+    "LANGUAGE 17, 1\r\n"
+    "#pragma code_page(932)\r\n"
+    "#include ""res\\cdm.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // ?W???R??g?|?[?l??g?g\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\cdm.ico"
+IDR_TOCFRAME            ICON                    "res\\idr_main.ico"
+IDI_ICON1               ICON                    "res\\icon1.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RT_MANIFEST
+//
+
+IDR_MANIFEST            RT_MANIFEST             "res\\cdm.manifest"
+#endif    // Japanese (Japan) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_NEUTRAL
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_SETTING DIALOGEX 0, 0, 230, 250
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Settings"
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,112,225,55,18
+    PUSHBUTTON      "Cancel",IDCANCEL,168,225,55,18
+    CONTROL         "",IDC_STAB,"SysTabControl32",0x0,7,7,216,210
+END
+
+IDD_READTRACK DIALOGEX 0, 0, 268, 230
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Read Track"
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,139,205,60,18
+    PUSHBUTTON      "?????",IDCANCEL,200,205,61,18
+    EDITTEXT        IDC_IMAGENAME,7,32,218,12,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "File Name",IDC_STATIC2,7,21,218,8
+    PUSHBUTTON      "Browse",IDC_BROWS,226,29,35,18
+    LISTBOX         IDC_FILELIST,7,51,254,55,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Drive",IDC_DRIVENAME,65,7,196,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    LTEXT           "Drive to Read",IDC_STATIC1,6,6,55,12,SS_CENTERIMAGE
+    CONTROL         "Ignore Read Errors",IDC_IGNORE_READERROR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,118,119,135,8
+    CONTROL         "Auto Detect Read Command",IDC_AUTODETECT_COMMAND,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,118,155,135,8
+    CONTROL         "Swap Audio Channel",IDC_SWAPCHANNEL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,118,143,135,8
+    COMBOBOX        IDC_AUDIOMETHOD,118,167,135,48,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_AUDIOSPEED,16,149,66,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Audio Speed",IDC_STATIC3,16,137,95,8
+    LTEXT           "Data Speed",IDC_STATIC4,16,167,95,8
+    COMBOBOX        IDC_DATASPEED2,16,179,66,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Intelligent Bad Sector Scanner",IDC_BURST_ERROR_SCAN,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,118,131,135,8
+    CONTROL         "Extend Settings",IDC_EXTMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,119,95,8
+END
+
+IDD_SUBQPROGRESS DIALOGEX 0, 0, 195, 71
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Analyzing Sub Code"
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    PUSHBUTTON      "Cancel",IDCANCEL,136,46,52,18
+    CTEXT           "Message",IDC_MESSAGE,7,7,181,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    PUSHBUTTON      "Log...",IDC_LOG,7,46,52,18
+    CTEXT           "Sector",IDC_SECTOR,136,21,52,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+END
+
+IDD_WRITEPROGRESS DIALOGEX 0, 0, 235, 90
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Writing to Disk"
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    PUSHBUTTON      "Cancel",IDCANCEL,178,65,50,18
+    CTEXT           "Message",IDC_MESSAGE,7,7,180,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",PBS_SMOOTH | WS_BORDER,6,23,180,15
+    CTEXT           "%",IDC_PERCENT,189,23,39,15,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    PUSHBUTTON      "Log..",IDC_LOG,7,65,50,18
+    LTEXT           "RAW",IDC_STATIC,189,7,20,12,SS_CENTERIMAGE
+    CTEXT           "×",IDC_RAWFLAG,213,7,15,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+END
+
+IDD_WRITESETTING DIALOGEX 0, 0, 268, 222
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Write to CD"
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,140,197,60,18
+    PUSHBUTTON      "Cancel",IDCANCEL,201,197,60,18
+    LTEXT           "File Name",IDC_CUEFILE,7,41,228,13,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    LTEXT           "File Name(.cue .cdm)",IDC_STATIC2,7,29,220,8
+    PUSHBUTTON      "...",IDC_BROWSE_CUESHEET,236,39,25,18
+    CONTROL         "Buffer-Underrun Protection",IDC_BURNPROOF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,118,80,135,12
+    CONTROL         "Test Mode",IDC_TESTMODE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,68,95,12
+    CONTROL         "Perform Optimum Power Calibration",IDC_OPC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,118,68,135,12
+    CONTROL         "Eject Tray",IDC_EJECT_TRAY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,118,92,135,12
+    CONTROL         "SAO",IDC_WRITEMODE_1,"Button",BS_AUTORADIOBUTTON | WS_GROUP,118,150,24,12
+    CONTROL         "RAW+16",IDC_WRITEMODE_2,"Button",BS_AUTORADIOBUTTON,118,162,36,12
+    CONTROL         "RAW+96",IDC_WRITEMODE_3,"Button",BS_AUTORADIOBUTTON,180,150,75,12
+    CONTROL         "RAW+96(Packed)",IDC_WRITEMODE_4,"Button",BS_AUTORADIOBUTTON,180,162,75,12
+    GROUPBOX        "Writing Commands",IDC_COMMAND_FRAME,111,136,150,42
+    CONTROL         "Check Drive as CD-R compatible",IDC_CHECK_DRIVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,118,104,114,12
+    COMBOBOX        IDC_WRITESPEED,16,110,80,78,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Writing Speed",IDC_STATIC3,7,98,90,8,SS_CENTERIMAGE
+    LTEXT           "Drive to Write",IDC_STATIC1,7,7,50,12,SS_CENTERIMAGE
+    CONTROL         "Auto Detect Writing Command",IDC_AUTODETECT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,118,118,114,8
+    COMBOBOX        IDC_DRIVELIST,61,7,200,78,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Extended Settings",IDC_EXTMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,80,95,12
+END
+
+IDD_SELECT_DRIVE DIALOGEX 0, 0, 210, 133
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Select a Drive"
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,82,108,60,18
+    PUSHBUTTON      "Cancel",IDCANCEL,143,108,60,18
+    CONTROL         "",IDC_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,196,95
+END
+
+IDD_SETTING_1 DIALOGEX 10, 26, 208, 180
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_SYSMENU
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    LTEXT           "Temporary File (Cloning)",IDC_STATIC3,7,7,168,8
+    LTEXT           "File Name",IDC_COPYTEMPFILE,7,20,170,13,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "Auto save log",IDC_AUTOSAVE_LOG,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,43,168,8
+    LTEXT           "File Name",IDC_LOG_FILE,7,59,170,13,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    LTEXT           "Process priority",IDC_PRIORITY_TXT,7,90,168,8
+    COMBOBOX        IDC_PRIORITY,7,103,80,60,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "...",IDC_BROWS_TEMPFILE,178,18,23,18
+    PUSHBUTTON      "...",IDC_BROWS_LOG,178,55,23,18
+END
+
+IDD_SETTING_2 DIALOGEX 10, 26, 208, 180
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_SYSMENU
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    CONTROL         "Use external skin",IDC_SET_SKIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,7,155,8
+    LTEXT           "Skin File Name",IDC_SKIN_FILE,7,19,170,13,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    PUSHBUTTON      "...",IDC_BROWS_SKIN,178,16,23,18
+    CONTROL         "Play sound on succeed process",IDC_SET_WAV_SUCCESS,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,46,155,8
+    LTEXT           "File Name",IDC_WAV_SUCCESS_FILE,7,58,170,13,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    PUSHBUTTON      "...",IDC_BROWS_WAV_SUCCESS,178,52,23,18
+    CONTROL         "Play sound on failed process",IDC_SET_WAV_FAIL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,79,155,8
+    LTEXT           "File Name",IDC_WAV_FAIL_FILE,7,91,170,13,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    PUSHBUTTON      "...",IDC_BROWS_WAV_FAIL,178,88,23,18
+END
+
+IDD_SETTING_3 DIALOGEX 10, 26, 208, 180
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_SYSMENU
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_BUFFERSIZE,"msctls_trackbar32",TBS_AUTOTICKS | WS_TABSTOP,13,77,130,24
+    CTEXT           "Size",IDC_BUFFERSIZE_TXT,150,77,45,18,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "Set ASPI manager",IDC_SET_ASPI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,24,168,8
+    LTEXT           "Place of aspi manager",IDC_ASPI_DLL,7,35,170,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    PUSHBUTTON      "...",IDC_BROWS_ASPI,178,32,23,18
+    CONTROL         "SPTI",IDC_USE_SPTI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,7,155,8
+    GROUPBOX        "Transfer Size",IDC_STATIC,7,60,194,46
+END
+
+IDD_SETTING_4 DIALOGEX 10, 26, 208, 180
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_SYSMENU
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    LTEXT           "Method and speed for sub-Q analysis",IDC_STATIC1,7,7,138,12
+    COMBOBOX        IDC_SUBQMETHOD,7,22,123,90,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_SUBQSPEED,133,22,68,54,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_READSETTING_4 DIALOGEX 0, 80, 268, 133
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_SYSMENU
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    GROUPBOX        "Data Compare Mode",IDC_STATIC1,7,7,254,119
+    COMBOBOX        IDC_AUDIOSPEED,18,42,66,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Reading Speen",IDC_STATIC3,16,30,120,8
+END
+
+IDD_READSETTING_3 DIALOGEX 0, 80, 268, 133
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_SYSMENU
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    GROUPBOX        "Read Alpha-ROM engine",IDC_STATIC1,7,7,254,119
+    CONTROL         "Fast Error Skip",IDC_FAST_ERRORSKIP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,113,40,141,8
+    CONTROL         "Analyze Pregap (-150...0 sector)",IDC_ANALYZE_PREGAP,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,113,28,141,8,WS_EX_TRANSPARENT
+    COMBOBOX        IDC_AUDIOSPEED,18,42,66,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Read Speed",IDC_STATIC3,16,30,95,8
+END
+
+IDD_READSETTING_1 DIALOGEX 0, 80, 268, 133
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_SYSMENU
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    GROUPBOX        "Single-Session Mode",IDC_STATIC1,7,7,254,119
+    CONTROL         "Ignore Read Errors",IDC_IGNORE_READERROR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,113,40,141,8
+    CONTROL         "Auto Detect Read Command",IDC_AUTODETECT_COMMAND,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,113,88,141,8
+    CONTROL         "Swap Audio Channel",IDC_SWAPCHANNEL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,113,76,141,8
+    COMBOBOX        IDC_AUDIOMETHOD,113,103,141,48,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Fast Error Skip",IDC_FAST_ERRORSKIP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,113,52,141,8
+    CONTROL         "Analyze Sub Code (Get Accurately TOC)",IDC_ANALYZE_SUBQ,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,113,28,141,8
+    CONTROL         "Intelligence Bad Sector Scanner",IDC_BURST_ERROR_SCAN,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,113,64,141,8
+    CONTROL         "Test Mode",IDC_WRITENULL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,28,95,8
+    COMBOBOX        IDC_AUDIOSPEED,24,103,66,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Audi Speed",IDC_STATIC3,16,91,95,8
+    LTEXT           "Data Speed",IDC_STATIC4,16,61,95,8
+    COMBOBOX        IDC_DATASPEED2,24,73,66,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Advanced",IDC_EXTMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,40,95,8
+END
+
+IDD_READSETTING_2 DIALOGEX 0, 80, 268, 133
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_SYSMENU
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    GROUPBOX        "Multi-Session Mode",IDC_STATIC1,7,7,254,119
+    CONTROL         "Test Mode",IDC_WRITENULL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,28,95,8
+    COMBOBOX        IDC_AUDIOSPEED,24,73,66,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Ignore Read Errors",IDC_IGNORE_READERROR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,113,52,141,8
+    LTEXT           "Reading Speed",IDC_STATIC3,16,61,108,8
+    CONTROL         "Fast Error Skip",IDC_FAST_ERRORSKIP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,113,64,141,8
+    CONTROL         "Analyze Sub Code (Get Accurate TOC)",IDC_ANALYZE_SUBQ,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,113,40,141,8
+    CONTROL         "Intelligence Bad Sector Scanner",IDC_BURST_ERROR_SCAN,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,113,76,141,8
+    CONTROL         "Analyze Pregap (-150...0 sector)",IDC_ANALYZE_PREGAP,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,113,28,141,8,WS_EX_TRANSPARENT
+    CONTROL         "Extended Settings",IDC_EXTMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,40,95,8
+END
+
+IDD_READSETTING DIALOGEX 0, 0, 268, 242
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Read From CD"
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,140,217,60,18
+    PUSHBUTTON      "Cancel",IDCANCEL,201,217,60,18
+    EDITTEXT        IDC_IMAGENAME,7,41,205,13,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "Select Image File (.cue)",IDC_STATIC2,7,29,220,8
+    PUSHBUTTON      "Browse",IDC_BROWSFILE,214,38,47,18
+    CTEXT           "Drive to Read",IDC_STATIC1,7,7,54,12,SS_CENTERIMAGE
+    COMBOBOX        IDC_DRIVELIST,66,7,195,60,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_ENGINELIST,7,62,254,60,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Under construction",IDC_STATIC,108,122,60,12
+END
+
+IDD_READPROGRESS DIALOGEX 0, 0, 210, 82
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Reading Progress"
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    PUSHBUTTON      "Cancel",IDCANCEL,138,57,65,18
+    CTEXT           "Message",IDC_MESSAGE,7,7,163,16,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CTEXT           "%",IDC_PERCENT,173,26,30,16,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",PBS_SMOOTH | WS_BORDER,7,26,163,16
+    PUSHBUTTON      "Log",IDC_LOG,7,57,65,18
+    CTEXT           "x1.0",IDC_MULTI,173,7,30,16,SS_CENTERIMAGE,WS_EX_STATICEDGE
+END
+
+IDD_MASTERING_FILE DIALOGEX 0, 0, 350, 270
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_ACCEPTFILES
+CAPTION "CD Mastering"
+MENU IDR_MASTERING_FILE
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    PUSHBUTTON      "Create Image",IDC_CREATE_ISO,214,219,69,18
+    CONTROL         "",IDC_TAB,"SysTabControl32",WS_TABSTOP,7,6,337,210
+    PUSHBUTTON      "Write to CD",IDC_WRITING,284,219,60,18
+    CTEXT           "Size",IDC_IMAGESIZE,7,220,85,14,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    PUSHBUTTON      "Cancel",IDCANCEL,284,239,60,18
+    PUSHBUTTON      "Open Explorer...",IDC_EXPLORER,214,239,69,18
+    COMBOBOX        IDC_DRIVELIST,95,220,116,66,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Quick Erase CD-RW Media",ID_CD_ERASE_FAST,108,239,103,18
+    PUSHBUTTON      "Erase CD-RW Media",ID_CD_ERASE,7,239,100,18
+END
+
+IDD_CREATPROGRESS DIALOGEX 0, 0, 250, 82
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Create Progress"
+FONT 9, "MS Shell Dlg", 400, 0, 0x80
+BEGIN
+    PUSHBUTTON      "Cancel",IDCANCEL,178,57,65,18
+    CTEXT           "Message",IDC_MESSAGE,7,7,236,16,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,7,26,198,16
+    CTEXT           "%",PERCENT,208,26,35,16,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    PUSHBUTTON      "Log",IDC_LOG,7,57,65,18
+END
+
+IDD_CALCMSF DIALOGEX 0, 0, 173, 110
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "MSF Calculator"
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    PUSHBUTTON      "Close",IDCANCEL,52,85,65,18
+    RTEXT           "MSF",IDC_STATIC,6,6,36,8
+    RTEXT           "MSF+150",IDC_STATIC,6,24,36,8
+    RTEXT           "LBA",IDC_STATIC,6,42,36,8
+    RTEXT           "LBA (Hex)",IDC_STATIC,6,60,36,8
+    EDITTEXT        IDC_MSF_M,48,6,22,13,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_MSF_S,71,6,22,13,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_MSF_F,94,6,22,13,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_MSF150_M,48,24,22,13,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_MSF150_S,71,24,22,13,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_MSF150_F,94,24,22,13,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_LBA,48,42,68,13,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_LBAHEX,48,60,68,13,ES_RIGHT | ES_AUTOHSCROLL
+    PUSHBUTTON      "Calc",IDC_CALC_MSF,117,6,30,13
+    PUSHBUTTON      "Calc",IDC_CALC_MSF150,117,24,30,13
+    PUSHBUTTON      "Calc",IDC_CALC_LBA,117,42,30,13
+    PUSHBUTTON      "Calc",IDC_CALC_LBAHEX,117,60,30,13
+    PUSHBUTTON      "0",IDC_ZERO,153,6,13,68
+END
+
+IDD_ERASE DIALOGEX 0, 0, 202, 82
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Erase CD-RW"
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,70,57,62,18
+    CTEXT           "During Initialization of the CD-RW Media",IDC_MESSAGE,7,14,188,12
+END
+
+IDD_DRIVE_CAPABILITY DIALOGEX 0, 0, 305, 190
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Drive Capabilities"
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,238,165,60,18
+    LTEXT           "Drive ID",IDC_STATIC1,12,21,45,12,SS_CENTERIMAGE
+    LTEXT           "Vendor",IDC_STATIC4,117,21,68,12,SS_CENTERIMAGE
+    LTEXT           "Product Name",IDC_STATIC5,117,33,68,12,SS_CENTERIMAGE
+    LTEXT           "Firmware Revision",IDC_STATIC6,117,45,68,12,SS_CENTERIMAGE
+    CTEXT           "Vendor",IDC_VENDOR,189,21,104,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CTEXT           "Product",IDC_DRIVENAME,189,33,104,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CTEXT           "Revision",IDC_REVISION,189,45,104,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    GROUPBOX        "Drive Information",IDC_STATIC0,6,6,292,58
+    LTEXT           "RAW+96",IDC_STATIC,117,105,50,12,SS_CENTERIMAGE
+    LTEXT           "SAO",IDC_STATIC,117,81,50,12,SS_CENTERIMAGE
+    CTEXT           "S",IDC_SAO,168,81,22,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CTEXT           "S",IDC_RAW96,168,105,22,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    LTEXT           "RAW+16",IDC_STATIC,117,93,50,12,SS_CENTERIMAGE
+    CTEXT           "S",IDC_RAW16,168,93,22,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    LTEXT           "RAW+96(P)",IDC_STATIC,117,117,50,12,SS_CENTERIMAGE
+    CTEXT           "S",IDC_RAW96P,168,117,22,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    LTEXT           "TEST && RAW+96",IDC_STATIC,198,105,70,12,SS_CENTERIMAGE
+    LTEXT           "TEST && SAO",IDC_STATIC,198,81,70,12,SS_CENTERIMAGE
+    CTEXT           "S",IDC_SAO_TEST,271,81,22,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CTEXT           "S",IDC_RAW96_TEST,271,105,22,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    LTEXT           "TEST && RAW+16",IDC_STATIC,198,93,70,12,SS_CENTERIMAGE
+    CTEXT           "S",IDC_RAW16_TEST,271,93,22,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    LTEXT           "TEST && RAW+96(P)",IDC_STATIC,198,117,70,12,SS_CENTERIMAGE
+    CTEXT           "S",IDC_RAW96P_TEST,271,117,22,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    LTEXT           "Buffer Size",IDC_STATIC10,15,105,50,12,SS_CENTERIMAGE
+    CTEXT           "0KByte",IDC_BUFFERSIZE,66,105,45,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    LTEXT           "Write to CD",IDC_STATIC8,15,81,48,12,SS_CENTERIMAGE
+    CTEXT           "OK",IDC_WRITER,66,81,45,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    LTEXT           "Default CMD",IDC_STATIC9,15,93,48,12,SS_CENTERIMAGE
+    CTEXT           "Without",IDC_DEFAULT_COMMAND,66,93,45,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    GROUPBOX        "Writing Capability",IDC_STATIC7,6,69,292,85
+    LTEXT           "Drive Information",IDC_STATIC11,15,141,274,8
+    CTEXT           "Address",IDC_ADDRESS,61,21,49,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    LTEXT           "1",IDC_STATIC2,24,33,86,12,SS_CENTERIMAGE
+    LTEXT           "2",IDC_STATIC3,24,45,86,12,SS_CENTERIMAGE
+END
+
+IDD_LANGUAGE DIALOGEX 0, 0, 250, 186
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Language"
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,112,161,65,18
+    PUSHBUTTON      "Cancel",IDCANCEL,178,161,65,18
+    CONTROL         "",IDC_LIST,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,236,149
+END
+
+IDD_MASTERING_1 DIALOGEX 10, 24, 330, 190
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD
+EXSTYLE WS_EX_ACCEPTFILES
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_TRACKLIST,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,7,316,155
+    PUSHBUTTON      "Up Order",IDC_UP_ORDER,7,165,66,18
+    PUSHBUTTON      "Down Order",IDC_DOWN_ORDER,77,165,66,18
+END
+
+IDD_MASTERING_2 DIALOGEX 10, 24, 332, 190
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD
+EXSTYLE WS_EX_ACCEPTFILES
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_SHOWSELALWAYS | TVS_FULLROWSELECT | WS_BORDER | WS_HSCROLL | WS_TABSTOP,7,23,100,160
+    CONTROL         "",IDC_LIST,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_EDITLABELS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,109,23,216,160
+    EDITTEXT        IDC_VOLUME_LABEL,64,7,126,13,ES_AUTOHSCROLL
+    LTEXT           "Volume Label",IDC_STATIC_TXT1,7,7,55,14,SS_CENTERIMAGE
+END
+
+IDD_MASTERING_3 DIALOGEX 10, 24, 330, 190
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    CONTROL         "Always on top",IDC_ALWAYS_TOP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,18,135,8
+    CONTROL         "Notify truncated file name",IDC_NOTIFY_TRUNCATED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,30,135,12
+    GROUPBOX        "Protection features for data disc (Only for ISO mastering)",IDC_STATIC1,7,54,250,35
+    COMBOBOX        IDC_PROTECTION_FEATURES,14,70,236,108,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_MESSAGE DIALOGEX 0, 0, 182, 75
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Message"
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,58,52,65,16
+    CTEXT           "Message",IDC_MESSAGE,7,10,168,28
+END
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 207, 186
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About Carbon CD"
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    LTEXT           "Copyright © 2015, Rizonesoft",IDC_AUTHOR,80,50,120,8
+    DEFPUSHBUTTON   "OK",IDOK,140,160,60,16,WS_GROUP
+    LTEXT           "Version 0.0.0",ID_VERSTRING,80,31,120,8,SS_NOPREFIX
+    CONTROL         217,IDC_STATIC,"Static",SS_BITMAP,7,7,64,73
+    LTEXT           "Carbon CD",IDC_STATIC,80,19,120,8
+    CTEXT           "Please don't use this program to make illegal copies of copyrighted music!",IDC_STATIC,30,100,150,50
+END
+
+IDD_MAIN_DIALOG DIALOGEX 0, 0, 289, 199
+STYLE DS_SETFONT | DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "Rizonesoft Carbon CD"
+MENU IDR_MAINMENU
+FONT 9, "Verdana", 400, 0, 0x0
+BEGIN
+    COMBOBOX        IDC_DRIVELIST,7,7,275,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Read Image",ID_TOOL_CREATEIMAGE,7,21,68,78,BS_BITMAP | BS_MULTILINE | BS_FLAT | NOT WS_TABSTOP
+    PUSHBUTTON      "Master CD / Image",ID_TOOL_READTRACK,76,100,68,78,BS_BITMAP | NOT WS_TABSTOP
+    PUSHBUTTON      "Write Image",ID_CD_WRITE_IMAGE,76,21,68,78,BS_BITMAP | NOT WS_TABSTOP
+    PUSHBUTTON      "Refresh CD",ID_CD_RECOGNIZE,214,21,68,78,BS_BITMAP | NOT WS_TABSTOP
+    PUSHBUTTON      "Duplicate CD",ID_CD_DUPLICATE,145,21,68,78,BS_BITMAP | NOT WS_TABSTOP
+    PUSHBUTTON      "Analyze Sub",ID_TOOL_SUBQ,145,100,68,78,BS_BITMAP | NOT WS_TABSTOP
+    PUSHBUTTON      "Read Tracks",ID_TOOL_MASTERING,7,100,68,78,BS_BITMAP | NOT WS_TABSTOP
+    PUSHBUTTON      "Close Carbon CD",ID_EXIT,214,100,68,78,BS_BITMAP | NOT WS_TABSTOP
+    LTEXT           " Information",IDC_MESSAGE,7,180,275,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_SETTING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 223
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 243
+    END
+
+    IDD_READTRACK, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 261
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 223
+    END
+
+    IDD_SUBQPROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 188
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 64
+    END
+
+    IDD_WRITEPROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 83
+    END
+
+    IDD_WRITESETTING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 261
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 215
+    END
+
+    IDD_SELECT_DRIVE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 203
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 126
+    END
+
+    IDD_SETTING_1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 201
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 173
+    END
+
+    IDD_SETTING_2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 201
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 173
+    END
+
+    IDD_SETTING_3, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 201
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 173
+    END
+
+    IDD_SETTING_4, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 201
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 173
+    END
+
+    IDD_READSETTING_4, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 261
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 126
+    END
+
+    IDD_READSETTING_3, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 261
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 126
+    END
+
+    IDD_READSETTING_1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 261
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 126
+    END
+
+    IDD_READSETTING_2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 261
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 126
+    END
+
+    IDD_READSETTING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 261
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 235
+    END
+
+    IDD_READPROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 203
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 75
+    END
+
+    IDD_MASTERING_FILE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 344
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 260
+    END
+
+    IDD_CREATPROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 243
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 75
+    END
+
+    IDD_CALCMSF, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 166
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 103
+    END
+
+    IDD_ERASE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 195
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 75
+    END
+
+    IDD_DRIVE_CAPABILITY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 298
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 183
+    END
+
+    IDD_LANGUAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 243
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 179
+    END
+
+    IDD_MASTERING_1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 323
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 183
+    END
+
+    IDD_MASTERING_2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 325
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 183
+    END
+
+    IDD_MASTERING_3, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 323
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 183
+    END
+
+    IDD_MESSAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 175
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 68
+    END
+
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 200
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_MAIN_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 282
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 192
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINMENU MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Settings",                   ID_READSETTING
+        MENUITEM "&Language",                   ID_LANGUAGE
+        MENUITEM SEPARATOR
+        MENUITEM "&Close",                      ID_EXIT
+    END
+    POPUP "&Tools"
+    BEGIN
+        MENUITEM "Show Drive &Capability",      ID_DRIVE_CAPABILITY
+        MENUITEM "&MSF Calculator",             ID_TOOL_MSF
+        MENUITEM SEPARATOR
+        MENUITEM "&Erase CD-RW Media",          ID_CD_ERASE
+        MENUITEM "&Fast Erase CD-RW Media",     ID_CD_ERASE_FAST
+    END
+    POPUP "&CD"
+    BEGIN
+        MENUITEM "Recognize &CD",               ID_CD_RECOGNIZE
+        MENUITEM "&Subcode Analysis",           ID_TOOL_SUBQ
+        MENUITEM SEPARATOR
+        MENUITEM "Clone CD",                    ID_CD_DUPLICATE
+        MENUITEM "&Read to Image File",         ID_TOOL_CREATEIMAGE
+        MENUITEM "&Write from Image File",      ID_CD_WRITE_IMAGE
+        MENUITEM "&Mastering",                  ID_TOOL_MASTERING
+        MENUITEM SEPARATOR
+        MENUITEM "Read &Tracks",                ID_TOOL_READTRACK
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "TOC Window",                  ID_VIEW_TOCWINDOW
+        MENUITEM "LOG Window",                  ID_VIEW_LOG
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&Help",                       ID_HELP_HELP
+        MENUITEM SEPARATOR
+        MENUITEM "About Carbon CD",             ID_VIEW_VERSION
+        MENUITEM SEPARATOR
+        MENUITEM "Rizonesoft Online",   ID_RS_HOME
+    END
+END
+
+IDR_TOCFRAME MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "Save TOC as &Text format",    ID_FILE_SAVETXT
+        MENUITEM "Save TOC as &HTML format",    ID_FILE_SAVEHTML
+        MENUITEM "Save TOC as &CSV format",     ID_FILE_SAVECSV
+        MENUITEM "Save TOC as Cue-&Sheet",      ID_FILE_SAVECUE
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "&Close Window",               ID_WINDOW_CLOSE
+    END
+END
+
+IDR_LOGFRAME MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Clear Log",                  ID_CLEARLOG
+        MENUITEM SEPARATOR
+        MENUITEM "&Save Log",                   ID_SAVELOG
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "&Close Window",               ID_WINDOW_CLOSE
+    END
+END
+
+IDR_MASTERING_FILE MENU
+BEGIN
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "Explorer",                    1140
+        MENUITEM SEPARATOR
+        MENUITEM "&Exit",                       IDCANCEL
+    END
+    POPUP "&Create"
+    BEGIN
+        MENUITEM "Create &Image",               ID_CREATE_IMAGE
+        MENUITEM "&Write to CD",                ID_CREATE_CD
+        MENUITEM SEPARATOR
+        MENUITEM "&Erase CD-RW Media",          ID_CD_ERASE
+        MENUITEM "&Fast Erase CD-RW Media",     176
+    END
+    POPUP "&Track"
+    BEGIN
+        MENUITEM "Insert &Data Track",          ID_EDIT_ADDDATA
+        MENUITEM "Insert &ISO as Data Track",   ID_TRACK_ISO
+        MENUITEM "Insert &Audio Track",         ID_EDIT_ADDAUDIO
+        MENUITEM SEPARATOR
+        MENUITEM "&Remove Track",               ID_EDIT_DELETETRACK
+    END
+    POPUP "&File && Folder"
+    BEGIN
+        MENUITEM "&Create new Folder",          ID_EDIT_ADDFOLDER
+        MENUITEM "Insert Folder",               ID_EDIT_INSERTFOLDER
+        MENUITEM "Add &File",                   ID_EDIT_ADDFILE
+        MENUITEM "&Remove",                     ID_EDIT_DELETEFOLDER
+        MENUITEM SEPARATOR
+        MENUITEM "Re&name",                     ID_EDIT_LABEL
+    END
+END
+
+IDR_HIDE_MENU MENU
+BEGIN
+    POPUP "ProgressDialog"
+    BEGIN
+        MENUITEM "UpdateData",                  ID_UPDATE_DIALOG
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_LOGTYPE             BITMAP                  "res\\LogType.bmp"
+IDB_FILE_TREE           BITMAP                  "res\\FileTree.bmp"
+IDB_FILE_LIST           BITMAP                  "res\\FileList.bmp"
+IDB_B_CREATE_IMAGE      BITMAP                  "res\\CreateImage.bmp"
+IDB_B_WRITE_IMAGE       BITMAP                  "res\\WriteImage.bmp"
+IDB_B_DUPLICATE         BITMAP                  "res\\Duplicate.bmp"
+IDB_B_READ_TRACK        BITMAP                  "res\\ReadTrack.bmp"
+IDB_B_MASTERING         BITMAP                  "res\\Mastering.bmp"
+IDB_B_SUBQ              BITMAP                  "res\\SubQ.bmp"
+IDB_B_RECOGNIZE         BITMAP                  "res\\Recognize.bmp"
+IDB_B_EXIT              BITMAP                  "res\\Exit.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_TOTALSIZE           "TOTALSIZE MB"
+    IDS_TOTALTIME           "TOTALTIME MSF"
+    IDS_DRIVENAME           "DriveName"
+END
+
+STRINGTABLE
+BEGIN
+    IDR_TOCFRAME            "TOC - Carbon CD"
+    IDR_LOGFRAME            "LOG - Carbon CD"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_APP_TITLE       "Carbon CD"
+END
+
+#endif    // English resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (South Africa) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENS)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_SOUTH_AFRICA
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_ABOUT               BITMAP                  "res\\AboutImage.bmp"
+#endif    // English (South Africa) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE 17, 1
+#pragma code_page(932)
+#include "res\cdm.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // ?W???R??g?|?[?l??g?g
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

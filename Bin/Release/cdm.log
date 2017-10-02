@@ -1,0 +1,115 @@
+﻿  stdafx.cpp
+  Aspi.cpp
+  AspiDriver.cpp
+  ButtonEx.cpp
+  CDController.cpp
+  CDM.cpp
+  CDMDlg.cpp
+  CDType.cpp
+  CDWriter.cpp
+  CheckSector.cpp
+  CreateProgressDialog.cpp
+  CreateThread.cpp
+CreateThread.cpp(136): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+  CueSheetParser.cpp
+  DeviceList.cpp
+  DirStructure.cpp
+  DriveCapabilityDialog.cpp
+  EraseDialog.cpp
+  FileList.cpp
+  ImageFile.cpp
+  IsoCreator.cpp
+  IsoWriter.cpp
+  Generating Code...
+  Compiling...
+  Language.cpp
+  LanguageDialog.cpp
+  LogWindow.cpp
+LogWindow.cpp(126): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
+LogWindow.cpp(156): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
+LogWindow.cpp(264): warning C4996: 'GetVersionExA': was declared deprecated
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\sysinfoapi.h(436): note: see declaration of 'GetVersionExA'
+  MasteringFileDialog.cpp
+  MasteringPage1.cpp
+  MasteringPage2.cpp
+  MasteringPage3.cpp
+  MessageDialog.cpp
+  MMCReader.cpp
+  MMCSubcodeReader.cpp
+  MMCWriter.cpp
+  MsfDialog.cpp
+  PBBuffer.cpp
+  PregapAnalyzer.cpp
+  ReadProgressDialog.cpp
+  ReadSettingDialog.cpp
+  ReadSettingDialog1.cpp
+  ReadSettingDialog2.cpp
+  ReadSettingDialog3.cpp
+  ReadSettingDialog4.cpp
+  Generating Code...
+  Compiling...
+  ReadThread.cpp
+  ReadThreadAlpha.cpp
+  ReadThreadCompare.cpp
+  ReadThreadMS.cpp
+  ReadThreadSS.cpp
+  ReadTrackDialog.cpp
+  Setting.cpp
+Setting.cpp(188): warning C4996: 'GetVersionExA': was declared deprecated
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\sysinfoapi.h(436): note: see declaration of 'GetVersionExA'
+  SettingDialog.cpp
+  SettingPage1.cpp
+  SettingPage2.cpp
+  SettingPage3.cpp
+SettingPage3.cpp(90): warning C4996: 'GetVersionExA': was declared deprecated
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\sysinfoapi.h(436): note: see declaration of 'GetVersionExA'
+  SettingPage4.cpp
+  SptiDriver.cpp
+SptiDriver.cpp(106): warning C4996: 'GetVersionExA': was declared deprecated
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\sysinfoapi.h(436): note: see declaration of 'GetVersionExA'
+  SubCodeGenerator.cpp
+  SubcodeGeneratorMS.cpp
+  SubQProgressDialog.cpp
+  SubQThread.cpp
+  ThemeController.cpp
+  TocWindow.cpp
+TocWindow.cpp(275): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+TocWindow.cpp(277): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+TocWindow.cpp(279): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+TocWindow.cpp(291): warning C4477: 'fprintf' : format string '%5s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
+TocWindow.cpp(291): warning C4477: 'fprintf' : format string '%8s' requires an argument of type 'char *', but variadic argument 3 has type 'CString'
+TocWindow.cpp(291): warning C4477: 'fprintf' : format string '%8s' requires an argument of type 'char *', but variadic argument 4 has type 'CString'
+TocWindow.cpp(291): warning C4477: 'fprintf' : format string '%8s' requires an argument of type 'char *', but variadic argument 5 has type 'CString'
+TocWindow.cpp(291): warning C4477: 'fprintf' : format string '%13s' requires an argument of type 'char *', but variadic argument 6 has type 'CString'
+TocWindow.cpp(291): warning C4477: 'fprintf' : format string '%4s' requires an argument of type 'char *', but variadic argument 7 has type 'CString'
+TocWindow.cpp(291): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 8 has type 'CString'
+TocWindow.cpp(317): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+TocWindow.cpp(320): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+TocWindow.cpp(322): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+TocWindow.cpp(324): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+TocWindow.cpp(336): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
+TocWindow.cpp(336): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 3 has type 'CString'
+TocWindow.cpp(336): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 4 has type 'CString'
+TocWindow.cpp(336): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 5 has type 'CString'
+TocWindow.cpp(336): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 6 has type 'CString'
+TocWindow.cpp(336): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 7 has type 'CString'
+TocWindow.cpp(336): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 8 has type 'CString'
+TocWindow.cpp(363): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+TocWindow.cpp(365): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+TocWindow.cpp(367): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+TocWindow.cpp(379): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
+TocWindow.cpp(379): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 3 has type 'CString'
+TocWindow.cpp(379): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 4 has type 'CString'
+TocWindow.cpp(379): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 5 has type 'CString'
+TocWindow.cpp(379): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 6 has type 'CString'
+TocWindow.cpp(379): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 7 has type 'CString'
+TocWindow.cpp(379): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 8 has type 'CString'
+  WriteProgressDialog.cpp
+  Generating Code...
+  Compiling...
+  WriteSettingDialog.cpp
+  Generating Code...
+  WriteThread.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  cdm.vcxproj -> C:\Users\Venom\Desktop\CarbonCD\Bin\Release\CarbonCD.exe
+  cdm.vcxproj -> Bin\Release\CarbonCD.pdb (Full PDB)

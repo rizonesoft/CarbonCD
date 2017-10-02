@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Template|Win32">
+      <Configuration>Template</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6249F6A5-BE88-44DE-A2AB-81B0B62F386B}</ProjectGuid>
+    <Keyword>MFCProj</Keyword>
+    <ProjectName>CarbonCD</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Bin\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Bin\Debug\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Bin\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Bin\Release\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" />
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CarbonCD</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CarbonCD</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>htmlhelp.lib winmm.lib %(AdditionalOptions)</AdditionalOptions>
+      <AddModuleNamesToAssembly>%(AddModuleNamesToAssembly)</AddModuleNamesToAssembly>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>htmlhelp.lib winmm.lib %(AdditionalOptions)</AdditionalOptions>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AddModuleNamesToAssembly>%(AddModuleNamesToAssembly)</AddModuleNamesToAssembly>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Aspi.cpp" />
+    <ClCompile Include="AspiDriver.cpp" />
+    <ClCompile Include="ButtonEx.cpp" />
+    <ClCompile Include="CDController.cpp" />
+    <ClCompile Include="CDM.cpp" />
+    <ClCompile Include="CDMDlg.cpp" />
+    <ClCompile Include="CDType.cpp" />
+    <ClCompile Include="CDWriter.cpp" />
+    <ClCompile Include="CheckSector.cpp" />
+    <ClCompile Include="CreateProgressDialog.cpp" />
+    <ClCompile Include="CreateThread.cpp" />
+    <ClCompile Include="CueSheetParser.cpp" />
+    <ClCompile Include="DeviceList.cpp" />
+    <ClCompile Include="DirStructure.cpp" />
+    <ClCompile Include="DriveCapabilityDialog.cpp" />
+    <ClCompile Include="EraseDialog.cpp" />
+    <ClCompile Include="FileList.cpp" />
+    <ClCompile Include="ImageFile.cpp" />
+    <ClCompile Include="IsoCreator.cpp" />
+    <ClCompile Include="IsoWriter.cpp" />
+    <ClCompile Include="Language.cpp" />
+    <ClCompile Include="LanguageDialog.cpp" />
+    <ClCompile Include="LogWindow.cpp" />
+    <ClCompile Include="MasteringFileDialog.cpp" />
+    <ClCompile Include="MasteringPage1.cpp" />
+    <ClCompile Include="MasteringPage2.cpp" />
+    <ClCompile Include="MasteringPage3.cpp" />
+    <ClCompile Include="MessageDialog.cpp" />
+    <ClCompile Include="MMCReader.cpp" />
+    <ClCompile Include="MMCSubcodeReader.cpp" />
+    <ClCompile Include="MMCWriter.cpp" />
+    <ClCompile Include="MsfDialog.cpp" />
+    <ClCompile Include="PBBuffer.cpp" />
+    <ClCompile Include="PregapAnalyzer.cpp" />
+    <ClCompile Include="ReadProgressDialog.cpp" />
+    <ClCompile Include="ReadSettingDialog.cpp" />
+    <ClCompile Include="ReadSettingDialog1.cpp" />
+    <ClCompile Include="ReadSettingDialog2.cpp" />
+    <ClCompile Include="ReadSettingDialog3.cpp" />
+    <ClCompile Include="ReadSettingDialog4.cpp" />
+    <ClCompile Include="ReadThread.cpp" />
+    <ClCompile Include="ReadThreadAlpha.cpp" />
+    <ClCompile Include="ReadThreadCompare.cpp" />
+    <ClCompile Include="ReadThreadMS.cpp" />
+    <ClCompile Include="ReadThreadSS.cpp" />
+    <ClCompile Include="ReadTrackDialog.cpp" />
+    <ClCompile Include="Setting.cpp" />
+    <ClCompile Include="SettingDialog.cpp" />
+    <ClCompile Include="SettingPage1.cpp" />
+    <ClCompile Include="SettingPage2.cpp" />
+    <ClCompile Include="SettingPage3.cpp" />
+    <ClCompile Include="SettingPage4.cpp" />
+    <ClCompile Include="SptiDriver.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="SubCodeGenerator.cpp" />
+    <ClCompile Include="SubcodeGeneratorMS.cpp" />
+    <ClCompile Include="SubQProgressDialog.cpp" />
+    <ClCompile Include="SubQThread.cpp" />
+    <ClCompile Include="ThemeController.cpp" />
+    <ClCompile Include="TocWindow.cpp" />
+    <ClCompile Include="WriteProgressDialog.cpp" />
+    <ClCompile Include="WriteSettingDialog.cpp" />
+    <ClCompile Include="WriteThread.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Aspi.h" />
+    <ClInclude Include="AspiDriver.h" />
+    <ClInclude Include="ButtonEx.h" />
+    <ClInclude Include="CDController.h" />
+    <ClInclude Include="CDM.h" />
+    <ClInclude Include="CDMDlg.h" />
+    <ClInclude Include="CDType.h" />
+    <ClInclude Include="CDWriter.h" />
+    <ClInclude Include="CheckSector.h" />
+    <ClInclude Include="CreateProgressDialog.h" />
+    <ClInclude Include="CreateThread.h" />
+    <ClInclude Include="CueSheetParser.h" />
+    <ClInclude Include="DeviceList.h" />
+    <ClInclude Include="DirStructure.h" />
+    <ClInclude Include="DriveCapabilityDialog.h" />
+    <ClInclude Include="EraseDialog.h" />
+    <ClInclude Include="FileList.h" />
+    <ClInclude Include="ImageFile.h" />
+    <ClInclude Include="IsoCreator.h" />
+    <ClInclude Include="IsoWriter.h" />
+    <ClInclude Include="Language.h" />
+    <ClInclude Include="LanguageDialog.h" />
+    <ClInclude Include="LogWindow.h" />
+    <ClInclude Include="MasteringFileDialog.h" />
+    <ClInclude Include="MasteringPage1.h" />
+    <ClInclude Include="MasteringPage2.h" />
+    <ClInclude Include="MasteringPage3.h" />
+    <ClInclude Include="MessageDialog.h" />
+    <ClInclude Include="MMCReader.h" />
+    <ClInclude Include="MMCSubcodeReader.h" />
+    <ClInclude Include="MMCWriter.h" />
+    <ClInclude Include="MsfDialog.h" />
+    <ClInclude Include="PBBuffer.h" />
+    <ClInclude Include="PregapAnalyzer.h" />
+    <ClInclude Include="ReadProgressDialog.h" />
+    <ClInclude Include="ReadSettingDialog.h" />
+    <ClInclude Include="ReadSettingDialog1.h" />
+    <ClInclude Include="ReadSettingDialog2.h" />
+    <ClInclude Include="ReadSettingDialog3.h" />
+    <ClInclude Include="ReadSettingDialog4.h" />
+    <ClInclude Include="ReadThread.h" />
+    <ClInclude Include="ReadTrackDialog.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="Setting.h" />
+    <ClInclude Include="SettingDialog.h" />
+    <ClInclude Include="SettingPage1.h" />
+    <ClInclude Include="SettingPage2.h" />
+    <ClInclude Include="SettingPage3.h" />
+    <ClInclude Include="SettingPage4.h" />
+    <ClInclude Include="SptiDriver.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SubCodeGenerator.h" />
+    <ClInclude Include="SubcodeGeneratorMS.h" />
+    <ClInclude Include="SubQProgressDialog.h" />
+    <ClInclude Include="SubQThread.h" />
+    <ClInclude Include="ThemeController.h" />
+    <ClInclude Include="TocWindow.h" />
+    <ClInclude Include="WriteProgressDialog.h" />
+    <ClInclude Include="WriteSettingDialog.h" />
+    <ClInclude Include="WriteThread.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\AboutImage.bmp" />
+    <None Include="res\cdm.ico" />
+    <None Include="res\cdm.rc2" />
+    <None Include="res\CreateImage.bmp" />
+    <None Include="res\Duplicate.bmp" />
+    <None Include="res\Exit.bmp" />
+    <None Include="res\FileList.bmp" />
+    <None Include="res\FileTree.bmp" />
+    <None Include="res\icon1.ico" />
+    <None Include="res\idr_main.ico" />
+    <None Include="res\LogType.bmp" />
+    <None Include="res\Mastering.bmp" />
+    <None Include="res\ReadTrack.bmp" />
+    <None Include="res\Recognize.bmp" />
+    <None Include="res\SubQ.bmp" />
+    <None Include="res\WriteImage.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="res\cdm.manifest">
+      <SubType>Designer</SubType>
+    </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="cdm.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="cdm.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
