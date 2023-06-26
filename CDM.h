@@ -6,7 +6,7 @@
 
 #include "resource.h"
 
-#define APP_VERSION "1.0.2"
+#define APP_VERSION "1.0.3"
 
 class CCDMApp : public CWinApp {
     public:
