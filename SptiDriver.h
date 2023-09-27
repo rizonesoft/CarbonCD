@@ -39,8 +39,8 @@ typedef struct _SCSI_PASS_THROUGH_DIRECT
 typedef struct _SCSI_PASS_THROUGH_DIRECT_WITH_BUFFER
 {
     SCSI_PASS_THROUGH_DIRECT sptd;
-    ULONG             Filler;      // realign buffer to double word boundary
-    UCHAR             ucSenseBuf[32];
+    ULONG Filler; // realign buffer to double word boundary
+    UCHAR ucSenseBuf[32];
 } SCSI_PASS_THROUGH_DIRECT_WITH_BUFFER, *PSCSI_PASS_THROUGH_DIRECT_WITH_BUFFER;
 
 typedef struct _SCSI_INQUIRY_DATA
@@ -54,36 +54,39 @@ typedef struct _SCSI_INQUIRY_DATA
     UCHAR InquiryData[100];
 } SCSI_INQUIRY_DATA, *PSCSI_INQUIRY_DATA;
 
-class CSptiDriver : public CAspi {
-    public:
-        CSptiDriver();
-        virtual ~CSptiDriver();
+class CSptiDriver : public CAspi
+{
+public:
+    CSptiDriver();
+    ~CSptiDriver() override;
 
-        virtual void ExecuteCommand ( SRB_ExecSCSICmd &cmd );
-        virtual DWORD GetVersion ( void );
-        virtual BOOL IsActive ( void );
-        virtual void Initialize ( void );
-        virtual void InitialAsync ( void );
-        virtual void FinalizeAsync ( void );
-        virtual bool ExecuteCommandAsync ( SRB_ExecSCSICmd &cmd );
-        virtual int GetDeviceCount ( void );
-        virtual void GetDeviceString ( CString & Vendor, CString & Product, CString & Revision, CString & BusAddress );
-        virtual void SetDevice ( int DeviceNo );
-        virtual int GetCurrentDevice ( void );
-    protected:
-        char m_Address[27];
-        int m_DeviceCount;
-        int m_CurrentDevice;
-        CPBBuffer m_Buffer;
-        HANDLE m_hThread;
-        DWORD m_ThreadID;
-    public:
-        HANDLE m_hDevice;
-        SCSI_PASS_THROUGH_DIRECT_WITH_BUFFER m_SptiCmd;
-        BOOL m_Status;
-        bool m_ExitFlag;
-        HANDLE m_hWaitEvent;
-        HANDLE m_hCommandEvent;
+    void ExecuteCommand(SRB_ExecSCSICmd& cmd) override;
+    DWORD GetVersion(void) override;
+    BOOL IsActive(void) override;
+    void Initialize(void) override;
+    void InitialAsync(void) override;
+    void FinalizeAsync(void) override;
+    bool ExecuteCommandAsync(SRB_ExecSCSICmd& cmd) override;
+    int GetDeviceCount(void) override;
+    void GetDeviceString(CString& Vendor, CString& Product, CString& Revision, CString& BusAddress) override;
+    void SetDevice(int DeviceNo) override;
+    int GetCurrentDevice(void) override;
 
-        int debug;
+protected:
+    char m_Address[27];
+    int m_DeviceCount;
+    int m_CurrentDevice;
+    CPBBuffer m_Buffer;
+    HANDLE m_hThread;
+    DWORD m_ThreadID;
+
+public:
+    HANDLE m_hDevice;
+    SCSI_PASS_THROUGH_DIRECT_WITH_BUFFER m_SptiCmd;
+    BOOL m_Status;
+    bool m_ExitFlag;
+    HANDLE m_hWaitEvent;
+    HANDLE m_hCommandEvent;
+
+    int debug;
 };

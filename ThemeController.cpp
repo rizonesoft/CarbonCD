@@ -1,33 +1,33 @@
 #include "stdafx.h"
 #include "themecontroller.h"
 
-CThemeController::CThemeController ( void )
+CThemeController::CThemeController(void)
 {
-    m_EnableThemeDialogTexture = NULL;
-    m_hDLL = LoadLibrary ( "uxtheme.dll" );
+    m_EnableThemeDialogTexture = nullptr;
+    m_hDLL = LoadLibrary("uxtheme.dll");
 
-    if ( m_hDLL )
-        {
-            m_EnableThemeDialogTexture = ( tEnableThemeDialogTexture ) GetProcAddress ( m_hDLL, "EnableThemeDialogTexture" );
-        }
+    if (m_hDLL)
+    {
+        m_EnableThemeDialogTexture = (tEnableThemeDialogTexture)GetProcAddress(m_hDLL, "EnableThemeDialogTexture");
+    }
 }
 
-CThemeController::~CThemeController ( void )
+CThemeController::~CThemeController(void)
 {
-    if ( m_hDLL )
-        {
-            FreeLibrary ( m_hDLL );
-        }
+    if (m_hDLL)
+    {
+        FreeLibrary(m_hDLL);
+    }
 
-    m_EnableThemeDialogTexture = NULL;
+    m_EnableThemeDialogTexture = nullptr;
 }
 
-HRESULT CThemeController::EnableThemeDialogTexture ( HWND hWnd, DWORD dwFlags )
+HRESULT CThemeController::EnableThemeDialogTexture(HWND hWnd, DWORD dwFlags)
 {
-    if ( m_EnableThemeDialogTexture == NULL )
-        {
-            return S_OK;
-        }
+    if (m_EnableThemeDialogTexture == nullptr)
+    {
+        return S_OK;
+    }
 
-    return m_EnableThemeDialogTexture ( hWnd, dwFlags );
+    return m_EnableThemeDialogTexture(hWnd, dwFlags);
 }

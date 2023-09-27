@@ -2,22 +2,24 @@
 #include "Aspi.h"
 
 // CDeviceList
-class CDeviceList : public CComboBox {
-        DECLARE_DYNAMIC ( CDeviceList )
+class CDeviceList : public CComboBox
+{
+    DECLARE_DYNAMIC(CDeviceList)
 
-    public:
-        CDeviceList();
-        virtual ~CDeviceList();
+public:
+    CDeviceList();
+    ~CDeviceList() override;
 
-    protected:
-        DECLARE_MESSAGE_MAP()
-    public:
-        void Initialize ( CAspi *Aspi );
-    protected:
-        CAspi *m_Aspi;
-    public:
-        //  afx_msg void OnCbnSelchange();
-        void InitializeShortVer ( CAspi *Aspi );
+protected:
+    DECLARE_MESSAGE_MAP()
+
+public:
+    void Initialize(CAspi* Aspi);
+
+protected:
+    CAspi* m_Aspi;
+
+public:
+    //  afx_msg void OnCbnSelchange();
+    void InitializeShortVer(CAspi* Aspi);
 };
-
-

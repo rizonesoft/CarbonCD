@@ -1,64 +1,51 @@
 #include "stdafx.h"
+#include <string>
+
 #include "language.h"
 
-CLanguage::CLanguage ( void )
-{
-}
+CLanguage::CLanguage()
+= default;
 
-CLanguage::~CLanguage ( void )
-{
-}
+CLanguage::~CLanguage()
+= default;
 
-void CLanguage::ReadLanguage ( LPCSTR FileName )
+void CLanguage::read_language(const LPCSTR file_name)
 {
-    int i;
-    char Buffer[1024];
-    FILE *fp;
-    fp = fopen ( FileName, "r" );
+    CStdioFile file;
 
-    if ( fp == NULL )
+    if (!file.Open(file_name, CFile::modeRead | CFile::typeBinary))
+    {
+        char buffer[1024];
+        sprintf(buffer, "Can't read language file\nFile:'%s'", file_name);
+        MessageBox(nullptr, buffer, "Caution!!", MB_OK);
+        return;
+    }
+
+    int i = 0;
+    CString line;
+
+    while (file.ReadString(line))
+    {
+        if (line.IsEmpty())
         {
-            sprintf ( Buffer, "Can't read language file\nFile:'%s'", FileName );
-            MessageBox ( NULL, Buffer, "Caution!!", MB_OK );
-            return;
+            break;
         }
 
-    i = 0;
+        // Convert CString to std::string
+        CT2CA pszConvertedAnsiString(line);
+        std::string strStd(pszConvertedAnsiString);
 
-    while ( !feof ( fp ) )
+        if (strStd[0] != '#')
         {
-            Buffer[0] = '\0';
-            fgets ( Buffer, 1023, fp );
-
-            if ( Buffer[0] == '\0' )
-                {
-                    break;
-                }
-
-            Buffer[1023] = '\0';
-
-            if ( Buffer[lstrlen ( Buffer ) - 1] == '\n' )
-                {
-                    Buffer[lstrlen ( Buffer ) - 1] = '\0';
-                }
-
-            if ( Buffer[0] != '#' )
-                {
-                    m_Str[i].Format ( "%s", Buffer );
-                    i++;
-                }
-
-            if ( i >= STRING_COUNT )
-                {
-                    break;
-                }
+            m_Str[i].Format("%s", strStd.c_str());
+            i++;
         }
 
-    fclose ( fp );
-    /*  {
-            CString cs;
-            cs.Format("String count:%d",i);
-            MessageBox(NULL,cs,"Assertion!!",MB_OK);
+        if (i >= STRING_COUNT)
+        {
+            break;
         }
-    // */
+    }
+
+    file.Close();
 }

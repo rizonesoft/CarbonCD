@@ -12,8 +12,8 @@
 
 // CHermit2App
 
-BEGIN_MESSAGE_MAP ( CCDMApp, CWinApp )
-    ON_COMMAND ( ID_HELP, CWinApp::OnHelp )
+BEGIN_MESSAGE_MAP(CCDMApp, CWinApp)
+    ON_COMMAND(ID_HELP, CWinApp::OnHelp)
 END_MESSAGE_MAP()
 
 
@@ -46,15 +46,14 @@ BOOL CCDMApp::InitInstance()
     m_pMainWnd = &dlg;
     INT_PTR nResponse = dlg.DoModal();
 
-    if ( nResponse == IDOK )
-        {
-            // TODO: the code is erased when the dialog is <OK>
-        }
-    else
-        if ( nResponse == IDCANCEL )
-            {
-                // TODO: the code when the dialog is dismissed with <Cancel>
-            }
+    if (nResponse == IDOK)
+    {
+        // TODO: the code is erased when the dialog is <OK>
+    }
+    else if (nResponse == IDCANCEL)
+    {
+        // TODO: the code when the dialog is dismissed with <Cancel>
+    }
 
     // Dialog has been closed. Do not start the application's message pump
     // Please return FALSE to exit the application.

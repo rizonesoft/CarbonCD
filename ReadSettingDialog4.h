@@ -2,24 +2,27 @@
 #include "afxwin.h"
 
 
-class CReadSettingDialog4 : public CDialog {
-        DECLARE_DYNAMIC ( CReadSettingDialog4 )
+class CReadSettingDialog4 : public CDialog
+{
+    DECLARE_DYNAMIC(CReadSettingDialog4)
 
-    public:
-        CReadSettingDialog4 ( CWnd* pParent = NULL );
-        virtual ~CReadSettingDialog4();
+public:
+    CReadSettingDialog4(CWnd* pParent = nullptr);
+    ~CReadSettingDialog4() override;
 
-        enum { IDD = IDD_READSETTING_4 };
+    enum { IDD = IDD_READSETTING_4 };
 
-    protected:
-        virtual void DoDataExchange ( CDataExchange* pDX );
+protected:
+    void DoDataExchange(CDataExchange* pDX) override;
 
-        DECLARE_MESSAGE_MAP()
-    public:
-        void Load ( void );
-        void Save ( void );
-        CComboBox m_Speed;
-        virtual BOOL OnInitDialog();
-    protected:
-        void SetLanguage ( void );
+    DECLARE_MESSAGE_MAP()
+
+public:
+    void Load(void);
+    void Save(void);
+    CComboBox m_Speed;
+    BOOL OnInitDialog() override;
+
+protected:
+    void SetLanguage(void);
 };

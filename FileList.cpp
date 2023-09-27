@@ -1,36 +1,36 @@
 #include "StdAfx.h"
 #include "filelist.h"
 
-CFileList::CFileList ( void )
+CFileList::CFileList(void)
 {
-    m_Dir = NULL;
-    m_Next = NULL;
+    m_Dir = nullptr;
+    m_Next = nullptr;
 }
 
-CFileList::~CFileList ( void )
+CFileList::~CFileList(void)
 {
-    if ( m_Next != NULL )
-        {
-            delete m_Next;
-        }
+    if (m_Next != nullptr)
+    {
+        delete m_Next;
+    }
 }
 
-CFileList * CFileList::CreateNext ( void )
+CFileList* CFileList::CreateNext(void)
 {
-    if ( m_Next == NULL )
-        {
-            m_Next = new CFileList;
-        }
+    if (m_Next == nullptr)
+    {
+        m_Next = new CFileList;
+    }
 
     return m_Next;
 }
 
-CFileList * CFileList::GetNext ( void )
+CFileList* CFileList::GetNext(void)
 {
     return m_Next;
 }
 
-void CFileList::SetNext ( CFileList * Node )
+void CFileList::SetNext(CFileList* Node)
 {
     m_Next = Node;
 }

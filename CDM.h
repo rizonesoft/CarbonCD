@@ -6,15 +6,17 @@
 
 #include "resource.h"
 
-#define APP_VERSION "1.0.3"
+#define APP_VERSION "1.0.8"
 
-class CCDMApp : public CWinApp {
-    public:
-        CCDMApp();
-    public:
-        virtual BOOL InitInstance();
+class CCDMApp : public CWinApp
+{
+public:
+    CCDMApp();
 
-        DECLARE_MESSAGE_MAP()
+public:
+    BOOL InitInstance() override;
+
+    DECLARE_MESSAGE_MAP()
 };
 
 extern CCDMApp theApp;

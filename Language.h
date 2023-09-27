@@ -26,10 +26,11 @@
 #define LP_LOG              (16 + LP_TOC)
 #define LP_MESSAGE          (2  + LP_LOG)
 
-class CLanguage {
-    public:
-        CLanguage ( void );
-        ~CLanguage ( void );
-        CString m_Str[STRING_COUNT];
-        void ReadLanguage ( LPCSTR FileName );
+class CLanguage
+{
+public:
+    CLanguage(void);
+    ~CLanguage(void);
+    CString m_Str[STRING_COUNT];
+    void read_language(LPCSTR file_name);
 };

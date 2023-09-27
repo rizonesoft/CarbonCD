@@ -7,9 +7,9 @@
   EraseDialog.cpp
   LanguageDialog.cpp
   LogWindow.cpp
-C:\GitHub\CarbonCD\LogWindow.cpp(126,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
-C:\GitHub\CarbonCD\LogWindow.cpp(156,27): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
-C:\GitHub\CarbonCD\LogWindow.cpp(264,10): warning C4996: 'GetVersionExA': was declared deprecated
+Z:\CarbonCD\LogWindow.cpp(130,25): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
+Z:\CarbonCD\LogWindow.cpp(160,21): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
+Z:\CarbonCD\LogWindow.cpp(269,9): warning C4996: 'GetVersionExA': was declared deprecated
   MasteringFileDialog.cpp
   MasteringPage1.cpp
   MasteringPage2.cpp
@@ -29,42 +29,42 @@ C:\GitHub\CarbonCD\LogWindow.cpp(264,10): warning C4996: 'GetVersionExA': was de
   SettingPage1.cpp
   SettingPage2.cpp
   SettingPage3.cpp
-C:\GitHub\CarbonCD\SettingPage3.cpp(90,14): warning C4996: 'GetVersionExA': was declared deprecated
+Z:\CarbonCD\SettingPage3.cpp(91,13): warning C4996: 'GetVersionExA': was declared deprecated
   SettingPage4.cpp
   SubQProgressDialog.cpp
   TocWindow.cpp
-C:\GitHub\CarbonCD\TocWindow.cpp(275,27): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(277,27): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(279,27): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(291,35): warning C4477: 'fprintf' : format string '%5s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(291,35): warning C4477: 'fprintf' : format string '%8s' requires an argument of type 'char *', but variadic argument 3 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(291,35): warning C4477: 'fprintf' : format string '%8s' requires an argument of type 'char *', but variadic argument 4 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(291,35): warning C4477: 'fprintf' : format string '%8s' requires an argument of type 'char *', but variadic argument 5 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(291,35): warning C4477: 'fprintf' : format string '%13s' requires an argument of type 'char *', but variadic argument 6 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(291,35): warning C4477: 'fprintf' : format string '%4s' requires an argument of type 'char *', but variadic argument 7 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(291,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 8 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(317,27): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(320,27): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(322,27): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(324,27): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(336,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(336,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 3 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(336,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 4 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(336,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 5 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(336,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 6 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(336,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 7 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(336,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 8 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(363,27): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(365,27): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(367,27): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(379,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(379,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 3 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(379,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 4 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(379,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 5 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(379,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 6 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(379,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 7 has type 'CString'
-C:\GitHub\CarbonCD\TocWindow.cpp(379,35): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 8 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(277,21): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(279,21): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(281,21): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(293,25): warning C4477: 'fprintf' : format string '%5s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(293,25): warning C4477: 'fprintf' : format string '%8s' requires an argument of type 'char *', but variadic argument 3 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(293,25): warning C4477: 'fprintf' : format string '%8s' requires an argument of type 'char *', but variadic argument 4 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(293,25): warning C4477: 'fprintf' : format string '%8s' requires an argument of type 'char *', but variadic argument 5 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(293,25): warning C4477: 'fprintf' : format string '%13s' requires an argument of type 'char *', but variadic argument 6 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(293,25): warning C4477: 'fprintf' : format string '%4s' requires an argument of type 'char *', but variadic argument 7 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(293,25): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 8 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(320,21): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(323,21): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(325,21): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(327,21): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(343,17): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(343,17): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 3 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(343,17): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 4 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(343,17): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 5 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(343,17): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 6 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(343,17): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 7 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(343,17): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 8 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(370,21): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(372,21): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(374,21): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(386,25): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(386,25): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 3 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(386,25): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 4 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(386,25): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 5 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(386,25): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 6 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(386,25): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 7 has type 'CString'
+Z:\CarbonCD\TocWindow.cpp(386,25): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 8 has type 'CString'
   WriteProgressDialog.cpp
   WriteSettingDialog.cpp
   Generating Code...
-  cdm.vcxproj -> C:\GitHub\CarbonCD\Bin\Release\CarbonCD.exe
+  cdm.vcxproj -> Z:\CarbonCD\Bin\Release\CarbonCD.exe
