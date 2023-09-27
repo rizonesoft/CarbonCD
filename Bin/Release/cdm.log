@@ -1,10 +1,29 @@
-﻿  ButtonEx.cpp
+﻿  stdafx.cpp
+  Aspi.cpp
+  AspiDriver.cpp
+  ButtonEx.cpp
+  CDController.cpp
   CDM.cpp
   CDMDlg.cpp
+Z:\CarbonCD\CDMDlg.cpp(1,1): warning C4828: The file contains a character starting at offset 0x581 that is illegal in the current source character set (codepage 65001).
+  CDType.cpp
+  CDWriter.cpp
+  CheckSector.cpp
   CreateProgressDialog.cpp
+  CreateThread.cpp
+Z:\CarbonCD\CreateThread.cpp(133,21): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+  CueSheetParser.cpp
   DeviceList.cpp
+  DirStructure.cpp
   DriveCapabilityDialog.cpp
   EraseDialog.cpp
+  FileList.cpp
+  ImageFile.cpp
+  IsoCreator.cpp
+  IsoWriter.cpp
+  Generating Code...
+  Compiling...
+  Language.cpp
   LanguageDialog.cpp
   LogWindow.cpp
 Z:\CarbonCD\LogWindow.cpp(130,25): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'CString'
@@ -15,23 +34,41 @@ Z:\CarbonCD\LogWindow.cpp(269,9): warning C4996: 'GetVersionExA': was declared d
   MasteringPage2.cpp
   MasteringPage3.cpp
   MessageDialog.cpp
+  MMCReader.cpp
+  MMCSubcodeReader.cpp
+  MMCWriter.cpp
   MsfDialog.cpp
+  PBBuffer.cpp
+  PregapAnalyzer.cpp
   ReadProgressDialog.cpp
   ReadSettingDialog.cpp
   ReadSettingDialog1.cpp
   ReadSettingDialog2.cpp
   ReadSettingDialog3.cpp
+  ReadSettingDialog4.cpp
   Generating Code...
   Compiling...
-  ReadSettingDialog4.cpp
+  ReadThread.cpp
+  ReadThreadAlpha.cpp
+  ReadThreadCompare.cpp
+  ReadThreadMS.cpp
+  ReadThreadSS.cpp
   ReadTrackDialog.cpp
+  Setting.cpp
+Z:\CarbonCD\Setting.cpp(187,13): warning C4996: 'GetVersionExA': was declared deprecated
   SettingDialog.cpp
   SettingPage1.cpp
   SettingPage2.cpp
   SettingPage3.cpp
 Z:\CarbonCD\SettingPage3.cpp(91,13): warning C4996: 'GetVersionExA': was declared deprecated
   SettingPage4.cpp
+  SptiDriver.cpp
+Z:\CarbonCD\SptiDriver.cpp(107,9): warning C4996: 'GetVersionExA': was declared deprecated
+  SubCodeGenerator.cpp
+  SubcodeGeneratorMS.cpp
   SubQProgressDialog.cpp
+  SubQThread.cpp
+  ThemeController.cpp
   TocWindow.cpp
 Z:\CarbonCD\TocWindow.cpp(277,21): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
 Z:\CarbonCD\TocWindow.cpp(279,21): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
@@ -65,6 +102,10 @@ Z:\CarbonCD\TocWindow.cpp(386,25): warning C4477: 'fprintf' : format string '%s'
 Z:\CarbonCD\TocWindow.cpp(386,25): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 7 has type 'CString'
 Z:\CarbonCD\TocWindow.cpp(386,25): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 8 has type 'CString'
   WriteProgressDialog.cpp
+  Generating Code...
+  Compiling...
   WriteSettingDialog.cpp
   Generating Code...
+  WriteThread.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
   cdm.vcxproj -> Z:\CarbonCD\Bin\Release\CarbonCD.exe
