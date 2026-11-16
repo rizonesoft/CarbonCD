@@ -29,6 +29,8 @@ title: "TODO-01 -- Build modernisation"
 - -> XREF: D04 T01 §3 -- builds on §3 of this file
 - -> XREF: D04 T02 §1 -- builds on §4 of this file
 - -> XREF: D04 T02 §5 -- builds on §10 of this file
+- -> XREF: D01 T02 §11 -- builds on §12 of this file
+- -> XREF: D03 T01 §17 -- builds on §11 of this file
 
 ## Outcome
 
@@ -55,6 +57,8 @@ title: "TODO-01 -- Build modernisation"
 | 8 | §8 | Secure CRT and warning-clean build | §7 | [ ] |
 | 9 | §9 | One version source, version resource and manifest | §4 | [ ] |
 | 10 | §10 | Continuous integration on GitHub Actions | §3, §8 | [ ] |
+| 11 | §11 | Memory-safety hardening of every target | §8 | [ ] |
+| 12 | §12 | AddressSanitizer preset, code analysis and probe | §3, §11 | [ ] |
 
 ## 1. MFC component installed and the 1.0.8 baseline build recorded
 
@@ -263,6 +267,53 @@ Every push builds the app and runs the tests on a clean Windows machine.
 - [ ] Commit: `ci: build, tests and plan checks on every push`
 
 **Test checkpoint:** `python scripts/ci_status.py --workflow ci.yml` exits 0 after the commit's run; it exits 1 when a test is broken on a branch.
+
+## 11. Memory-safety hardening of every target
+
+CarbonCD reads image files and drive responses it does not control, and its build sets no memory-safety option: `src/cdm.vcxproj` has none, and §2 to §8 add `/W4`, `/WX` and the secure CRT only. Measured on 2026-11-16 with this machine's compiler (MSVC 19.52, `/std:c++latest /O2`): an out-of-bounds read of a `std::vector` and of a `std::span` returned garbage and exited 0 in a plain build, and ended the process with exit `0xC0000409` (fast-fail) under `/D_MSVC_STL_HARDENING=1`, with both `/MD` and `/MT`. This section turns that and the control-flow options on for every target. It covers the standard library only: MFC's own containers (`CArray`, `CString`) are not checked by it, and a dangling pointer is §12's job. A fast-fail ends the app at once and reaches no handler inside the process, so the user needs the message D03 T01 §17 plans.
+
+**Phase:** 1
+**Needs:** none
+**Surface:** no
+
+**Build order:**
+
+1. Add one function in `cmake/CarbonHardening.cmake` that every target goes through Done when: each target's compile and link lines carry the options.
+2. Prove the trap and the image flags Done when: a probe test and a header check each fail with their option removed.
+
+- [ ] Add `cmake/CarbonHardening.cmake` with `carbon_harden(<target>)` applying `/sdl`, `/guard:cf` and `_MSVC_STL_HARDENING=1` to the compile, and `/guard:cf` and `/CETCOMPAT` to the link, and call it for `carbon_core`, `CarbonCD` and `carbon_tests` Done when: `build/x64-release/compile_commands.json` shows the three compile options on a `src/core/` source. Cheaper substitute: `add_compile_options` at the root, which also reaches doctest and any fetched dependency with `/sdl` diagnostics that are not ours to fix.
+- [ ] Add `tests/hardening/oob_probe.cpp`, an executable that reads a `std::vector<int>` six elements past its end, hardened through `carbon_harden` and registered with CTest under the label `hardening` through a `cmake -P` runner that passes only on exit `0xC0000409` Done when: `ctest --preset x64-release -L hardening` passes, and fails when `_MSVC_STL_HARDENING=1` is removed from `cmake/CarbonHardening.cmake`, then it is restored. Cheaper substitute: asserting the definition is on the command line, which proves nothing about a trap.
+- [ ] Add `scripts/hardening-check.py <executable>`, which runs `dumpbin /headers /loadconfig` and requires `Dynamic base`, `High Entropy Virtual Addresses`, `NX compatible`, `Control Flow Guard` and `CET compatible`, naming each one missing and exiting 1, with `scripts/tests/test_hardening_check.py` over stored `dumpbin` outputs Done when: it exits 0 on `Bin/Release/CarbonCD.exe` and 1 naming `Control Flow Guard` on a probe linked without `/guard:cf`. Cheaper substitute: reading the options from the compile database, which says what was asked for and not what the linker wrote.
+- [ ] Run the probe label and `scripts/hardening-check.py` in `.github/workflows/ci.yml` after the build Done when: the run for the commit is green and its log shows both.
+- [ ] Record the options, what each stops and what none of them covers (MFC containers, object lifetime) in `docs/hardening.md`, and link it from `AGENTS.md` under Verify Done when: both exist and name the two commands.
+- [ ] Commit: `build: standard library hardening, control-flow guard and shadow stack on every target`
+
+**Test checkpoint:** `ctest --preset x64-release -L hardening` passes and `python scripts/hardening-check.py Bin/Release/CarbonCD.exe` exits 0; the probe fails with `_MSVC_STL_HARDENING=1` removed.
+
+## 12. AddressSanitizer preset, code analysis and probe
+
+§11 stops an out-of-bounds library access in the shipped app and cannot see a use after free, a double free or a raw buffer overrun, which is what the 1.0.8 inventory mostly holds (`new[]` freed with `delete` at `src/CDWriter.cpp:79,86`). AddressSanitizer finds those when the tests run, and `/analyze` finds some without running anything. Both are test builds: the sanitizer's runtime never ships. Neither was measured in this repository yet; Isotone builds with both on this machine (`native/cmake/IsotoneTargets.cmake` there: `/fsanitize=address` needs `/INCREMENTAL:NO`, and `/analyze /analyze:external-` keeps the analysis to first-party code). Whether static MFC links under the sanitizer is unmeasured, so the preset builds the core library and the tests, where the engine lives, and the first step measures the app.
+
+**Phase:** 1
+**Needs:** none
+**Surface:** no
+
+**Build order:**
+
+1. Add an `x64-asan` preset and prove it is instrumented with a probe Done when: the probe passes there and fails in `x64-debug`.
+2. Add an `x64-analyze` preset Done when: the core library builds clean under `/analyze` with `/WX`.
+
+- [ ] Try linking `CarbonCD` (static MFC) with `/fsanitize=address` and record the outcome in `docs/hardening.md` Done when: the document says whether the app can run under the sanitizer, quoting the linker's or the runtime's output.
+- [ ] Add `CARBON_SANITIZE` (a cache string, empty or `address`; any other value is a `FATAL_ERROR` naming it) to `cmake/CarbonHardening.cmake`, adding `/fsanitize=address` to the compile and `/INCREMENTAL:NO` to the link Done when: `-DCARBON_SANITIZE=thread` fails the configure naming the value. Cheaper substitute: a boolean, which cannot refuse a sanitizer nobody measured.
+- [ ] Add configure, build and test presets `x64-asan` to `CMakePresets.json` (`RelWithDebInfo`, `CARBON_SANITIZE=address`, binary dir `build/x64-asan`) Done when: `cmake --preset x64-asan` and `cmake --build --preset x64-asan` exit 0 from an empty tree.
+- [ ] Add `tests/hardening/uaf_probe.cpp`, which reads freed heap memory, built only when `CARBON_SANITIZE` is `address` and registered with `PASS_REGULAR_EXPRESSION "AddressSanitizer: heap-use-after-free"` Done when: `ctest --preset x64-asan -R uaf_probe` passes, and fails when the preset's `CARBON_SANITIZE` is emptied, then it is restored. Cheaper substitute: `WILL_FAIL`, which also passes when the probe fails to start.
+- [ ] Run `ctest --preset x64-asan` and fix each report at the line it names in `src/core/` Done when: the preset passes and the commit message counts the reports fixed.
+- [ ] Add configure and build presets `x64-analyze` with `/analyze /analyze:external-` on `carbon_core` and `CarbonCD` through `carbon_harden`, and fix or justify each warning in the code it names Done when: `cmake --build --preset x64-analyze` exits 0 with `/WX`. Cheaper substitute: a `/wd` list, which hides the defect the warning names.
+- [ ] Add `asan` and `analyze` jobs to `.github/workflows/ci.yml` Done when: the run for the commit shows both green.
+- [ ] Make `scripts/hardening-check.py` exit 1 when the executable imports `clang_rt.asan`, read from `dumpbin /imports` Done when: it exits 1 naming the import on the `x64-asan` test executable and 0 on `Bin/Release/CarbonCD.exe`. Cheaper substitute: trusting that nobody ships the sanitizer tree.
+- [ ] Commit: `tests: the core suite runs under AddressSanitizer and code analysis`
+
+**Test checkpoint:** `ctest --preset x64-asan` passes with `uaf_probe` in its list, `uaf_probe` fails when `CARBON_SANITIZE` is empty, and `cmake --build --preset x64-analyze` exits 0.
 
 ## Verification
 

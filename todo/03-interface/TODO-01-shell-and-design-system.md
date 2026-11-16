@@ -19,6 +19,7 @@ title: "TODO-01 -- Interface shell and design system"
 - `design/mockups/README.md`: the reference render of every screen, in light and dark. Each surface section matches its render 1:1; `design/sheet.html` holds the HTML and CSS to measure from.
 - `design/build.py`: the generator §1 and §6 extend.
 - -> XREF: D00 T01 §7 -- §1 here builds on it
+- -> XREF: D00 T01 §11 -- §17 here builds on it
 - -> XREF: D04 T01 §1 -- §7 here builds on it
 - -> XREF: D01 T01 §4 -- §8 here builds on it
 - -> XREF: D01 T03 §2 -- §8 here builds on it
@@ -82,6 +83,7 @@ title: "TODO-01 -- Interface shell and design system"
 | 14 | §14 | Messages and confirmations | §5, D04 T01 §3 | [ ] |
 | 15 | §15 | Keyboard and screen reader support | §7, §8, §11, §12, §13 | [ ] |
 | 16 | §16 | Review renders of every screen | §1 | [ ] |
+| 17 | §17 | Crash report and the stopped-unexpectedly message | §14, D01 T01 §10, D00 T01 §11 | [ ] |
 
 ## 1. Design tokens generated into code
 
@@ -460,6 +462,35 @@ The `--render` mode the other sections use: it writes each registered screen to 
 - [ ] Commit: `ui: render mode for review`
 
 **Test checkpoint:** `ctest --preset x64-release -R renders` passes; a screen that fails to paint leaves a zero-size file and fails it.
+
+## 17. Crash report and the stopped-unexpectedly message
+
+A hardened build (D00 T01 §11) ends at once on a memory error instead of running on with corrupt state. That is the safer behaviour, and without this section the user sees the window vanish, possibly in the middle of writing a disc, with no word about why (owner direction 2026-11-16: a shipped tool's crash handler says something useful). Two cases need different mechanisms. An ordinary unhandled exception can be caught in the process. A fast-fail (exit `0xC0000409`, what the standard library hardening and Control Flow Guard raise) reaches no handler in the process, so it can only be noticed by the next start. `design/SPEC.md` S13 has no message for either, and the spec is where message text is owned, so it gains the row first.
+
+**Phase:** 6
+**Needs:** none
+**Surface:** yes
+**Fidelity:** `design/SPEC.md` S13 (the `stopped-unexpectedly` row this section adds); `design/DESIGN.md` section 10; reference render `design/mockups/message.png`, matched 1:1
+**Job:** A user whose CarbonCD stopped is told that it did, whether a disc may be affected, and where the report is
+**Treatment:** The message dialog of §14 unchanged; no new component, colour or size
+**Chrome:** The message window of §14, shown over the main window at the next start
+
+**Build order:**
+
+1. Add the row to `design/SPEC.md` S13 and its strings Done when: `tests/ui/test_messages.cpp` formats the key.
+2. Leave a marker while the app runs and read it at start Done when: a killed process produces the message on the next start.
+3. Write a last log line from an unhandled exception Done when: the report names the exception.
+
+- [ ] Add the row `stopped-unexpectedly` to `design/SPEC.md` S13: "CarbonCD stopped unexpectedly last time. If a disc was being written, it may be unusable. The log has the details." with buttons `Open log folder` and `Close` Done when: the row is in S13 and `src/ui/Messages.cpp` maps the key. Cheaper substitute: a sentence typed in the handler, which the language files never see.
+- [ ] Add `src/core/RunMarker.cpp`: `begin()` writes a marker file beside the log of D01 T01 §10 holding the process id, the start time and the running task's name (updated when a task starts and ends), and `end()` removes it on a clean exit Done when: `tests/core/test_run_marker.cpp` shows the file present during a run, naming the task, and gone after `end()`. Cheaper substitute: a registry value, which a portable copy must not leave behind.
+- [ ] Read the marker at start in `src/CDM.cpp` before the main window opens: a marker whose process is no longer running means the last run did not end cleanly Done when: `tests/core/test_run_marker.cpp` treats a marker naming a dead process as unclean and one naming a live process (a second instance) as not.
+- [ ] Show `stopped-unexpectedly` through `src/ui/Message.cpp` once per unclean end, with the disc sentence only when the marker names a write, erase or mastering task, then remove the marker Done when: `--render` writes `message-stopped-unexpectedly-light.png`, and a second start shows nothing.
+- [ ] Make `Open log folder` open the folder holding the UTF-8 log in Explorer with the log selected Done when: `tests/ui/test_messages.cpp` observes the shell call with that path.
+- [ ] Install `SetUnhandledExceptionFilter` in `src/CDM.cpp` writing one line to the log with the exception code and address, then letting the process end Done when: a test build that raises an access violation leaves that line in the log and the marker in place. Cheaper substitute: swallowing the exception and carrying on, which keeps running on corrupt state.
+- [ ] Prove the fast-fail case end to end: a test executable calls `RunMarker::begin()` and then reads a `std::vector` out of bounds Done when: it exits `0xC0000409` and the next `RunMarker` read reports an unclean end, in `tests/core/test_run_marker.cpp`.
+- [ ] Commit: `ui: a stopped CarbonCD says so at the next start, and where the log is`
+
+**Test checkpoint:** `ctest --preset x64-debug -R "run_marker|messages"` passes; removing the marker read from `src/CDM.cpp` fails the unclean-end case.
 
 ## Verification
 

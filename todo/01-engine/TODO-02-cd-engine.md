@@ -21,6 +21,7 @@ title: "TODO-02 -- CD engine on the new foundations"
 - -> XREF: D01 T01 §3 -- builds on §7 of this file
 - -> XREF: D01 T01 §3 -- builds on §9 of this file
 - -> XREF: D01 T01 §3 -- builds on §10 of this file
+- -> XREF: D00 T01 §12 -- §11 here builds on it
 - -> XREF: D01 T01 §5 -- §1 here builds on it
 - -> XREF: D01 T01 §7 -- §1 here builds on it
 - -> XREF: D01 T01 §6 -- §3 here builds on it
@@ -71,6 +72,7 @@ title: "TODO-02 -- CD engine on the new foundations"
 | 8 | §8 | Subcode analysis | §2, D01 T01 §8 | [ ] |
 | 9 | §9 | CD writing in SAO, RAW+16 and RAW+96 | §1, §3, D01 T01 §8, D01 T01 §9 | [ ] |
 | 10 | §10 | CD-RW erase | D01 T01 §5, D01 T01 §8, D01 T01 §9 | [ ] |
+| 11 | §11 | Fuzz harness for CUE, CCD and CDM descriptions | §3, D00 T01 §12 | [ ] |
 
 ## 1. CD table of contents, ATIP and CD-TEXT
 
@@ -268,6 +270,30 @@ Quick and full blanking of a CD-RW as a task with progress.
 - [ ] Commit: `core: CD-RW erase task with progress`
 
 **Test checkpoint:** `ctest --preset x64-debug -R cd_erase` passes; sending BLANK to a CD-R in the test is caught by the simulated drive's command list assertion.
+
+## 11. Fuzz harness for CUE, CCD and CDM descriptions
+
+An image description is a text file from anywhere: a download, another program, a damaged disk. §3's parsers are the one place CarbonCD reads untrusted input without a drive in between, and a round-trip test only feeds them files that are well formed. A fuzzer feeds them everything else, under the sanitizer of D00 T01 §12, so a parser that reads past a buffer on a malformed line is found here and not on a user's machine.
+
+**Phase:** 2
+**Needs:** none
+**Surface:** no
+
+**Build order:**
+
+1. Add one libFuzzer target per parser under `tests/fuzz/` in an `x64-fuzz` preset Done when: each runs for 60 seconds with no report.
+2. Replay the stored inputs in the ordinary test run Done when: `ctest --preset x64-debug -R fuzz` runs every corpus and regression file once.
+
+- [ ] Add configure and build presets `x64-fuzz` to `CMakePresets.json` compiling `carbon_core` with `/fsanitize=address /fsanitize=fuzzer` Done when: `cmake --build --preset x64-fuzz` exits 0. Cheaper substitute: fuzzing an uninstrumented library, which finds only crashes and guides nothing.
+- [ ] Add `tests/fuzz/cue_sheet/fuzz_cue_sheet.cpp` with `LLVMFuzzerTestOneInput` passing the bytes to the parser of `src/core/cd/CueSheet.cpp` through an in-memory source, with a `corpus/` folder seeded from the stored sheets of `tests/core/test_cue.cpp` Done when: `build\x64-fuzz\fuzz_cue_sheet.exe -max_total_time=60 tests\fuzz\cue_sheet\corpus` ends with no report. Cheaper substitute: writing each input to a temporary file, which makes the run measure the disk.
+- [ ] Add `tests/fuzz/clone_image/fuzz_clone_image.cpp` the same way for the CCD and CDM descriptions of `src/core/cd/CloneImage.cpp` Done when: its 60-second run ends with no report.
+- [ ] Fix each report at the line it names in `src/core/cd/` and store its input under the target's `regressions/` folder Done when: both 60-second runs are clean and every stored input has its fix in the same commit.
+- [ ] Add `tests/fuzz/fuzz_replay_main.cpp`, a `main` that calls `LLVMFuzzerTestOneInput` once for every file under `corpus/` and `regressions/`, and register one replay executable per target with CTest as `fuzz.<name>` in every preset that is not `x64-fuzz` Done when: `ctest --preset x64-debug -R fuzz` passes, and fails when a stored regression's fix is reverted.
+- [ ] Bound each fuzz run: `-max_total_time=60 -max_len=65536 -rss_limit_mb=2048`, artifacts written under `build/x64-fuzz/artifacts/` and never the source tree Done when: a run leaves `git status --short` empty.
+- [ ] Add a `fuzz` job to `.github/workflows/ci.yml` on a nightly schedule running both targets for 60 seconds and uploading any artifact Done when: one scheduled or manually started run is green.
+- [ ] Commit: `tests: fuzzers for the CUE, CCD and CDM parsers, replayed in every test run`
+
+**Test checkpoint:** `ctest --preset x64-debug -R fuzz` passes, and both `-max_total_time=60` runs in `x64-fuzz` end with no report; reverting one regression's fix fails the replay.
 
 ## Verification
 

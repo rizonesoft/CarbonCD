@@ -16,7 +16,7 @@ Sections: 1 | Checklist items: 4
 
 ### Phase 1: Build modernisation
 
-Sections: 9 | Checklist items: 44
+Sections: 11 | Checklist items: 59
 
 | Status | Reference   | Deliverable                                                                | Needs | Items |
 | ------ | ----------- | -------------------------------------------------------------------------- | ----- | ----- |
@@ -29,10 +29,12 @@ Sections: 9 | Checklist items: 44
 | [ ]    | D00 T01 §8  | Secure CRT and warning-clean build                                         | none  | 5     |
 | [ ]    | D00 T01 §9  | One version source, version resource and manifest                          | none  | 4     |
 | [ ]    | D00 T01 §10 | Continuous integration on GitHub Actions                                   | none  | 4     |
+| [ ]    | D00 T01 §11 | Memory-safety hardening of every target                                    | none  | 6     |
+| [ ]    | D00 T01 §12 | AddressSanitizer preset, code analysis and probe                           | none  | 9     |
 
 ### Phase 2: Engine foundations and CD engine
 
-Sections: 21 | Checklist items: 87
+Sections: 22 | Checklist items: 95
 
 | Status | Reference   | Deliverable                                           | Needs | Items |
 | ------ | ----------- | ----------------------------------------------------- | ----- | ----- |
@@ -57,6 +59,7 @@ Sections: 21 | Checklist items: 87
 | [ ]    | D01 T02 §9  | CD writing in SAO, RAW+16 and RAW+96                  | none  | 5     |
 | [ ]    | D01 T02 §10 | CD-RW erase                                           | none  | 3     |
 | [ ]    | D01 T01 §3  | ASPI removed                                          | none  | 4     |
+| [ ]    | D01 T02 §11 | Fuzz harness for CUE, CCD and CDM descriptions        | none  | 8     |
 
 ### Phase 3: DVD engine
 
@@ -107,7 +110,7 @@ Sections: 4 | Checklist items: 20
 
 ### Phase 6: Interface
 
-Sections: 36 | Checklist items: 171
+Sections: 37 | Checklist items: 179
 
 | Status | Reference   | Deliverable                                          | Needs        | Items |
 | ------ | ----------- | ---------------------------------------------------- | ------------ | ----- |
@@ -127,6 +130,7 @@ Sections: 36 | Checklist items: 171
 | [ ]    | D03 T01 §13 | Log drawer                                           | none         | 5     |
 | [ ]    | D03 T01 §14 | Messages and confirmations                           | none         | 5     |
 | [ ]    | D03 T01 §15 | Keyboard and screen reader support                   | none         | 5     |
+| [ ]    | D03 T01 §17 | Crash report and the stopped-unexpectedly message    | none         | 8     |
 | [ ]    | D03 T02 §1  | Read to image pane                                   | none         | 7     |
 | [ ]    | D03 T02 §2  | Write image pane                                     | none         | 7     |
 | [ ]    | D03 T02 §3  | Clone disc pane                                      | none         | 5     |
@@ -172,6 +176,6 @@ Sections: 4 | Checklist items: 15
 | [ ]    | D04 T02 §8 | Code signing                       | owner-decision, operator         | 3     |
 | [ ]    | D04 T02 §9 | Social preview image set on GitHub | operator                         | 3     |
 
-Progress: 0/103 verified sections, 1 ready to run now.
+Progress: 0/107 verified sections, 1 ready to run now.
 
-Checklist: 0/453 items completed (includes Commit items).
+Checklist: 0/484 items completed (includes Commit items).
