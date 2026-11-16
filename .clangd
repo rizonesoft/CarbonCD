@@ -1,0 +1,13 @@
+# clangd configuration, seeded by the toolchain-cpp kit. This file is the project's: change it as the project needs.
+CompileFlags:
+  # The folder that holds compile_commands.json, read from the folder this file is in. clangd looks in it and in
+  # a `build` folder of it. Keep it the folder of `compdb.path` in .conclave/toolchain-cpp.json (under that
+  # file's `root`), so clangd reads the database the freshness check watches: `python forge.py doctor <project>
+  # toolchain-cpp` says when it would not.
+  CompilationDatabase: .
+Index:
+  Background: Build
+Diagnostics:
+  # clangd's own defaults, written out so that a project sees where to set them.
+  UnusedIncludes: Strict
+  MissingIncludes: None

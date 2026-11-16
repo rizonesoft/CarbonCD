@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import os, runpy, sys; sys.argv = ['campaign_guard.py', 'stop-hook']; runpy.run_path(os.path.join(os.environ.get('CLAUDE_PROJECT_DIR') or os.getcwd(), 'scripts', 'campaign_guard.py'), run_name='__main__')\"",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}

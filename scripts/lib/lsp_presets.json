@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "servers": {
+    "clangd": {
+      "command": [
+        "clangd"
+      ],
+      "extensions": {
+        ".c": "c",
+        ".h": "c",
+        ".cc": "cpp",
+        ".cpp": "cpp",
+        ".cxx": "cpp",
+        ".hh": "cpp",
+        ".hpp": "cpp",
+        ".hxx": "cpp"
+      },
+      "install": "apt install clangd (Windows: winget install LLVM.LLVM)",
+      "note": "reads compile_commands.json from the project root; without one it guesses the flags"
+    },
+    "basedpyright": {
+      "command": [
+        "basedpyright-langserver",
+        "--stdio"
+      ],
+      "extensions": {
+        ".py": "python",
+        ".pyi": "python"
+      },
+      "install": "pipx install basedpyright (or: uv tool install basedpyright)"
+    },
+    "intelephense": {
+      "command": [
+        "intelephense",
+        "--stdio"
+      ],
+      "extensions": {
+        ".php": "php"
+      },
+      "install": "npm install -g intelephense",
+      "settle": 10
+    },
+    "typescript": {
+      "command": [
+        "typescript-language-server",
+        "--stdio"
+      ],
+      "extensions": {
+        ".ts": "typescript",
+        ".tsx": "typescriptreact",
+        ".js": "javascript",
+        ".jsx": "javascriptreact",
+        ".mjs": "javascript",
+        ".cjs": "javascript"
+      },
+      "install": "npm install -g typescript-language-server typescript"
+    },
+    "tailwindcss": {
+      "command": [
+        "tailwindcss-language-server",
+        "--stdio"
+      ],
+      "extensions": {
+        ".css": "css",
+        ".html": "html",
+        ".jsx": "javascriptreact",
+        ".tsx": "typescriptreact",
+        ".vue": "vue"
+      },
+      "install": "npm install -g @tailwindcss/language-server",
+      "severity": "warning",
+      "note": "its lint rules report at warning: two utilities setting one property is its main finding"
+    },
+    "laravel-lsp": {
+      "command": [
+        "laravel-lsp"
+      ],
+      "extensions": {
+        ".php": "php",
+        ".blade.php": "blade"
+      },
+      "install": "composer global require laravel/lsp",
+      "requires": "artisan",
+      "init": {
+        "phpEnvironment": "local",
+        "phpCommand": [
+          "php"
+        ],
+        "pestGenerateDocBlocks": false
+      },
+      "severity": "warning",
+      "settle": 8,
+      "note": "string-keyed edges: route, config, view, env, middleware, policy; reports them at warning"
+    }
+  },
+  "presets": {
+    "cpp": {
+      "servers": [
+        "clangd"
+      ]
+    },
+    "python": {
+      "servers": [
+        "basedpyright"
+      ]
+    },
+    "php": {
+      "servers": [
+        "intelephense"
+      ]
+    },
+    "web": {
+      "servers": [
+        "typescript",
+        "tailwindcss"
+      ]
+    },
+    "laravel": {
+      "root_marker": "artisan",
+      "servers": [
+        "laravel-lsp",
+        {
+          "server": "intelephense",
+          "requires": "composer.json",
+          "init": {
+            "storagePath": "${scratch}",
+            "clearCache": false
+          },
+          "severity": "error",
+          "settle": 10,
+          "settings": {
+            "intelephense": {
+              "files": {
+                "maxSize": 3000000,
+                "exclude": [
+                  "**/node_modules/**",
+                  "**/bower_components/**",
+                  "**/vendor/**/{Tests,tests}/**",
+                  "**/.git/**"
+                ]
+              },
+              "diagnostics": {
+                "enable": true,
+                "typeErrors": false,
+                "argumentCount": true,
+                "undefinedTypes": true,
+                "undefinedFunctions": true,
+                "undefinedConstants": true,
+                "undefinedClassConstants": true,
+                "undefinedMethods": true,
+                "undefinedProperties": false,
+                "undefinedVariables": true,
+                "unusedSymbols": true,
+                "unexpectedTokens": true,
+                "duplicateSymbols": true,
+                "deprecated": true
+              }
+            }
+          },
+          "note": "on demand: Larastan and Pint own most of what it finds in a Laravel app"
+        },
+        {
+          "server": "tailwindcss",
+          "extensions": {
+            ".blade.php": "blade",
+            ".css": "css",
+            ".php": "php"
+          },
+          "requires": "resources/css/app.css",
+          "init": {
+            "userLanguages": {
+              "blade": "html"
+            }
+          },
+          "settings": {
+            "tailwindCSS": {
+              "validate": true,
+              "lint": {
+                "cssConflict": "warning",
+                "invalidApply": "error",
+                "invalidScreen": "error",
+                "invalidVariant": "error",
+                "invalidConfigPath": "error",
+                "invalidTailwindDirective": "error",
+                "recommendedVariantOrder": "warning",
+                "suggestCanonicalClasses": "ignore"
+              },
+              "includeLanguages": {
+                "blade": "html",
+                "php": "html"
+              },
+              "emmetCompletions": false,
+              "showPixelEquivalents": true
+            },
+            "editor": {
+              "tabSize": 4
+            }
+          },
+          "severity": "warning",
+          "settle": 6
+        }
+      ]
+    }
+  }
+}

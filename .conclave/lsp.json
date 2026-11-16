@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "servers": [
+    {
+      "name": "clangd",
+      "command": [
+        "clangd"
+      ],
+      "extensions": {
+        ".c": "c",
+        ".h": "cpp",
+        ".cc": "cpp",
+        ".cpp": "cpp",
+        ".cxx": "cpp",
+        ".hh": "cpp",
+        ".hpp": "cpp",
+        ".hxx": "cpp"
+      },
+      "install": "apt install clangd (Windows: winget install LLVM.LLVM)",
+      "note": "reads compile_commands.json from the project root; without one it guesses the flags"
+    }
+  ]
+}

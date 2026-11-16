@@ -35,3 +35,9 @@
 .vs/
 *.suo
 *.aps
+
+# Conclave todo graph cache
+build/
+
+# Python bytecode
+__pycache__/

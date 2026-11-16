@@ -1,0 +1,4 @@
+interface:
+  display_name: "Language servers"
+  short_description: "Check a change with the project's language servers, and look symbols up through them."
+  default_prompt: "Run python scripts/lsp-diagnostics.py --all --changed (every file this change touched: staged, not staged and new; --commit <sha> for a change already committed) and treat the result as a check: a diagnostic at or above a server's threshold, or a FAILED or PARTIAL server, fails it, and SKIPPED is not a pass. Never edit a file only to silence a diagnostic."

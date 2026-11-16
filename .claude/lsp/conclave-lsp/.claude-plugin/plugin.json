@@ -1,0 +1,8 @@
+{
+  "name": "conclave-lsp",
+  "version": "1.0.0",
+  "description": "Language servers of this project, generated from .conclave/lsp.json. Do not edit: run `python scripts/lsp-servers.py plugin`.",
+  "author": {
+    "name": "scripts/lsp-servers.py"
+  }
+}

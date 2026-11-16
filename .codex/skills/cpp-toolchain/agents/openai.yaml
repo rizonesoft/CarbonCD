@@ -1,0 +1,4 @@
+interface:
+  display_name: "C and C++ toolchain"
+  short_description: "Use the pinned build tools, the compiler cache and the compile database; install nothing."
+  default_prompt: "Run python scripts/toolchain-check.py --pins .conclave/toolchain-cpp.json and python scripts/compdb-check.py and report what each says. Never install or upgrade a tool or change a pin to make a check pass: report the tool, the version found and the version wanted. After adding or moving a source file, regenerate the compile database with the project's own command and read it back with python scripts/compdb-check.py --source <file>."

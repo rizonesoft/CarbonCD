@@ -1,0 +1,44 @@
+#!/bin/sh
+# Refuse a commit that would turn the plan gates red: one that stages TODO changes while the generated plan
+# (todo/plan.json's layout.plan, todo/implementation-plan.md by default) is stale or the TODO graph is invalid.
+# Git runs it once core.hooksPath is scripts/hooks: forge.py sets that when it installs the todo kit into a repository
+# whose hooks nothing else owns, `forge.py doctor <project> todo` reports it, and a fresh clone sets it by hand.
+# Ticking a checklist item changes the generated plan, so every TODO edit needs `plan --sync`.
+# Receipts and findings files are graph evidence too: a commit touching only the receipts folder (todo/plan.json's
+# layout.receipts, docs/reviews/ by default) is checked as well.
+root=$(git rev-parse --show-toplevel) || exit 1
+# The first interpreter that actually runs: on Windows `python3` can be the Microsoft Store stub.
+python=
+for candidate in python3 python; do
+    if command -v "$candidate" >/dev/null 2>&1 && "$candidate" -c "" >/dev/null 2>&1; then
+        python=$candidate
+        break
+    fi
+done
+if [ -z "$python" ]; then
+    echo "pre-commit: Python is needed to check the TODO graph" >&2
+    exit 1
+fi
+# The graph names the folder, so the hook and the graph never disagree; a layout it cannot read is its refusal. The
+# commit holds the staged todo/plan.json, and the check reads the working tree's, so both folders are watched: when
+# they differ, todo/plan.json itself is unstaged and the check below refuses until it is staged.
+receipts=$("$python" "$root/scripts/todo-graph.py" receipts) || exit 1
+staged=$( (git show :todo/plan.json 2>/dev/null || echo '{}') | "$python" "$root/scripts/todo-graph.py" receipts --config -) || exit 1
+# The generated plan's path, read the same two ways: it may live outside todo/.
+plan=$("$python" "$root/scripts/todo-graph.py" plan-path) || exit 1
+staged_plan=$( (git show :todo/plan.json 2>/dev/null || echo '{}') | "$python" "$root/scripts/todo-graph.py" plan-path --config -) || exit 1
+git diff --cached --name-only -- todo/ "$receipts/" "$staged/" "$plan" "$staged_plan" | grep -q . || exit 0
+
+# The check reads the working tree, so the TODO files and the review receipts and findings they cite must be exactly
+# what is being committed: nothing unstaged and nothing untracked, ignored files included, since the check reads
+# those too.
+for dir in todo/ "$receipts/" "$staged/" "$plan" "$staged_plan"; do
+    if ! git diff --quiet -- "$dir" || [ -n "$(git ls-files --others -- "$dir")" ]; then
+        echo "pre-commit: $dir has unstaged or untracked changes; stage them (or stash them) so the plan check sees what is committed" >&2
+        exit 1
+    fi
+done
+if ! "$python" "$root/scripts/todo-graph.py" validate >/dev/null || ! "$python" "$root/scripts/todo-graph.py" plan --check; then
+    echo "pre-commit: run 'python scripts/todo-graph.py plan --sync', stage $plan, and commit again" >&2
+    exit 1
+fi

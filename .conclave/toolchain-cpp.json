@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "tools": [
+    {
+      "name": "ninja",
+      "commands": [
+        {
+          "command": "ninja",
+          "version_args": [
+            "--version"
+          ],
+          "version_pattern": "^([0-9]+(?:\\.[0-9]+)+)",
+          "min_version": "1.10"
+        }
+      ],
+      "install": "apt install ninja-build (Windows: winget install Ninja-build.Ninja)",
+      "optional": true
+    },
+    {
+      "name": "compiler-cache",
+      "commands": [
+        {
+          "command": "ccache",
+          "version_args": [
+            "--version"
+          ],
+          "version_pattern": "ccache version ([0-9]+(?:\\.[0-9]+)*)",
+          "min_version": "4.0"
+        },
+        {
+          "command": "sccache",
+          "version_args": [
+            "--version"
+          ],
+          "version_pattern": "sccache ([0-9]+(?:\\.[0-9]+)*)",
+          "min_version": "0.5"
+        }
+      ],
+      "install": "apt install ccache (Windows: winget install Ccache.Ccache, or winget install Mozilla.sccache)",
+      "optional": true
+    },
+    {
+      "name": "linker",
+      "commands": [
+        {
+          "command": "mold",
+          "version_args": [
+            "--version"
+          ],
+          "version_pattern": "mold ([0-9]+(?:\\.[0-9]+)*)",
+          "min_version": "1.0"
+        },
+        {
+          "command": "ld.lld",
+          "version_args": [
+            "--version"
+          ],
+          "version_pattern": "LLD ([0-9]+(?:\\.[0-9]+)*)",
+          "min_version": "14"
+        }
+      ],
+      "install": "apt install mold, or apt install lld (Windows: ld.lld comes with winget install LLVM.LLVM)",
+      "optional": true
+    },
+    {
+      "name": "clangd",
+      "commands": [
+        {
+          "command": "clangd",
+          "version_args": [
+            "--version"
+          ],
+          "version_pattern": "clangd version ([0-9]+(?:\\.[0-9]+)*)",
+          "min_version": "14"
+        }
+      ],
+      "install": "apt install clangd (Windows: winget install LLVM.LLVM)"
+    },
+    {
+      "name": "compiler",
+      "commands": [
+        {
+          "command": "clang",
+          "version_args": [
+            "--version"
+          ],
+          "version_pattern": "clang version ([0-9]+(?:\\.[0-9]+)*)",
+          "min_version": "14"
+        },
+        {
+          "command": "gcc",
+          "version_args": [
+            "--version"
+          ],
+          "version_pattern": "\\) ([0-9]+(?:\\.[0-9]+)+)",
+          "min_version": "11"
+        }
+      ],
+      "install": "apt install clang, or apt install gcc (Windows: winget install LLVM.LLVM)"
+    }
+  ]
+}

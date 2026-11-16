@@ -1,0 +1,91 @@
+# Independent reviewers for this repository, read by scripts/review_pin.py for
+# scripts/review-dispatch.py and the todo kit's stamp.
+#
+# A route names exactly one reviewer for work written by one agent, never of
+# the writer's own model family (the CLI names it: codex is OpenAI, agy is
+# Google, claude is Anthropic). The writers are claude, codex and agy; gemini
+# is another name for agy. A reviewer that is not installed, fails, times out,
+# returns nothing or replies OVERALL: blocked is skipped and the reason
+# recorded: there is no review, never an approval, and no other reviewer runs.
+#
+# Loaded strictly: an unknown key, an unknown CLI, a malformed model, a route
+# naming an undefined reviewer, a second reviewer in a route, a reviewer of
+# the writer's own model family, an unknown lens or an effort a routed CLI
+# does not take refuses every dispatch, naming the key. Edit this file to suit
+# the project: it is a starting point, not a link.
+
+schema_version = 1
+
+# GPT-6 Astra through the Codex CLI, read-only sandbox. `effort` is optional
+# here and on every schedule step: with a schedule the step decides, and a
+# step without one leaves the choice to the Codex CLI's own configuration.
+[reviewers.astra]
+cli = "codex"
+model = "gpt-6-astra"
+effort = "medium"
+
+# Claude and Antigravity write. Codex (Astra) only reviews.
+[routes]
+claude = ["astra"]
+agy = ["astra"]
+
+# The review schedule: three passes per section. Decision 2026-11-11: new
+# installs start on three-pass, the shape the projects built on this SDK run.
+#   - before the build, one plan review (--kind plan);
+#   - after the build and its gates, one round carrying every defect lens
+#     (--kind round); its findings are fixed and the gates rerun;
+#   - on that final candidate, one completion review (--kind completion).
+# A completion that returns gaps is repaired and followed by a reconciliation
+# (--kind reconciliation), again after each reconciliation that returns gaps,
+# up to pass_cap returned passes per section in all. A section keeps the pin
+# committed at its plan review's candidate, so commit this file before a
+# section's plan review.
+#
+# Each lens has one owner among plan, the round and completion. Every finding
+# is tagged P1, P2 or P3: only the levels in `blocking` hold the stamp, and a
+# pass whose worst finding is below them is filed as tracked work and takes no
+# further pass. Remove `blocking` and every finding holds the stamp.
+#
+# To keep the earlier rotation schedule instead (three rounds at falling
+# effort, then one lens per round until a round is clean), replace this block
+# with the rotation block shown in kits/reviewer/README.md of the SDK. Delete
+# the whole [schedule] to review every round at the reviewer's own effort.
+[schedule]
+policy = "three-pass"
+pass_cap = 33
+blocking = ["P1", "P2"]
+
+[schedule.plan]
+effort = "medium"
+lenses = ["plan"]
+
+# `design` runs only for a section with a surface (--surface).
+[[schedule.rounds]]
+effort = "medium"
+lenses = ["adversarial", "integration", "source-defect", "consistency", "quality", "optimization", "design"]
+
+[schedule.completion]
+effort = "low"
+lenses = ["plan-delivery", "record"]
+
+[schedule.reconciliation]
+effort = "low"
+lenses = ["adversarial", "integration", "plan-delivery", "record"]
+
+# Optional keys, shown as examples.
+#
+# no_progress_cap = 3      under [schedule]: stop after three reconciliations
+#                          in a row whose worst finding got no less severe.
+#
+# A lens of the project's own, with the question the reviewer is given:
+#
+# [schedule.lenses]
+# concurrency = "On two or more CPUs, which lock, atomic or teardown order is wrong?"
+#
+# Lenses that join the named passes only when the section changed a file
+# under one of the paths (repository-relative prefixes, forward slashes):
+#
+# [[schedule.conditional]]
+# lenses = ["concurrency"]
+# passes = ["round", "reconciliation"]
+# paths = ["src/kernel/", "include/kernel/"]

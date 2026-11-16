@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import pathlib, runpy, shutil, subprocess; git = shutil.which('git'); r = subprocess.run([git, 'rev-parse', '--show-toplevel'], capture_output=True, text=True, timeout=10) if git else None; root = pathlib.Path(r.stdout.strip()) if r and r.returncode == 0 and r.stdout.strip() else None; hook = root / 'scripts/codex-campaign-hook.py' if root else None; runpy.run_path(str(hook), run_name='__main__') if hook and hook.is_file() and (root / '.codex/hooks.json').is_file() else print('{}')\"",
+            "commandWindows": "python -c \"import pathlib, runpy, shutil, subprocess; git = shutil.which('git'); r = subprocess.run([git, 'rev-parse', '--show-toplevel'], capture_output=True, text=True, timeout=10) if git else None; root = pathlib.Path(r.stdout.strip()) if r and r.returncode == 0 and r.stdout.strip() else None; hook = root / 'scripts/codex-campaign-hook.py' if root else None; runpy.run_path(str(hook), run_name='__main__') if hook and hook.is_file() and (root / '.codex/hooks.json').is_file() else print('{}')\"",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}
