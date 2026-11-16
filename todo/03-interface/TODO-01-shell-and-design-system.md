@@ -70,7 +70,7 @@ title: "TODO-01 -- Interface shell and design system"
 | 2 | §2 | Bundled fonts loaded for the process | §1 | [ ] |
 | 3 | §3 | Per-monitor scaling | §1 | [ ] |
 | 4 | §4 | Light, dark and high contrast themes, switching live | §1 | [ ] |
-| 5 | §5 | Owner-drawn controls | §2, §3, §4 | [ ] |
+| 5 | §5 | Owner-drawn controls | §2, §3, §4, §16 | [ ] |
 | 6 | §6 | Icons from the masters at every scale | §1, §3 | [ ] |
 | 7 | §7 | Main window frame, task rail and status bar | §5, §6, D04 T01 §1 | [ ] |
 | 8 | §8 | Drive strip with media chips | §7, D01 T01 §4, D01 T03 §2, D01 T02 §1 | [ ] |
@@ -81,7 +81,7 @@ title: "TODO-01 -- Interface shell and design system"
 | 13 | §13 | Log drawer | §7, D01 T01 §10 | [ ] |
 | 14 | §14 | Messages and confirmations | §5, D04 T01 §3 | [ ] |
 | 15 | §15 | Keyboard and screen reader support | §7, §8, §11, §12, §13 | [ ] |
-| 16 | §16 | Review renders of every screen | §7 | [ ] |
+| 16 | §16 | Review renders of every screen | §1 | [ ] |
 
 ## 1. Design tokens generated into code
 
@@ -232,10 +232,11 @@ The window of SPEC S1: no menu bar, the rail on the left, a pane host, the statu
 1. Build the frame and the rail Done when: the window matches the mockup's frame.
 2. Host panes and remember placement Done when: selecting rail items swaps panes, and the window reopens where it was.
 
-- [ ] Add `src/ui/MainWindow.cpp`: a resizable frame, 820 by 500 dip minimum, `primary` caption colour through `DWMWA_CAPTION_COLOR`, the 168 dip rail with six task items, a spacer, two tool items and the `Settings` and `About` footer buttons (S1.2, S1.3), the pane host, and the status bar with the message and the `Log` toggle (S1.6) Done when: `--render` writes `main-read-light-100.png` whose frame, rail and status bar match `design/mockups/main-read.png`. Cheaper substitute: keeping `IDD_MAIN_DIALOG` and restyling its buttons.
+- [ ] Add `src/ui/MainWindow.cpp`: a resizable frame, 820 by 500 dip minimum, a title bar drawn by the app in `primary` on every supported Windows (client area extended over the frame with `WM_NCCALCSIZE`, hit testing in `WM_NCHITTEST`, system buttons and snap layouts kept; `DWMWA_CAPTION_COLOR` exists only from Windows 11 build 22000), the 168 dip rail with six task items, a spacer, two tool items and the `Settings` and `About` footer buttons (S1.2, S1.3), the pane host, and the status bar with the message and the `Log` toggle (S1.6) Done when: `--render` writes `main-read-light-100.png` whose frame, rail and status bar match `design/mockups/main-read.png`. Cheaper substitute: keeping `IDD_MAIN_DIALOG` and restyling its buttons.
 - [ ] Add `Pane` as the base of every task pane (create, show, hide, `primary_action()`, `can_leave()`), keeping each pane's entries for the session Done when: switching from Read to Write and back keeps the path typed in Read, in `tests/ui/test_main_window.cpp`.
 - [ ] Disable every rail item but the running one while a task runs, and show the task in the title (S1) (in `src/ui/MainWindow.cpp`) Done when: with a simulated task running, the UI Automation tree reports the other items disabled and the title reads `CarbonCD  Reading to x.iso`. Cheaper substitute: leaving the rail live and letting two tasks start.
 - [ ] Save and restore position, size and last pane through the settings store, discarding a position that is on no monitor (`MonitorFromRect` with `MONITOR_DEFAULTTONULL`) Done when: a saved position of -5000, -5000 opens centred on the primary monitor. Cheaper substitute: clamping at 0 only, as 1.0.8 does.
+- [ ] Handle `WM_CLOSE` in `src/ui/MainWindow.cpp` while a task runs: ask `close-while-running` (SPEC S13), and on `Stop and close` request the stop, wait for the task's completion callback, then close Done when: with a simulated write running, closing shows the question; `Keep running` leaves the task untouched and `Stop and close` exits only after the simulated drive is unlocked. Cheaper substitute: destroying the window and leaving the worker to die with the process.
 - [ ] Replace `CCDMDlg` as the app's main window in `src/CDM.cpp` and delete `src/ButtonEx.*` Done when: the app starts into the new window and `rg -n CButtonEx src` prints nothing.
 - [ ] Commit: `ui: main window, task rail and status bar`
 
@@ -442,7 +443,7 @@ SPEC S18: the whole window from the keyboard, and named for assistive technology
 
 ## 16. Review renders of every screen
 
-The `--render` mode the other sections use: it writes each screen to a PNG so a person or a reviewer can compare it with the contract.
+The `--render` mode the other sections use: it writes each registered screen to a PNG so a person or a reviewer can compare it with the contract. It is built before the controls and the windows; each later section registers its own screens.
 
 **Phase:** 6
 **Needs:** windows-host

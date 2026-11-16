@@ -19,10 +19,10 @@ title: "TODO-02 -- Task panes and dialogs"
 - The dialogs and classes named in Current state: each section replaces one and deletes it.
 - -> XREF: D03 T01 §12 -- §1 here builds on it
 - -> XREF: D03 T01 §14 -- §1 here builds on it
-- -> XREF: D01 T03 §5 -- §1 here builds on it
 - -> XREF: D01 T03 §6 -- §1 here builds on it
 - -> XREF: D01 T02 §5 -- §1 here builds on it
 - -> XREF: D01 T02 §6 -- §1 here builds on it
+- -> XREF: D01 T02 §7 -- §1 here builds on it
 - -> XREF: D03 T01 §12 -- §2 here builds on it
 - -> XREF: D03 T01 §14 -- §2 here builds on it
 - -> XREF: D01 T03 §12 -- §2 here builds on it
@@ -82,7 +82,7 @@ title: "TODO-02 -- Task panes and dialogs"
 
 | Order | Section | Deliverable | Depends On | Status |
 | ----- | ------- | ----------- | ---------- | ------ |
-| 1 | §1 | Read to image pane | D03 T01 §12, D03 T01 §14, D01 T03 §5, D01 T03 §6, D01 T02 §5, D01 T02 §6 | [ ] |
+| 1 | §1 | Read to image pane | D03 T01 §12, D03 T01 §14, D01 T03 §6, D01 T02 §5, D01 T02 §6, D01 T02 §7 | [ ] |
 | 2 | §2 | Write image pane | D03 T01 §12, D03 T01 §14, D01 T03 §12, D01 T02 §9 | [ ] |
 | 3 | §3 | Clone disc pane | D03 T01 §12, D03 T01 §14, D01 T03 §13 | [ ] |
 | 4 | §4 | Master disc pane: type, label, capacity and options | D03 T01 §8, D03 T01 §14, D02 T01 §5, D02 T01 §6 | [ ] |
@@ -121,7 +121,7 @@ SPEC S3, for CDs and DVDs.
 - [ ] Constrain Format by the disc: ISO only for a DVD; all three for a CD, with ISO offered only for a single data track; and set the Save as extension to match (in `src/ui/panes/ReadPane.cpp`) Done when: `tests/ui/test_read_pane.cpp` sees the segments enabled as stated for a simulated DVD, a data CD and an audio CD. Cheaper substitute: offering CUE for a DVD and failing later.
 - [ ] Add the CD options dialog `src/ui/dialogs/CdReadOptions.cpp` holding every option listed under S3.6 (engine, test mode, the error options, subcode and pregap analysis, swap channels, command detection, read command, audio and data speed), saved through the settings store Done when: each option changes its setting and the started task receives it, asserted per option. Cheaper substitute: dropping the advanced options.
 - [ ] Fill the cards from the disc and the path: type, drive, sectors, file system and layer break; file name, size and free space (in `src/ui/panes/ReadPane.cpp`) Done when: the simulated DVD+R DL shows `3 080 112 sectors  UDF 2.50  layer break at 1 540 056` and the copy shows the free space of the target volume.
-- [ ] Disable `Read disc` with the inline reason for no disc, no path, too little space, CSS and unsupported media; on start run the DVD read task, or the CD single-session, multi-session or compare task, in the run view, then the verify pass if ticked Done when: each refusal shows its reason; a simulated DVD read ends in the result view with `Done`.
+- [ ] Disable `Read disc` with the inline reason for no disc, no path, too little space, CSS and unsupported media; on start run the DVD read task, or for a CD the single-session, multi-session or compare task, or the read tracks task writing the one data track as the chosen `.iso` when Format is ISO, in the run view, then the verify pass if ticked Done when: each refusal shows its reason; a simulated DVD read ends in the result view with `Done`.
 - [ ] Delete `src/ReadSettingDialog.*`, `src/ReadSettingDialog1-4.*`, `src/ReadProgressDialog.*` and their dialog resources Done when: `rg -n "CReadSettingDialog|IDD_READSETTING|IDD_READPROGRESS" src` prints nothing.
 - [ ] Commit: `ui: Read to image pane`
 

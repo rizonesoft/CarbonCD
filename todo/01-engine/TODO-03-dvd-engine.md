@@ -30,7 +30,6 @@ title: "TODO-03 -- DVD engine"
 - -> XREF: D02 T01 §6 -- builds on §2 of this file
 - -> XREF: D02 T01 §7 -- builds on §12 of this file
 - -> XREF: D03 T01 §8 -- builds on §2 of this file
-- -> XREF: D03 T02 §1 -- builds on §5 of this file
 - -> XREF: D03 T02 §1 -- builds on §6 of this file
 - -> XREF: D03 T02 §2 -- builds on §12 of this file
 - -> XREF: D03 T02 §3 -- builds on §13 of this file
@@ -57,7 +56,7 @@ title: "TODO-03 -- DVD engine"
 | 3 | §3 | Read and write speed lists | §1 | [ ] |
 | 4 | §4 | DVD sector reader | §2, D01 T01 §7 | [ ] |
 | 5 | §5 | Read DVD to ISO task | §4, D01 T01 §6, D01 T01 §8, D01 T01 §9 | [ ] |
-| 6 | §6 | Verify pass for DVD | §4 | [ ] |
+| 6 | §6 | Verify pass for DVD | §4, §5 | [ ] |
 | 7 | §7 | DVD-R and DVD-RW sequential writing | §2, §3 | [ ] |
 | 8 | §8 | DVD+R writing | §2, §3 | [ ] |
 | 9 | §9 | Dual-layer writing and the layer break | §7, §8 | [ ] |
@@ -101,7 +100,7 @@ Everything the interface and the tasks need to know about a DVD before touching 
 
 - [ ] Add `src/core/dvd/DiscInfo.cpp` returning `struct DvdInfo { MediaType type; int layers; Lba layer0_end; uint32_t used_sectors, free_sectors, capacity_sectors; bool blank, appendable, rewritable, formatted; int sessions; bool css; std::wstring book_type; }` from READ CAPACITY (25h), READ DISC INFORMATION (51h), READ TRACK INFORMATION (52h) and READ DVD STRUCTURE (ADh) format 00h for each layer Done when: `tests/core/test_dvd_info.cpp` reads a simulated DVD+R DL: 2 layers, layer 0 ends at 1 540 055, 3 080 112 sectors used. Cheaper substitute: using ATIP, which only CD-R has.
 - [ ] Read copyright information with READ DVD STRUCTURE format 01h and set `css` when the protection type is 01h Done when: the simulated CSS disc has `css` true and an unprotected one false. Cheaper substitute: probing by reading a sector and looking for an error.
-- [ ] Take free space on recordable media from READ TRACK INFORMATION of the invisible track, and on DVD+RW and DVD-RAM from READ FORMAT CAPACITIES (23h) (in `src/core/dvd/DiscInfo.cpp`) Done when: blank DVD-R reports 2 297 888 free and blank DVD+R 2 295 104, as scripted.
+- [ ] Take free space on recordable media from READ TRACK INFORMATION of the invisible track; on DVD+RW and DVD-RAM take the total capacity from READ FORMAT CAPACITIES (23h) and the space in use from the volume size in the disc's ISO 9660 or UDF descriptors, since these media have no blank remainder (in `src/core/dvd/DiscInfo.cpp`) Done when: blank DVD-R reports 2 297 888 free and blank DVD+R 2 295 104, and a simulated DVD+RW holding a 1 000 000 sector volume reports that as used, as scripted. Cheaper substitute: reporting the formatted capacity as free space.
 - [ ] Commit: `core: DVD capacity, layers, state and CSS flag`
 
 **Test checkpoint:** `ctest --preset x64-debug -R dvd_info` passes; reading only layer 0's descriptor fails the layer count assertion.
@@ -162,7 +161,7 @@ The whole read, as SPEC S3 describes it for a DVD.
 - [ ] Add `src/core/dvd/ReadToIso.cpp`: disc info, refusals, free-space check, speed, sector loop writing through `ImageFile`, progress and surface map with one block per layer, finish Done when: `tests/core/test_dvd_read.cpp` reads a simulated 6.31 GB DVD+R DL (sparse) and the ISO's sampled sectors and size match. Cheaper substitute: copying file by file from the mounted volume.
 - [ ] Refuse with SPEC S13 keys: `no-disc`, `css`, `unsupported-media`, `no-space` Done when: each case returns its key and no file is created. Cheaper substitute: starting the read and failing at the first protected sector.
 - [ ] On stop or failure delete the `.part` file unless skip was on; on success with skipped sectors return DoneWithErrors and the failed LBAs Done when: the stop test finds no file, and the skip test gets DoneWithErrors with 5 addresses.
-- [ ] Read the volume label from the ISO 9660 or UDF descriptor at sector 16 for the suggested file name (in `src/core/dvd/ReadToIso.cpp`) Done when: the simulated disc labelled `BACKUP_2026` suggests `BACKUP_2026.iso`.
+- [ ] Read the volume label for the suggested file name: from the ISO 9660 primary volume descriptor at sector 16, or for a UDF-only disc by following the anchor at sector 256 to the logical volume descriptor's identifier (in `src/core/dvd/ReadToIso.cpp`) Done when: simulated ISO 9660 and UDF-only discs labelled `BACKUP_2026` both suggest `BACKUP_2026.iso`.
 - [ ] Commit: `core: read DVD to ISO task`
 
 **Test checkpoint:** `ctest --preset x64-debug -R dvd_read` passes; skipping the CSS check makes the protected-disc test fail.
@@ -220,7 +219,7 @@ The plus format has no write parameters page: it is written sequentially and clo
 1. Write and close a DVD+R Done when: a simulated DVD+R holds the image and is closed.
 2. Cover the refusals Done when: a non-blank DVD+R is refused.
 
-- [ ] Add `src/core/dvd/WritePlus.cpp`: no mode page 05h, WRITE(12) from LBA 0, SYNCHRONIZE CACHE, CLOSE TRACK SESSION with function 001b for the track then 010b for the session, finalising the disc (MMC-5 (INCITS 430-2007) 4.3.6) Done when: `tests/core/test_dvd_write_plus.cpp` writes a simulated DVD+R; it reads back equal and reports one closed session. Cheaper substitute: reusing the dash path and ignoring the refused MODE SELECT.
+- [ ] Add `src/core/dvd/WritePlus.cpp`: no mode page 05h, WRITE(12) from LBA 0, SYNCHRONIZE CACHE, CLOSE TRACK SESSION with function 001b for the track, then 110b to finalise the disc (010b only closes the session and leaves the disc appendable) (MMC-5 (INCITS 430-2007) 6.3) Done when: `tests/core/test_dvd_write_plus.cpp` writes a simulated DVD+R; it reads back equal, reports one closed session and refuses a further write. Cheaper substitute: reusing the dash path and ignoring the refused MODE SELECT.
 - [ ] Disable test mode for this media in the result of a capability query `can_test_write(MediaType)` Done when: the query is false for DVD+R, DVD+R DL, DVD+RW and DVD-RAM, as SPEC S4.4 states.
 - [ ] Commit: `core: DVD+R write`
 

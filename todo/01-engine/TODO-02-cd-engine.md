@@ -16,6 +16,11 @@ title: "TODO-02 -- CD engine on the new foundations"
 
 - `design/SPEC.md` S3 (CD read options), S4 (CD write methods), S7, S8, S9: the behaviours kept from 1.0.8.
 - The source files named in Current state: each section moves one behaviour and cites the lines it carries over.
+- -> XREF: D01 T01 §3 -- builds on §5 of this file
+- -> XREF: D01 T01 §3 -- builds on §6 of this file
+- -> XREF: D01 T01 §3 -- builds on §7 of this file
+- -> XREF: D01 T01 §3 -- builds on §9 of this file
+- -> XREF: D01 T01 §3 -- builds on §10 of this file
 - -> XREF: D01 T01 §5 -- §1 here builds on it
 - -> XREF: D01 T01 §7 -- §1 here builds on it
 - -> XREF: D01 T01 §6 -- §3 here builds on it
@@ -36,6 +41,7 @@ title: "TODO-02 -- CD engine on the new foundations"
 - -> XREF: D03 T01 §8 -- builds on §1 of this file
 - -> XREF: D03 T02 §1 -- builds on §5 of this file
 - -> XREF: D03 T02 §1 -- builds on §6 of this file
+- -> XREF: D03 T02 §1 -- builds on §7 of this file
 - -> XREF: D03 T02 §2 -- builds on §9 of this file
 - -> XREF: D03 T02 §8 -- builds on §7 of this file
 - -> XREF: D03 T02 §9 -- builds on §8 of this file
@@ -58,7 +64,7 @@ title: "TODO-02 -- CD engine on the new foundations"
 | 1 | §1 | CD table of contents, ATIP and CD-TEXT | D01 T01 §5, D01 T01 §7 | [ ] |
 | 2 | §2 | CD sector reader with read command detection | §1 | [ ] |
 | 3 | §3 | CUE, CCD and CDM image descriptions with 64-bit sizes | D01 T01 §6, D01 T01 §7 | [ ] |
-| 4 | §4 | Single-session CD read to CUE with IMG | §2, §3, D01 T01 §8 | [ ] |
+| 4 | §4 | Single-session CD read to CUE with IMG | §2, §3, §8, D01 T01 §8 | [ ] |
 | 5 | §5 | Multi-session CD read to CCD or CDM with subcode | §4 | [ ] |
 | 6 | §6 | CD compare engine | §4 | [ ] |
 | 7 | §7 | Read CD tracks to WAV and ISO | §2, D01 T01 §8 | [ ] |

@@ -19,6 +19,11 @@ title: "TODO-01 -- Transport, I/O and task foundations"
 - MMC-5 (INCITS 430-2007) for command descriptor blocks and sense data; `ntddscsi.h` for `SCSI_PASS_THROUGH_DIRECT`.
 - -> XREF: D00 T01 §3 -- §1 here builds on it
 - -> XREF: D00 T01 §4 -- §3 here builds on it
+- -> XREF: D01 T02 §5 -- §3 here builds on it
+- -> XREF: D01 T02 §6 -- §3 here builds on it
+- -> XREF: D01 T02 §7 -- §3 here builds on it
+- -> XREF: D01 T02 §9 -- §3 here builds on it
+- -> XREF: D01 T02 §10 -- §3 here builds on it
 - -> XREF: D00 T01 §3 -- §6 here builds on it
 - -> XREF: D00 T01 §3 -- §7 here builds on it
 - -> XREF: D00 T01 §3 -- §8 here builds on it
@@ -67,7 +72,7 @@ title: "TODO-01 -- Transport, I/O and task foundations"
 | ----- | ------- | ----------- | ---------- | ------ |
 | 1 | §1 | Transport interface and command result | D00 T01 §3 | [ ] |
 | 2 | §2 | SPTI transport on the Windows SDK structures | §1 | [ ] |
-| 3 | §3 | ASPI removed | §2, D00 T01 §4 | [ ] |
+| 3 | §3 | ASPI removed | §2, D00 T01 §4, D01 T02 §5, D01 T02 §6, D01 T02 §7, D01 T02 §9, D01 T02 §10 | [ ] |
 | 4 | §4 | Drive enumeration and arrival or removal | §2 | [ ] |
 | 5 | §5 | Simulated drive for tests | §1 | [ ] |
 | 6 | §6 | 64-bit image file reading and writing | D00 T01 §3 | [ ] |
@@ -111,7 +116,7 @@ The real transport. It opens the drive, sends pass-through commands with a bound
 2. Handle open failures as results, not crashes Done when: opening a missing drive letter returns a transport error with the Windows error text.
 
 - [ ] Add `src/core/scsi/SptiTransport.cpp` using `SCSI_PASS_THROUGH_DIRECT` from `<ntddscsi.h>` with a 32-byte sense buffer, an aligned buffer from `_aligned_malloc` to the device's alignment mask (`IOCTL_STORAGE_QUERY_PROPERTY`), and the caller's timeout in seconds rounded up Done when: `rg -n "TimeOutValue = 0xffff|define IOCTL_SCSI" src` prints nothing. Cheaper substitute: copying the local structure definitions from `src/SptiDriver.h:3-50`.
-- [ ] Open with `CreateFileW(L"\\\\.\\E:", GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, ...)`, falling back to `GENERIC_READ` for read-only tasks, and return `ERROR_ACCESS_DENIED` and `ERROR_SHARING_VIOLATION` as distinct results Done when: `tests/core/test_spti_open.cpp` gets a transport error, not an exception, for `Z:` with no such drive, and the two errors map to SPEC S13 `access-denied` and `drive-busy`. Cheaper substitute: leaving the handle unchecked as `src/SptiDriver.cpp:289-290` does.
+- [ ] Open with `CreateFileW(L"\\\\.\\E:", GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, ...)` for every task (`IOCTL_SCSI_PASS_THROUGH_DIRECT` requires both access rights even for read commands), confirm with `drive-probe` that a standard user can open an optical drive this way as SPEC S0 requires, and return `ERROR_ACCESS_DENIED` and `ERROR_SHARING_VIOLATION` as distinct results Done when: `tests/core/test_spti_open.cpp` gets a transport error, not an exception, for `Z:` with no such drive, and the two errors map to SPEC S13 `access-denied` and `drive-busy`. Cheaper substitute: leaving the handle unchecked as `src/SptiDriver.cpp:289-290` does.
 - [ ] Make writes synchronous on the task's own thread and delete the asynchronous path whose last error is lost (`src/SptiDriver.cpp:207-220`) Done when: a write that fails on the simulated drive's last block fails the task in `tests/core/test_write_last_error.cpp`. Cheaper substitute: keeping the worker and adding a flush call.
 - [ ] Add a manual probe `tools/drive-probe.cpp` (target `drive-probe`) printing INQUIRY data and the current profile for a drive letter Done when: `Bin\Debug\drive-probe.exe E:` prints the drive's vendor and model on a machine with an optical drive, and `no such drive` otherwise.
 - [ ] Commit: `core: SPTI transport with bounded timeouts and sense data`
@@ -120,7 +125,7 @@ The real transport. It opens the drive, sends pass-through commands with a bound
 
 ## 3. ASPI removed
 
-No 64-bit ASPI layer exists, so the ASPI transport, its setting and its structures go.
+No 64-bit ASPI layer exists, so the ASPI transport, its setting and its structures go. `src/MMCReader.h`, `src/MMCWriter.h`, `src/MMCSubcodeReader.h` and `src/CDController.h` include `Aspi.h` and use `SRB_ExecSCSICmd`, so this runs after the CD engine has moved into the core library.
 
 **Phase:** 2
 **Needs:** none
@@ -254,7 +259,7 @@ A hung drive must not hang CarbonCD, and a thread is never killed in the middle 
 1. Replace every unbounded wait and every `TerminateThread` Done when: none remains in the source.
 2. Surface a drive that stops answering Done when: the task reports `not-responding` after 30 seconds and can keep waiting or stop.
 
-- [ ] Add `wait_until_ready(transport, stop_token, limit)` in `src/core/drive/Ready.cpp` polling TEST UNIT READY once a second, honouring the stop token and the limit, and returning the last sense Done when: `tests/core/test_ready.cpp` sees it return after the simulated drive's 3 second not-ready period, stop at once on a stop request, and time out at the limit. Cheaper substitute: `while (TestUnitReady()==2) Sleep(1000)` (`src/CDWriter.cpp:163-166,176-179`).
+- [ ] Add `wait_until_ready(transport, stop_token, limit)` in `src/core/drive/Ready.cpp` polling TEST UNIT READY once a second, honouring the stop token and the limit (the `BusyWaitSeconds` setting of SPEC S14.3, default 60), and returning the last sense Done when: `tests/core/test_ready.cpp` sees it return after the simulated drive's 3 second not-ready period, stop at once on a stop request, and time out at the limit. Cheaper substitute: `while (TestUnitReady()==2) Sleep(1000)` (`src/CDWriter.cpp:163-166,176-179`).
 - [ ] Delete every `TerminateThread` call (`src/ReadThread.cpp:241-248`, `src/CreateThread.cpp:61-68`, `src/SubQThread.cpp:56-63`, `src/EraseDialog.cpp:36-47`) and every `WaitForSingleObject(..., INFINITE)` on a worker Done when: `rg -n "TerminateThread|INFINITE" src` prints nothing. Cheaper substitute: raising the 3000 ms wait to a larger number.
 - [ ] Give each command class a timeout in `src/core/scsi/Timeouts.h` (10 s for queries, 60 s for reads and writes, 30 min for blank, format and close) and raise a `NotResponding` progress phase when a command passes 30 s Done when: the simulated never-answering command produces `NotResponding` at 30 s and a transport timeout at its limit, under a mocked clock. Cheaper substitute: one timeout for every command.
 - [ ] Always release the drive at task end: PREVENT ALLOW MEDIUM REMOVAL (allow) and close the handle, on every outcome (in `src/core/drive/Ready.cpp`) Done when: the test asserts the simulated drive is unlocked after Done, Stopped, Failed and after an exception.

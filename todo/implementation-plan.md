@@ -38,7 +38,6 @@ Sections: 21 | Checklist items: 87
 | ------ | ----------- | ----------------------------------------------------- | ----- | ----- |
 | [ ]    | D01 T01 §1  | Transport interface and command result                | none  | 4     |
 | [ ]    | D01 T01 §2  | SPTI transport on the Windows SDK structures          | none  | 5     |
-| [ ]    | D01 T01 §3  | ASPI removed                                          | none  | 4     |
 | [ ]    | D01 T01 §4  | Drive enumeration and arrival or removal              | none  | 4     |
 | [ ]    | D01 T01 §5  | Simulated drive for tests                             | none  | 5     |
 | [ ]    | D01 T01 §6  | 64-bit image file reading and writing                 | none  | 5     |
@@ -50,13 +49,14 @@ Sections: 21 | Checklist items: 87
 | [ ]    | D01 T02 §1  | CD table of contents, ATIP and CD-TEXT                | none  | 4     |
 | [ ]    | D01 T02 §2  | CD sector reader with read command detection          | none  | 4     |
 | [ ]    | D01 T02 §3  | CUE, CCD and CDM image descriptions with 64-bit sizes | none  | 4     |
+| [ ]    | D01 T02 §7  | Read CD tracks to WAV and ISO                         | none  | 3     |
+| [ ]    | D01 T02 §8  | Subcode analysis                                      | none  | 3     |
 | [ ]    | D01 T02 §4  | Single-session CD read to CUE with IMG                | none  | 4     |
 | [ ]    | D01 T02 §5  | Multi-session CD read to CCD or CDM with subcode      | none  | 4     |
 | [ ]    | D01 T02 §6  | CD compare engine                                     | none  | 3     |
-| [ ]    | D01 T02 §7  | Read CD tracks to WAV and ISO                         | none  | 3     |
-| [ ]    | D01 T02 §8  | Subcode analysis                                      | none  | 3     |
 | [ ]    | D01 T02 §9  | CD writing in SAO, RAW+16 and RAW+96                  | none  | 5     |
 | [ ]    | D01 T02 §10 | CD-RW erase                                           | none  | 3     |
+| [ ]    | D01 T01 §3  | ASPI removed                                          | none  | 4     |
 
 ### Phase 3: DVD engine
 
@@ -107,7 +107,7 @@ Sections: 4 | Checklist items: 20
 
 ### Phase 6: Interface
 
-Sections: 36 | Checklist items: 170
+Sections: 36 | Checklist items: 171
 
 | Status | Reference   | Deliverable                                          | Needs        | Items |
 | ------ | ----------- | ---------------------------------------------------- | ------------ | ----- |
@@ -115,9 +115,10 @@ Sections: 36 | Checklist items: 170
 | [ ]    | D03 T01 §2  | Bundled fonts loaded for the process                 | none         | 4     |
 | [ ]    | D03 T01 §3  | Per-monitor scaling                                  | none         | 3     |
 | [ ]    | D03 T01 §4  | Light, dark and high contrast themes, switching live | none         | 4     |
-| [ ]    | D03 T01 §5  | Owner-drawn controls                                 | none         | 5     |
 | [ ]    | D03 T01 §6  | Icons from the masters at every scale                | none         | 4     |
-| [ ]    | D03 T01 §7  | Main window frame, task rail and status bar          | none         | 6     |
+| [ ]    | D03 T01 §16 | Review renders of every screen                       | windows-host | 4     |
+| [ ]    | D03 T01 §5  | Owner-drawn controls                                 | none         | 5     |
+| [ ]    | D03 T01 §7  | Main window frame, task rail and status bar          | none         | 7     |
 | [ ]    | D03 T01 §8  | Drive strip with media chips                         | none         | 5     |
 | [ ]    | D03 T01 §9  | Original and Copy cards                              | none         | 4     |
 | [ ]    | D03 T01 §10 | Disc surface map control                             | none         | 5     |
@@ -126,7 +127,6 @@ Sections: 36 | Checklist items: 170
 | [ ]    | D03 T01 §13 | Log drawer                                           | none         | 5     |
 | [ ]    | D03 T01 §14 | Messages and confirmations                           | none         | 5     |
 | [ ]    | D03 T01 §15 | Keyboard and screen reader support                   | none         | 5     |
-| [ ]    | D03 T01 §16 | Review renders of every screen                       | windows-host | 4     |
 | [ ]    | D03 T02 §1  | Read to image pane                                   | none         | 7     |
 | [ ]    | D03 T02 §2  | Write image pane                                     | none         | 7     |
 | [ ]    | D03 T02 §3  | Clone disc pane                                      | none         | 5     |
@@ -150,11 +150,11 @@ Sections: 36 | Checklist items: 170
 
 ### Phase 7: Release
 
-Sections: 6 | Checklist items: 23
+Sections: 6 | Checklist items: 24
 
 | Status | Reference  | Deliverable                                       | Needs        | Items |
 | ------ | ---------- | ------------------------------------------------- | ------------ | ----- |
-| [ ]    | D04 T01 §7 | Complete English string set with a coverage check | none         | 5     |
+| [ ]    | D04 T01 §7 | Complete English string set with a coverage check | none         | 6     |
 | [ ]    | D04 T02 §1 | Install layout from the build                     | none         | 4     |
 | [ ]    | D04 T02 §2 | Portable ZIP                                      | none         | 3     |
 | [ ]    | D04 T02 §3 | Installer                                         | windows-host | 4     |
@@ -174,4 +174,4 @@ Sections: 4 | Checklist items: 15
 
 Progress: 0/103 verified sections, 1 ready to run now.
 
-Checklist: 0/451 items completed (includes Commit items).
+Checklist: 0/453 items completed (includes Commit items).
