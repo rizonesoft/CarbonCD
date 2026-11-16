@@ -10,12 +10,14 @@ CarbonCD is Rizonesoft's Windows disc imaging tool (C++ on MFC, formerly CD Mani
 | `CarbonCD.sln` | The Visual Studio solution, at the root, pointing at `src\cdm.vcxproj` |
 | `Bin/` | Build output (`Bin\Release`, `Bin\Debug`); the project writes here through `..\Bin` |
 | `Distribution/` | Files shipped beside the executable: help file and `.cml` language files |
+| `design/` | The design contract (`DESIGN.md`), the interface spec (`SPEC.md`), `tokens.json`, artwork and `build.py` |
 | `todo/` | The live plan; `todo/implementation-plan.md` is generated from it |
 | `scripts/`, `.conclave/` | Conclave kit tooling and pins (todo graph, reviewer, language servers, C++ toolchain) |
 
 ## Verify
 
 - Build: `msbuild CarbonCD.sln -p:Configuration=Release -p:Platform=Win32` (needs the MFC component of Visual Studio and the toolset the project names). Run a full build through `bosun run -- <command>`.
+- Design assets: `python design/build.py` redraws every asset and the app resources in `src/res` from `design/tokens.json`. Change art there, never in an output file.
 - Plan: `python scripts/todo-graph.py validate` and `python scripts/todo-graph.py plan --check`.
 - Toolchain and language servers: `python scripts/toolchain-check.py --pins .conclave/toolchain-cpp.json` and `python scripts/lsp-diagnostics.py --all --changed`.
 - Source files are not all UTF-8: `src/cdm.rc` and some comments are code page 932 (Japanese). Never re-encode a file as a side effect of an edit.
