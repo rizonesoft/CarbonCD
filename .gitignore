@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+# Visual Studio per-user state and resource editor cache
+.vs/
+*.suo
+*.aps
