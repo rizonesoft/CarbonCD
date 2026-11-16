@@ -1,0 +1,15 @@
+{
+  "title": "CarbonCD 2 implementation plan",
+  "acceptance": "every dialog, setting and disc operation in the plan works end to end on CD and DVD media in a 64-bit Unicode build",
+  "phases": {
+    "0": "Repository and tooling",
+    "1": "Build modernisation",
+    "2": "Engine foundations and CD engine",
+    "3": "DVD engine",
+    "4": "Mastering",
+    "5": "Settings and language",
+    "6": "Interface",
+    "7": "Release",
+    "99": "Manual, operator only"
+  }
+}
