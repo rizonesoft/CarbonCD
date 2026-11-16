@@ -145,7 +145,7 @@ SPEC S15.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S15
+**Fidelity:** `design/SPEC.md` S15; reference render `design/mockups/language.png` and `design/mockups/language-dark.png`, matched 1:1
 **Job:** The user picks their language and sees it applied at once
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Its own small window with the title bar treatment of S1.1

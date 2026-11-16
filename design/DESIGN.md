@@ -9,7 +9,7 @@ This file is binding. The interface is built to it and to [SPEC.md](./SPEC.md), 
 - `design/tokens.json` is the only source of colours, type roles, spacing, radii and icon geometry. Code reads generated values, never a literal colour or size typed into a `.cpp` or `.rc` file.
 - `design/build.py` draws every asset from the tokens: `python design/build.py` writes the SVG masters, the PNG renders, `design/sheet.html`, and the resources the app compiles in (`src/res/cdm.ico`, `src/res/idr_main.ico`, `src/res/AboutImage.bmp` and the button bitmaps). Art is changed in `build.py` or the tokens and rebuilt, never by editing an output.
 - A visual change lands in this order: tokens or `build.py`, then this file and `SPEC.md`, then code. A code review that finds a value not in the tokens sends it back.
-- The mockups in `design/mockups/` are the reference renders. A screen is done when it matches its mockup at 100, 150 and 200 percent scale in the light and dark themes, with real data.
+- The mockups in `design/mockups/` are the reference renders: one per screen, in light and dark, listed in `design/mockups/README.md`, drawn from the HTML and CSS in `design/sheet.html`. A screen is done when it matches its mockup at 100, 150 and 200 percent scale in the light and dark themes, with real data.
 - Every control in `SPEC.md` works or is absent. A control that is drawn but does nothing is a defect.
 
 ## 2. The idea

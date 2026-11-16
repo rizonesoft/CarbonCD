@@ -226,8 +226,11 @@ def about_banner():
 
 
 # ---------------------------------------------------------------- interface mockups (HTML)
+DARK = [False]  # set while a dark screen is being built
+
+
 def _btn(key, cls):
-    return svg_inline(button(key), 64, 64, cls, LABEL[key])
+    return svg_inline(button(key, DARK[0]), 64, 64, cls, LABEL[key])
 
 
 def _chrome(title_extra=""):
@@ -242,7 +245,8 @@ def _rail(active, busy=False):
         out += '<div class="ri%s">%s<span>%s</span></div>' % (" on" if k == active else "", _btn(k, "ric"), LABEL[k])
     out += '<div class="rsp"></div>'
     for k in ("erase", "drive"):
-        out += '<div class="ri">%s<span>%s</span></div>' % (_btn(k, "ric"), LABEL[k])
+        out += '<div class="ri%s">%s<span>%s</span></div>' % (" on" if k == active else "", _btn(k, "ric"), LABEL[k])
+    out += '<div class="rf"><span>Settings</span><span>About</span></div>'
     return '<div class="rail%s">%s</div>' % (" busy" if busy else "", out)
 
 
@@ -292,7 +296,7 @@ def mock_progress():
 <div class="sb"><span>READ(12) LBA 1 909 664 length 32 ok</span><span>Log &#9652;</span></div></div>'''
 
 
-MOCK_CSS = '''
+MOCK_CSS_T = '''
 .win{width:820px;border-radius:8px;overflow:hidden;box-shadow:0 18px 50px rgba(20,23,43,.3);font:12.500px/1.35 'Segoe UI Variable Text','Segoe UI',sans-serif;display:flex;flex-direction:column;background:%(window)s;color:%(text)s}
 .tb{display:flex;align-items:center;gap:8px;height:34px;padding:0 12px;flex:none;background:%(primary)s;color:%(on-primary)s}
 .tb b{font-weight:600}.tbi{width:18px;height:18px}.ctl{margin-left:auto;display:flex;opacity:.75}.tbm{opacity:.7;margin-left:6px}
@@ -302,6 +306,7 @@ MOCK_CSS = '''
 .ri.on{background:%(surface)s;box-shadow:inset 3px 0 0 %(primary)s,0 1px 2px rgba(30,42,120,.12);font-weight:700}
 .rail.busy .ri:not(.on){opacity:.4}
 .ric{width:28px;height:28px;flex:none}.rsp{flex:1}
+.rf{display:flex;gap:16px;padding:10px 8px 2px;margin-top:6px;border-top:1px solid %(line-soft)s;font-weight:600;font-size:12px;color:%(link)s}
 .pane{flex:1;padding:16px 22px 20px;display:flex;flex-direction:column;gap:13px;min-width:0}
 .drv{display:flex;align-items:center;gap:8px;padding-bottom:13px;border-bottom:1px dashed %(line)s}
 .sel,.inp{display:flex;align-items:center;justify-content:space-between;gap:8px;height:30px;padding:0 10px;border-radius:5px;white-space:nowrap;min-width:0;flex:1;background:%(surface)s;border:1px solid %(line)s}
@@ -341,7 +346,288 @@ MOCK_CSS = '''
 .stats{display:flex;gap:26px}
 .stats em{display:block;font:500 9.500px 'IBM Plex Mono',Consolas,monospace;letter-spacing:.12em;font-style:normal;color:%(text-muted)s}
 .stats b{font:500 16px 'IBM Plex Mono',Consolas,monospace}.stats .err{color:%(error)s}
-''' % L
+'''
+
+MOCK_CSS_MORE = '''
+.tabs{display:flex;gap:18px;border-bottom:1px solid %(line)s}
+.tabs span{padding:0 0 8px;font-weight:600;color:%(text-muted)s}
+.tabs .on{color:%(primary)s;box-shadow:inset 0 -3px 0 %(primary)s}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:7px 12px;align-items:baseline}
+.kv em,.lbl{font:500 11px 'IBM Plex Mono',Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;font-style:normal;color:%(text-muted)s}
+.kv b{font:500 12.500px 'IBM Plex Mono',Consolas,monospace}
+.tbl{border:1px solid %(line)s;border-radius:5px;background:%(surface)s;overflow:hidden}
+.tbl>div{display:grid;gap:8px;padding:6px 10px;border-bottom:1px solid %(line-soft)s;align-items:center;font:12px 'IBM Plex Mono',Consolas,monospace}
+.tbl>div:last-child{border-bottom:0}
+.tbl .hd{font:500 10px 'IBM Plex Mono',Consolas,monospace;letter-spacing:.08em;text-transform:uppercase;color:%(text-muted)s;background:%(rail)s}
+.c5{grid-template-columns:20px 30px 70px 1fr 1fr 90px}
+.c4{grid-template-columns:96px 54px 54px 1fr}
+.c3{grid-template-columns:70px 100px 1fr}
+.capbar{height:10px;background:%(map-pending)s;border-radius:5px;overflow:hidden}.capbar div{height:100%%;background:%(primary)s}
+.caprow{display:flex;justify-content:space-between;font:11px 'IBM Plex Mono',Consolas,monospace;color:%(text-muted)s;margin-top:-8px}
+.files{display:grid;grid-template-columns:170px 1fr;gap:8px;height:132px}
+.files>div{border:1px solid %(line)s;border-radius:5px;background:%(surface)s;padding:7px 9px;font-size:12px;display:flex;flex-direction:column;gap:5px;overflow:hidden}
+.frow{display:flex;justify-content:space-between;gap:8px}.frow span:last-child{font:11.500px 'IBM Plex Mono',Consolas,monospace;color:%(text-muted)s}
+.frow.on{font-weight:700;color:%(primary)s}
+.lose{border:1.500px solid %(error)s;background:%(surface)s;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.lose em{font:500 10px 'IBM Plex Mono',Consolas,monospace;letter-spacing:.14em;font-style:normal;color:%(error)s}
+.lose span{font:11px 'IBM Plex Mono',Consolas,monospace}
+.note{color:%(text-muted)s;margin:0;max-width:none}
+.okc{color:%(ok)s}.warnc{color:%(warn)s}.errc{color:%(error)s}
+.reason{color:%(text-muted)s;font-size:11.500px;align-self:center}
+.dis{opacity:.4}
+.drawer{background:%(surface)s;border-top:1px solid %(line)s;padding:8px 12px;font:11px/1.7 'IBM Plex Mono',Consolas,monospace;flex:none}
+.drawer .hdr{display:flex;gap:14px;align-items:center;font:500 10px 'IBM Plex Mono',Consolas,monospace;letter-spacing:.08em;text-transform:uppercase;color:%(text-muted)s;margin-bottom:4px}
+.drawer .hdr b{color:%(primary)s}.drawer .hdr i{margin-left:auto;font-style:normal;color:%(link)s;text-decoration:underline}
+.drawer p{margin:0;max-width:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.drawer s{text-decoration:none;color:%(text-muted)s;margin-right:8px}
+.dbody{padding:18px 20px 20px;display:flex;flex-direction:column;gap:13px}
+.dacts{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}
+.dbody h5{margin:0;font:800 19px 'Bricolage Grotesque','Segoe UI',sans-serif;color:%(primary)s}
+.msf{display:grid;grid-template-columns:90px 1fr;gap:9px 12px;align-items:center}
+.msf .three{display:flex;gap:6px}.msf .inp{font:12.500px 'IBM Plex Mono',Consolas,monospace;justify-content:flex-end}
+.abt{display:flex;flex-direction:column;gap:6px}
+'''
+
+
+def mock_css(palette):
+    return (MOCK_CSS_T + MOCK_CSS_MORE) % palette
+
+
+MOCK_CSS = mock_css(L)
+
+CHIPS_DVD = (("DVD+R DL", 1), ("2 layers", 0), ("6.31 GB used", 0))
+CHIPS_BLANK = (("DVD+R DL", 1), ("Blank", 0), ("8.55 GB free", 0))
+CHIPS_CD = (("CD-ROM", 1), ("1 session, 6 tracks", 0), ("52:14:33", 0))
+CHIPS_RW = (("DVD-RW", 1), ("1 layer", 0), ("3.10 GB used", 0))
+
+
+def _drive(chips, link=True):
+    out = '<div class="drv"><div class="sel">E: &nbsp; HL-DT-ST BD-RE BH16NS40 <i>&#9662;</i></div>'
+    out += "".join('<span class="chip%s">%s</span>' % (" y" if y else "", t) for t, y in chips)
+    return out + ('<span class="lnk">Recognise disc</span>' if link else "") + "</div>"
+
+
+def _pane(active, inner, status, extra="", busy=False, drawer=""):
+    return ('<div class="win">%s<div class="body">%s<div class="pane">%s</div></div>%s'
+            '<div class="sb"><span>%s</span><span>Log &#9652;</span></div></div>') % (
+        _chrome(extra), _rail(active, busy), inner, drawer, status)
+
+
+def _dialog(title, width, inner):
+    ctl = ('<span class="ctl"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" fill="none" '
+           'stroke="currentColor" stroke-width="1.200"><path d="M2 2l8 8M10 2l-8 8"/></svg></span>')
+    return '<div class="win" style="width:%dpx"><div class="tb"><b>%s</b>%s</div><div class="dbody">%s</div></div>' % (width, title, ctl, inner)
+
+
+def _row(label, html):
+    return '<div class="row"><label>%s</label>%s</div>' % (label, html)
+
+
+def _ck(text, on=False, dis=False):
+    return '<span class="ck%s"><span class="bx%s"></span>%s</span>' % (" dis" if dis else "", " on" if on else "", text)
+
+
+def _cards(o_title, o_detail, c_title, c_detail):
+    return ('<div class="cc"><div class="cc1"><em>ORIGINAL</em><b>%s</b><span>%s</span></div><div class="ccar">&#8594;</div>'
+            '<div class="cc2"><em>COPY</em><b>%s</b><span>%s</span></div></div>') % (o_title, o_detail, c_title, c_detail)
+
+
+def _sel(text, cls=""):
+    return '<div class="inp %s">%s <i>&#9662;</i></div>' % (cls, text)
+
+
+def _map(done_fraction, bad=(), layers=2, all_done=False):
+    cols, rows = T["size_px"]["map-columns"], T["size_px"]["map-rows-per-layer"]
+    per = cols * rows
+    done = per * layers if all_done else int(per * layers * done_fraction)
+    out = ""
+    for layer in range(layers):
+        cells = ""
+        for i in range(per):
+            n = layer * per + i
+            cells += '<i class="%s"></i>' % ("bad" if n in bad else ("d" if n < done else ("n" if n == done else "")))
+        out += '<div class="maprow"><em>L%d</em><div class="map">%s</div></div>' % (layer, cells)
+    return out
+
+
+def mock_write():
+    return _pane("write", _drive(CHIPS_BLANK) + '<h4>Write image</h4>'
+                 + _row("Image", '<div class="inp">D:\\Images\\Backup-2026.iso</div><div class="bt">Browse</div>')
+                 + _row("Speed", _sel("8x (11.08 MB/s)", "short") + '<label style="width:auto">Method</label>' + _sel("Automatic", "short"))
+                 + _row("Layer", _sel("Automatic", "short") + '<small>Layer break. Dual-layer discs only.</small>')
+                 + _row("Options", _ck("Buffer underrun protection", True) + _ck("Verify after writing", True) + _ck("Eject when done", True))
+                 + _row("", _ck("Test mode", dis=True) + _ck("Power calibration", dis=True) + '<small>DVD+R has no test write or calibration.</small>')
+                 + _cards("Backup-2026.iso", "6.31 GB &#183; 3 080 112 sectors &#183; UDF 2.50", "DVD+R DL in drive E:", "Holds 8.55 GB &#183; the image needs 6.31 GB")
+                 + '<div class="acts"><div class="bt pri">Write image</div></div>',
+                 "Ready. Drive E: holds a blank DVD+R DL.")
+
+
+def mock_clone():
+    return _pane("clone", _drive(CHIPS_DVD) + '<h4>Clone disc</h4>'
+                 + _row("Target", _sel("F: &nbsp; ASUS DRW-24D5MT"))
+                 + _row("Temp", '<div class="inp">D:\\Temp</div><div class="bt">Browse</div>')
+                 + _row("", '<small>Needs 6.31 GB &#183; 412 GB free on D:</small>')
+                 + _row("Speed", '<label style="width:auto">Read</label>' + _sel("Maximum", "short") + '<label style="width:auto">Write</label>' + _sel("8x", "short"))
+                 + _row("Options", _ck("Verify", True) + _ck("Eject when done", True) + _ck("Skip unreadable sectors"))
+                 + _cards("DVD+R DL in drive E:", "3 080 112 sectors &#183; UDF 2.50", "Blank DVD+R DL in drive F:", "Holds 8.55 GB &#183; through a temporary image")
+                 + '<div class="acts"><div class="bt pri">Clone disc</div></div>',
+                 "Ready. Source in E:, blank disc in F:.")
+
+
+def mock_master():
+    tree = ('<div><div class="frow on"><span>BACKUP_2026</span></div><div class="frow"><span>&nbsp; Documents</span></div>'
+            '<div class="frow"><span>&nbsp; Photos</span></div><div class="frow"><span>&nbsp; &nbsp; 2026</span></div><div class="frow"><span>&nbsp; Video</span></div></div>')
+    files = ('<div><div class="frow"><span>Documents</span><span>412 files</span></div><div class="frow"><span>Photos</span><span>788 files</span></div>'
+             '<div class="frow"><span>Video</span><span>3 files</span></div><div class="frow"><span>archive-2025.zip</span><span>1.20 GB</span></div>'
+             '<div class="frow"><span>readme.txt</span><span>2.10 KB</span></div></div>')
+    return _pane("master", _drive(CHIPS_BLANK) + '<h4>Master disc</h4>'
+                 + _row("Type", '<div class="seg"><span>Data CD</span><span>Audio CD</span><span>Mixed CD</span><span class="on">Data DVD</span></div>'
+                        + '<label style="width:auto">Label</label><div class="inp">BACKUP_2026</div>')
+                 + _row("Files", '<div class="bt">Add files</div><div class="bt">Add folder</div><div class="bt">New folder</div><div class="bt">Rename</div><div class="bt">Remove</div>')
+                 + '<div class="files">%s%s</div>' % (tree, files)
+                 + '<div class="capbar"><div style="width:45%"></div></div>'
+                 + '<div class="caprow"><span>3.82 GB of 8.55 GB &#183; 1 865 234 of 4 173 824 sectors</span><span>ISO 9660 + Joliet + UDF 1.02</span></div>'
+                 + _cards("1 204 files", "3.82 GB &#183; largest file 1.20 GB", "DVD+R DL in drive E:", "4.73 GB will stay free")
+                 + '<div class="acts"><div class="bt pri">Write to disc</div><div class="bt">Create image</div><div class="bt">Options</div></div>',
+                 "Ready. 1 204 files in the project.")
+
+
+def mock_tracks():
+    rows = '<div class="hd c5"><span></span><span>No</span><span>Type</span><span>Start</span><span>LBA</span><span>Length</span></div>'
+    data = (("01", "Data", "00:02:00", "0", "21:40:12", 1), ("02", "Audio", "21:42:12", "97 512", "04:12:33", 1), ("03", "Audio", "25:54:45", "116 445", "03:58:10", 1),
+            ("04", "Audio", "29:52:55", "134 305", "05:01:62", 0), ("05", "Audio", "34:54:42", "156 942", "04:40:08", 0), ("06", "Audio", "39:34:50", "177 950", "12:39:58", 0))
+    for no, typ, start, lba, length, on in data:
+        rows += '<div class="c5"><span class="bx%s"></span><span>%s</span><span>%s</span><span>%s</span><span>%s</span><span>%s</span></div>' % (
+            " on" if on else "", no, typ, start, lba, length)
+    return _pane("tracks", _drive(CHIPS_CD) + '<h4>Read tracks</h4><div class="tbl">%s</div>' % rows
+                 + _row("Folder", '<div class="inp">D:\\Music\\Album</div><div class="bt">Browse</div>')
+                 + '<div class="acts"><div class="bt pri">Read tracks</div><div class="bt">Options</div><span class="reason">3 tracks: audio as 02.wav, 03.wav; data as 01.iso</span></div>',
+                 "Ready. Drive E: holds a CD with 6 tracks.")
+
+
+def mock_subcode():
+    rows = '<div class="hd c3"><span>Track</span><span>Index</span><span>Start</span></div>'
+    for t, i, s in (("01", "01", "00:02:00"), ("02", "00", "21:40:12"), ("02", "01", "21:42:12"), ("03", "00", "25:52:45"), ("03", "01", "25:54:45")):
+        rows += '<div class="c3"><span>%s</span><span>%s</span><span>%s</span></div>' % (t, i, s)
+    return _pane("subcode", _drive(CHIPS_CD) + '<h4>Subcode</h4>'
+                 + _row("Method", '<b style="font:500 12.500px \'IBM Plex Mono\',Consolas,monospace">Raw 96 &#183; 8x</b><span class="lnk">Change</span>')
+                 + '<p class="note">The accurate table of contents, read from the Q channel:</p><div class="tbl">%s</div>' % rows
+                 + '<div class="acts"><div class="bt pri">Analyse subcode</div><div class="bt">Save as cue sheet</div><span class="lnk" style="align-self:center">MSF calculator</span></div>',
+                 "Subcode analysed. 2 pregaps found.")
+
+
+def mock_erase():
+    return _pane("erase", _drive(CHIPS_RW) + '<h4>Erase disc</h4>'
+                 + _row("Method", '<div class="seg"><span class="on">Quick</span><span>Full</span></div><small>Quick takes about a minute. Full writes the whole disc and cannot be stopped.</small>')
+                 + '<div class="lose"><em>WILL BE LOST</em><b>PHOTOS</b><span>3.10 GB in use &#183; 1 session</span></div>'
+                 + '<div class="acts"><div class="bt pri">Erase disc</div></div>',
+                 "Ready. Drive E: holds a DVD-RW.")
+
+
+def mock_drive():
+    rows = '<div class="hd c4"><span>Media</span><span>Reads</span><span>Writes</span><span>Write speeds</span></div>'
+    for m, r, w, s in (("CD-R", "Yes", "Yes", "16x, 24x, 32x, 48x"), ("CD-RW", "Yes", "Yes", "10x, 16x, 24x"), ("DVD-R", "Yes", "Yes", "4x, 6x, 8x, 16x"),
+                       ("DVD+R DL", "Yes", "Yes", "2.4x, 4x, 6x, 8x"), ("DVD-RAM", "Yes", "Yes", "3x, 5x"), ("BD", "Yes", "Not supported", "")):
+        rows += '<div class="c4"><span>%s</span><span>%s</span><span>%s</span><span>%s</span></div>' % (m, r, w, s)
+    return _pane("drive", _drive(CHIPS_DVD) + '<h4>Drive info</h4><div class="tabs"><span class="on">Drive</span><span>Disc</span></div>'
+                 + '<div class="kv"><em>Vendor</em><b>HL-DT-ST</b><em>Model</em><b>BD-RE BH16NS40</b><em>Firmware</em><b>1.05</b><em>Buffer</em><b>4 096 KB</b>'
+                   '<em>CD write modes</em><b>SAO, RAW+16, RAW+96 (each with test write)</b></div>'
+                 + '<div class="tbl">%s</div>' % rows,
+                 "Ready.")
+
+
+def mock_disc():
+    return _pane("drive", _drive(CHIPS_DVD) + '<h4>Drive info</h4><div class="tabs"><span>Drive</span><span class="on">Disc</span></div>'
+                 + '<div class="kv"><em>Type</em><b>DVD+R DL</b><em>Book type</em><b>DVD+R DL</b><em>Layers</em><b>2</b><em>Layer break</em><b>1 540 056</b>'
+                   '<em>Sessions</em><b>1, closed</b><em>Capacity</em><b>4 173 824 sectors &#183; 8.55 GB</b><em>In use</em><b>3 080 112 sectors &#183; 6.31 GB</b>'
+                   '<em>File system</em><b>UDF 2.50</b><em>Label</em><b>BACKUP_2026</b></div>'
+                 + '<div class="acts"><div class="bt">Export</div><span class="reason">Text, HTML or CSV. A cue sheet for CDs.</span></div>',
+                 "Ready.")
+
+
+def mock_result():
+    return _pane("read", _drive(CHIPS_DVD, False) + '<h4 class="warnc">Done with unreadable sectors</h4>'
+                 + '<p class="note">The disc was read. 2 sectors could not be read and were written as zeros. The log lists them.</p>'
+                 + _cards("DVD+R DL in drive E:", "3 080 112 sectors &#183; 2 unreadable", "Backup-2026.iso", "6.31 GB &#183; verified against the disc")
+                 + '<div class="maphd"><span>DISC SURFACE &#183; 1 CELL = 7 000 SECTORS</span><span>read <u class="k1"></u> unreadable <u class="k4"></u></span></div>'
+                 + _map(1, (71, 72), all_done=True)
+                 + '<div class="stats"><div><em>READ</em><b>6.31 GB</b></div><div><em>TIME</em><b>09:29</b></div><div><em>AVERAGE</em><b>11.08 MB/s</b></div><div><em>UNREADABLE</em><b class="err">2 sectors</b></div></div>'
+                 + '<div class="acts"><div class="bt pri">Close</div><div class="bt">Open folder</div><div class="bt">Eject</div><div class="bt">Save log</div><div class="bt">Do it again</div></div>',
+                 "Done. 6.31 GB read, 2 sectors unreadable.", ' <span class="tbm">Done</span>')
+
+
+def mock_log():
+    lines = (("14:02:07", "", "GET CONFIGURATION: current profile 002Bh DVD+R DL"), ("14:02:08", "", "READ CAPACITY: 3 080 112 sectors of 2048 bytes"),
+             ("14:05:31", "warnc", "READ(12) LBA 497 104 length 32: medium error 03 11 05, retrying sector by sector"),
+             ("14:05:36", "errc", "Sector 497 112 unreadable after 3 tries, written as zeros"),
+             ("14:05:41", "errc", "Sector 497 113 unreadable after 3 tries, written as zeros"), ("14:08:00", "", "READ(12) LBA 1 909 664 length 32 ok"))
+    body = "".join('<p class="%s"><s>%s</s>%s</p>' % (c, t, x) for t, c, x in lines)
+    drawer = '<div class="drawer"><div class="hdr"><b>All</b><span>Warnings and errors</span><i>Save log</i><span>Clear</span></div>%s</div>' % body
+    inner = (_drive(CHIPS_DVD, False) + '<h4>Reading disc</h4>'
+             + _cards("DVD+R DL in drive E:", "3 080 112 sectors &#183; UDF 2.50", "Backup-2026.iso", "3.91 of 6.31 GB written")
+             + '<div class="maphd"><span>DISC SURFACE &#183; 1 CELL = 7 000 SECTORS</span><span>read <u class="k1"></u> reading <u class="k2"></u> pending <u class="k3"></u> unreadable <u class="k4"></u></span></div>'
+             + _map(0.62, (71, 72)) + '<div class="bar"><div style="width:62%"></div></div>'
+             + '<div class="acts"><div class="bt pri">Stop</div><div class="bt">Hide log</div></div>')
+    return _pane("read", inner, "READ(12) LBA 1 909 664 length 32 ok", ' <span class="tbm">Reading to Backup-2026.iso</span>', True, drawer)
+
+
+def mock_settings():
+    return _dialog("Settings", 520, '<div class="tabs"><span class="on">General</span><span>Sounds</span><span>Drive</span><span>Subcode</span></div>'
+                   + _row("Language", _sel("English", "short") + '<span class="lnk">More languages</span>')
+                   + _row("Theme", '<div class="seg"><span class="on">Follow Windows</span><span>Light</span><span>Dark</span></div>')
+                   + _row("Temp", '<div class="inp">D:\\Temp</div><div class="bt">Browse</div>')
+                   + _row("Log", _ck("Save the log to a file after each task", True))
+                   + _row("", '<div class="inp">D:\\Logs\\CarbonCD.log</div><div class="bt">Browse</div>')
+                   + _row("Priority", _sel("Normal", "short"))
+                   + '<div class="dacts"><div class="bt">Cancel</div><div class="bt pri">Save</div></div>')
+
+
+def mock_about():
+    return _dialog("About CarbonCD", 480, '<div style="margin:-18px -20px 0;line-height:0">%s</div>' % svg_inline(about_banner(), 600, 150, "banner", "About banner")
+                   + '<div class="abt"><b>CarbonCD 2.0.0</b><span class="lbl">64-bit &#183; build 2026.11.16</span>'
+                     '<span>Copyright 2017 to 2026 Rizonesoft. MIT licence.</span>'
+                     '<p class="note">Please do not use this program to make illegal copies of copyrighted work.</p></div>'
+                   + '<div class="dacts"><span class="lnk" style="margin-right:auto;align-self:center">Rizonesoft Online</span><div class="bt">Help</div><div class="bt">Copy version</div><div class="bt pri">Close</div></div>')
+
+
+def mock_language():
+    rows = '<div class="hd c3" style="grid-template-columns:1fr 1fr"><span>Language</span><span>Author</span></div>'
+    for lang, who, on in (("English", "Rizonesoft", 1), ("Fran&#231;ais", "Rizonesoft", 0), ("&#54620;&#44397;&#50612;", "VenusGirl", 0)):
+        rows += '<div style="grid-template-columns:1fr 1fr;%s"><span>%s</span><span>%s</span></div>' % ("font-weight:700" if on else "", lang, who)
+    return _dialog("Language", 420, '<div class="tbl">%s</div><div class="dacts"><div class="bt">Cancel</div><div class="bt pri">Use this language</div></div>' % rows)
+
+
+def mock_message():
+    return _dialog("Erase disc", 420, '<h5>Erase this disc?</h5><p class="note">Everything on it will be lost.</p>'
+                   '<div class="dacts"><div class="bt pri">Cancel</div><div class="bt">Erase disc</div></div>')
+
+
+def mock_msf():
+    three = '<div class="three"><div class="inp">%s</div><div class="inp">%s</div><div class="inp">%s</div></div>'
+    return _dialog("MSF calculator", 360, '<div class="msf"><span class="lbl">MSF</span>' + three % ("00", "02", "00")
+                   + '<span class="lbl">MSF + 150</span>' + three % ("00", "04", "00")
+                   + '<span class="lbl">LBA</span><div class="inp">0</div><span class="lbl">LBA hex</span><div class="inp">0</div></div>'
+                   + '<div class="dacts"><div class="bt">Zero</div><div class="bt pri">Close</div></div>')
+
+
+# name, builder, canvas height, the SPEC section it is the reference for
+SCREENS = [
+    ("main-read", mock_read, 540, "S1, S2, S3"), ("write", mock_write, 580, "S4"), ("clone", mock_clone, 580, "S5"),
+    ("master", mock_master, 660, "S6"), ("tracks", mock_tracks, 580, "S7"), ("subcode", mock_subcode, 580, "S8"),
+    ("erase", mock_erase, 540, "S9"), ("drive-info", mock_drive, 620, "S10.1"), ("drive-info-disc", mock_disc, 560, "S10.2"),
+    ("progress-surface-map", mock_progress, 640, "S11"), ("result", mock_result, 640, "S12"), ("log-drawer", mock_log, 700, "S17"),
+    ("settings", mock_settings, 440, "S14.1"), ("about", mock_about, 420, "S16"), ("language", mock_language, 300, "S15"),
+    ("message", mock_message, 240, "S13"), ("msf-calculator", mock_msf, 320, "S10.3"),
+]
+
+
+def screen_html(builder, dark):
+    DARK[0] = dark
+    try:
+        return builder()
+    finally:
+        DARK[0] = False
+
 
 FONT_LINK = ("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&amp;family=IBM+Plex+Mono:wght@400;500"
              "&amp;family=Instrument+Sans:wght@400;500;600;700&amp;display=swap")
@@ -391,6 +677,8 @@ def sheet():
     def toks(group):
         return "".join('<div><i style="background:%s"></i><span>%s<code>%s</code></span></div>' % (v, k, v) for k, v in group.items())
 
+    screens = "".join('<h3 id="screen-%s">%s <small style="font-weight:400">SPEC %s</small></h3><div class="scroll"><div class="stage">%s</div></div>'
+                      % (name, name.replace("-", " ").capitalize(), spec, builder()) for name, builder, _, spec in SCREENS)
     return f'''<title>CarbonCD Design Sheet</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="{FONT_LINK}">
@@ -411,12 +699,9 @@ def sheet():
 <div class="frame narrow">{svg_inline(banner(1280, 640), 1280, 640, "banner", "Social share banner")}</div>
 <h2>About banner <small>600 by 150</small></h2>
 <div class="frame about">{svg_inline(about_banner(), 600, 150, "banner", "About banner")}</div>
-<h2>Interface: choose a task</h2>
-<p>One window. The rail holds the six disc tasks and two tools; the pane holds the task. The original and the copy are always shown side by side before anything starts.</p>
-<div class="scroll"><div class="stage" id="mock-read">{mock_read()}</div></div>
-<h2>Interface: watch it run</h2>
-<p>The surface map draws the disc as cells, one row block per layer. Every read, write, clone, verify and erase uses it.</p>
-<div class="scroll"><div class="stage" id="mock-progress">{mock_progress()}</div></div>
+<h2>Interface</h2>
+<p>One window. The rail holds the six disc tasks and two tools; the pane holds the task. The original and the copy are always shown side by side before anything starts, and every long task shows the disc surface map. Each screen below is the reference for the SPEC section named above it; the same screens are rendered in light and dark in design/mockups.</p>
+{screens}
 <h2>Colour tokens</h2>
 <h3>Brand</h3><div class="tok">{toks(B)}</div>
 <h3>Light</h3><div class="tok">{toks(L)}</div>
@@ -545,9 +830,15 @@ def build_rasters():
         for name, w, h, scale in (("github-banner", 1280, 320, 2), ("social-preview", 1280, 640, 1), ("about-banner", 600, 150, 2)):
             with open(os.path.join(brand, name + ".svg"), encoding="ascii") as f:
                 shoot(browser, tmp, f.read(), w, h, scale, os.path.join(brand, name + ".png"))
-        for name, html, h in (("main-read", mock_read(), 540), ("progress-surface-map", mock_progress(), 640)):
-            body = '%s<style>%s body{background:#DCE1F2;display:flex;justify-content:center;padding:30px 0}</style>%s' % (fonts, MOCK_CSS, html)
-            shoot(browser, tmp, body, 880, h, 2, os.path.join(mocks, name + ".png"))
+        for name, builder, h, _ in SCREENS:
+            for dark in (False, True):
+                body = '%s<style>%s body{background:%s;display:flex;justify-content:center;align-items:flex-start;padding:30px 0}</style>%s' % (
+                    fonts, mock_css(D if dark else L), "#07081A" if dark else "#DCE1F2", screen_html(builder, dark))
+                shoot(browser, tmp, body, 880, h, 2, os.path.join(mocks, name + ("-dark" if dark else "") + ".png"))
+        with open(os.path.join(mocks, "README.md"), "w", encoding="ascii", newline="\n") as f:
+            f.write("# Reference renders\n\nGenerated by `python design/build.py`. Each screen is rendered at 200 percent in light (`<name>.png`) and dark (`<name>-dark.png`). The HTML and CSS they are drawn from are in `design/sheet.html`, where every size can be measured.\n\n| Screen | SPEC | Light | Dark |\n| ------ | ---- | ----- | ---- |\n")
+            for name, _, _, spec in SCREENS:
+                f.write("| %s | %s | [%s.png](./%s.png) | [%s-dark.png](./%s-dark.png) |\n" % (name.replace("-", " ").capitalize(), spec, name, name, name, name))
 
 
 if __name__ == "__main__":

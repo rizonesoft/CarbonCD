@@ -2,7 +2,7 @@
 
 Every window, control, state and message of CarbonCD 2. The look is fixed by [DESIGN.md](./DESIGN.md); this file fixes what exists and what it does. Section numbers (`S1`, `S2.3`) are stable addresses that the TODO files cite.
 
-Reference renders: [mockups/main-read.png](./mockups/main-read.png) (S1, S3) and [mockups/progress-surface-map.png](./mockups/progress-surface-map.png) (S11).
+Reference renders: every screen has one, in light and dark, listed in [mockups/README.md](./mockups/README.md). A screen is built to match its render 1:1; the HTML and CSS the renders are drawn from are in [sheet.html](./sheet.html), where every size, gap and colour can be measured. Where a render and this text disagree, fix the design first (`design/build.py`), then the code.
 
 ## S0. Scope of version 2.0
 

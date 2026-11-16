@@ -16,6 +16,7 @@ title: "TODO-02 -- Task panes and dialogs"
 
 - `design/SPEC.md` S3 to S10, S14, S16, and S1 (file drop and keys).
 - `design/DESIGN.md` sections 5, 6 and 10.
+- `design/mockups/README.md`: the reference render of every pane and dialog, in light and dark, matched 1:1; `design/sheet.html` holds the HTML and CSS to measure from.
 - The dialogs and classes named in Current state: each section replaces one and deletes it.
 - -> XREF: D03 T01 §12 -- §1 here builds on it
 - -> XREF: D03 T01 §14 -- §1 here builds on it
@@ -107,7 +108,7 @@ SPEC S3, for CDs and DVDs.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/mockups/main-read.png`; `design/SPEC.md` S3.1 to S3.9 and the CD options list
+**Fidelity:** `design/mockups/main-read.png`; `design/SPEC.md` S3.1 to S3.9 and the CD options list; reference render `design/mockups/main-read.png` and `design/mockups/main-read-dark.png`, matched 1:1
 **Job:** The user saves a disc as an image file, choosing where, in what format and how careful to be
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -134,7 +135,7 @@ SPEC S4, for CD and DVD images.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S4.1 to S4.12
+**Fidelity:** `design/SPEC.md` S4.1 to S4.12; reference render `design/mockups/write.png` and `design/mockups/write-dark.png`, matched 1:1
 **Job:** The user writes an image file to a blank disc with the options that disc allows
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -161,7 +162,7 @@ SPEC S5.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S5.1 to S5.7
+**Fidelity:** `design/SPEC.md` S5.1 to S5.7; reference render `design/mockups/clone.png` and `design/mockups/clone-dark.png`, matched 1:1
 **Job:** The user copies one disc to another, with one drive or two
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -186,7 +187,7 @@ The frame of SPEC S6: what kind of disc is being built and how full it is.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S6.1, S6.2, S6.5, S6.6, S6.7
+**Fidelity:** `design/SPEC.md` S6.1, S6.2, S6.5, S6.6, S6.7; reference render `design/mockups/master.png` and `design/mockups/master-dark.png`, matched 1:1
 **Job:** The user sets what disc they are building and sees how much room is left
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -210,7 +211,7 @@ SPEC S6.3: the CD track list.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S6.3
+**Fidelity:** `design/SPEC.md` S6.3; reference render `design/mockups/master.png` and `design/mockups/master-dark.png`, matched 1:1
 **Job:** The user arranges the data and audio tracks of a CD
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -234,7 +235,7 @@ SPEC S6.4: the files of the data track.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S6.4
+**Fidelity:** `design/SPEC.md` S6.4; reference render `design/mockups/master.png` and `design/mockups/master-dark.png`, matched 1:1
 **Job:** The user chooses and arranges the files that go on the disc
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -259,7 +260,7 @@ SPEC S6.8 to S6.10: the two outputs.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S6.8, S6.9, S6.10
+**Fidelity:** `design/SPEC.md` S6.8, S6.9, S6.10; reference render `design/mockups/master.png` and `design/mockups/master-dark.png`, matched 1:1
 **Job:** The user turns the project into an image file or a finished disc
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -285,7 +286,7 @@ SPEC S7.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S7.1 to S7.4
+**Fidelity:** `design/SPEC.md` S7.1 to S7.4; reference render `design/mockups/tracks.png` and `design/mockups/tracks-dark.png`, matched 1:1
 **Job:** The user pulls chosen tracks off a CD as WAV or ISO files
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -310,7 +311,7 @@ SPEC S8.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S8.1 to S8.3
+**Fidelity:** `design/SPEC.md` S8.1 to S8.3; reference render `design/mockups/subcode.png` and `design/mockups/subcode-dark.png`, matched 1:1
 **Job:** The user finds a CD's true track layout and saves it as a cue sheet
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -335,7 +336,7 @@ SPEC S9.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S9.1 to S9.3; S13 `confirm-erase`
+**Fidelity:** `design/SPEC.md` S9.1 to S9.3; S13 `confirm-erase`; reference render `design/mockups/erase.png` and `design/mockups/erase-dark.png`, matched 1:1
 **Job:** The user wipes a rewritable disc, knowing what will be lost
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -360,7 +361,7 @@ SPEC S10.1.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S10.1
+**Fidelity:** `design/SPEC.md` S10.1; reference render `design/mockups/drive-info.png` and `design/mockups/drive-info-dark.png`, matched 1:1
 **Job:** The user checks what their drive can read and write, and how fast
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -384,7 +385,7 @@ SPEC S10.2: what is on the disc, and saving it.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S10.2
+**Fidelity:** `design/SPEC.md` S10.2; reference render `design/mockups/drive-info-disc.png` and `design/mockups/drive-info-disc-dark.png`, matched 1:1
 **Job:** The user reads a disc's layout and saves it to a file
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -409,7 +410,7 @@ SPEC S10.3.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S10.3
+**Fidelity:** `design/SPEC.md` S10.3; reference render `design/mockups/msf-calculator.png` and `design/mockups/msf-calculator-dark.png`, matched 1:1
 **Job:** The user converts a CD address between its forms
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Its own small window with the title bar treatment of S1.1
@@ -433,7 +434,7 @@ SPEC S14: four pages over the settings store.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S14.1 to S14.4
+**Fidelity:** `design/SPEC.md` S14.1 to S14.4; reference render `design/mockups/settings.png` and `design/mockups/settings-dark.png`, matched 1:1
 **Job:** The user sets how CarbonCD looks, sounds and talks to the drive
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Its own small window with the title bar treatment of S1.1
@@ -459,7 +460,7 @@ SPEC S16.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S16; `design/DESIGN.md` section 9
+**Fidelity:** `design/SPEC.md` S16; `design/DESIGN.md` section 9; reference render `design/mockups/about.png` and `design/mockups/about-dark.png`, matched 1:1
 **Job:** The user finds the version, the licence and where to get help
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Its own small window with the title bar treatment of S1.1

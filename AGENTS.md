@@ -85,6 +85,10 @@ A project with a branch workflow replaces the first rule with its own; the other
 - Haiku is only for near-mechanical work, at least 90% mechanical (read-only lookups, inventories, structural checks), whose output a script or the main loop verifies. Pin `claude-haiku-5-5` or later, declare `mechanical_share:` (90 to 100), point `haiku_replay:` at a record of a known-answer replay that showed no loss against Sonnet, and give it no edit tools. Never use Haiku for review, audit, research, security, debugging, diagnosis, planning or design.
 - Run `node scripts/verify-agent-tiers.mjs` after adding or changing a Claude agent definition in `.claude/agents/`; it enforces these rules.
 
+## Unattended run
+
+The run is Windows-native, because the build is: `pwsh scripts/start-run.ps1` checks the machine and starts an agent session whose goal is to finish the plan through `process-plan`; `-Check` runs only the preflight, `-DryRun` prints what would run, and `-InstallShortcut` puts the launchers on the desktop. A run starts only when the operator starts it and is never restarted. It never touches a real optical drive: disc tasks are proven on the simulated drive, and real-drive checks are phase 99. It never asks the operator a question; it records its decisions in the run file.
+
 ## TODO workflow
 
 Plan and build through the TODO system: [docs/todo-workflow.md](./docs/todo-workflow.md).

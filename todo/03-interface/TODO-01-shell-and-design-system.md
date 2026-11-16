@@ -16,7 +16,7 @@ title: "TODO-01 -- Interface shell and design system"
 
 - `design/DESIGN.md` (binding: sections 1 to 11) and `design/tokens.json`.
 - `design/SPEC.md` S1, S2, S11, S12, S13, S17, S18.
-- `design/mockups/main-read.png` and `design/mockups/progress-surface-map.png`: the reference renders.
+- `design/mockups/README.md`: the reference render of every screen, in light and dark. Each surface section matches its render 1:1; `design/sheet.html` holds the HTML and CSS to measure from.
 - `design/build.py`: the generator §1 and §6 extend.
 - -> XREF: D00 T01 §7 -- §1 here builds on it
 - -> XREF: D04 T01 §1 -- §7 here builds on it
@@ -222,7 +222,7 @@ The window of SPEC S1: no menu bar, the rail on the left, a pane host, the statu
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/mockups/main-read.png`; `design/SPEC.md` S1.1 to S1.6; `design/DESIGN.md` section 5
+**Fidelity:** `design/mockups/main-read.png`; `design/SPEC.md` S1.1 to S1.6; `design/DESIGN.md` section 5; reference render `design/mockups/main-read.png` and `design/mockups/main-read-dark.png`, matched 1:1
 **Job:** The user picks a disc task from the rail and always sees where they are
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** The top-level window: `primary` title bar with the small app icon, system buttons, no menu bar
@@ -249,7 +249,7 @@ SPEC S2: which drive, what disc, and Recognise disc.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S2.1 to S2.4; top of `design/mockups/main-read.png`
+**Fidelity:** `design/SPEC.md` S2.1 to S2.4; top of `design/mockups/main-read.png`; reference render `design/mockups/main-read.png` and `design/mockups/main-read-dark.png`, matched 1:1
 **Job:** The user chooses a drive and sees at a glance what disc is in it
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -274,7 +274,7 @@ The pair that carries the identity: what is read on white, what is written on ca
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/DESIGN.md` sections 2 and 6; the cards of both mockups
+**Fidelity:** `design/DESIGN.md` sections 2 and 6; the cards of both mockups; reference render `design/mockups/main-read.png` and `design/mockups/main-read-dark.png`, matched 1:1
 **Job:** The user checks, before starting, exactly what will be read and what will be written
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -298,7 +298,7 @@ The grid of cells the owner asked to keep from direction B, drawn in Carbon Copy
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/DESIGN.md` section 7; `design/mockups/progress-surface-map.png`
+**Fidelity:** `design/DESIGN.md` section 7; `design/mockups/progress-surface-map.png`; reference render `design/mockups/progress-surface-map.png` and `design/mockups/progress-surface-map-dark.png`, matched 1:1
 **Job:** The user watches where on the disc the task is, and sees at once where it failed
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -323,7 +323,7 @@ SPEC S11: what replaces the pane while a task runs.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/mockups/progress-surface-map.png`; `design/SPEC.md` S11.1 to S11.7
+**Fidelity:** `design/mockups/progress-surface-map.png`; `design/SPEC.md` S11.1 to S11.7; reference render `design/mockups/progress-surface-map.png` and `design/mockups/progress-surface-map-dark.png`, matched 1:1
 **Job:** The user watches a task, knows how long is left, and can stop it safely
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -349,7 +349,7 @@ SPEC S12: what the user sees when a task ends.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S12.1 to S12.4; `design/DESIGN.md` sections 3 and 10
+**Fidelity:** `design/SPEC.md` S12.1 to S12.4; `design/DESIGN.md` sections 3 and 10; reference render `design/mockups/result.png` and `design/mockups/result-dark.png`, matched 1:1
 **Job:** The user learns whether it worked, why if not, and what to do next
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -373,7 +373,7 @@ SPEC S17: the engine's log, inside the window.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S17.1 to S17.4; `design/DESIGN.md` sections 4 and 11
+**Fidelity:** `design/SPEC.md` S17.1 to S17.4; `design/DESIGN.md` sections 4 and 11; reference render `design/mockups/log-drawer.png` and `design/mockups/log-drawer-dark.png`, matched 1:1
 **Job:** The user reads what the drive was asked and what it answered, and saves it to send to someone
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Inside the main window's pane (S1.5); no window frame of its own
@@ -398,7 +398,7 @@ SPEC S13: every refusal and confirmation, with buttons that name the action.
 **Phase:** 6
 **Needs:** none
 **Surface:** yes
-**Fidelity:** `design/SPEC.md` S13, every row; `design/DESIGN.md` section 10
+**Fidelity:** `design/SPEC.md` S13, every row; `design/DESIGN.md` section 10; reference render `design/mockups/message.png` and `design/mockups/message-dark.png`, matched 1:1
 **Job:** The user is told what is wrong and what to do, and confirms only what cannot be undone
 **Treatment:** Tokens and components of `design/DESIGN.md` sections 3 to 6; no literal colour or size in code
 **Chrome:** Its own small window with the title bar treatment of S1.1
