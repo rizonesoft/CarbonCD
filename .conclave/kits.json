@@ -6,7 +6,7 @@
     },
     ".agents/rules/agy-output-and-safety.md": {
       "kit": "base",
-      "sha256": "388cb9de8e4aee70b3f660fefe0d43210eb8e43a15d92775ff036aaa2132c83f"
+      "sha256": "4e61df76e3287070f0d13becd73cc76e02d2b8b4fa7d77eb387c577651e44702"
     },
     ".agents/skills/add-todo/SKILL.md": {
       "kit": "todo",
@@ -22,7 +22,7 @@
     },
     ".agents/skills/cpp-toolchain/SKILL.md": {
       "kit": "toolchain-cpp",
-      "sha256": "b0efc3562959a7dc2fee17fe269fec9b1e47b3caeb2038332f0a15de77b75f31"
+      "sha256": "2d2e0b55a0f509707c3b91b01d86bb93875a3e4807198f57caba00952fccdef5"
     },
     ".agents/skills/create-todo/SKILL.md": {
       "kit": "todo",
@@ -54,11 +54,11 @@
     },
     ".agents/skills/process-phase/SKILL.md": {
       "kit": "todo",
-      "sha256": "4044d663ff3dfb486e6fe594e24c2da5e9e556d2ad7cbe93c17096e068c4555c"
+      "sha256": "b0c55b75e8a045c6b81f11453a2388cd16d25baf7ff1dc6417e7343b2e40c2e0"
     },
     ".agents/skills/process-plan/SKILL.md": {
       "kit": "todo",
-      "sha256": "229245d64ed6f2141b228afe0436f3fb1c38486fe9a78b2846df8c95ff734db7"
+      "sha256": "474f382e8cc2543c3f8698bbd615b0b5bfb7964a6c1ec102d4d8d68118083fc9"
     },
     ".agents/skills/process-todo-file/SKILL.md": {
       "kit": "todo",
@@ -66,11 +66,11 @@
     },
     ".agents/skills/process-todo-section/SKILL.md": {
       "kit": "todo",
-      "sha256": "2224607cb702ba00d4beea7301f24e84dffe3070c6a20e7353c39aa2f0b745b0"
+      "sha256": "01f7cabccffc013cc17f85165d7b0904a9e62c1e76fe0307b7cc11c9d8b1e431"
     },
     ".agents/skills/review-todo-section/SKILL.md": {
       "kit": "todo",
-      "sha256": "52c093678c57652d585f208f7c74d7518947a1a0863854d90e7e0106664c12a1"
+      "sha256": "be27b859916666419f63d164303c4311aaa4908d2ce86d13b25d82a0671f5983"
     },
     ".clangd": {
       "kit": "toolchain-cpp",
@@ -98,7 +98,7 @@
     },
     ".claude/rules/claude-output-and-safety.md": {
       "kit": "base",
-      "sha256": "9468ea4c33efb54b74fd4814460ce7045ca330131ea34b108ee6dcc09616a648"
+      "sha256": "b8f27aac301e7e9c5984dd5ced36211479bdc8efa8f8643ab8ca1cacbfdcedc6"
     },
     ".claude/settings.json": {
       "kit": "todo",
@@ -118,7 +118,7 @@
     },
     ".claude/skills/cpp-toolchain/SKILL.md": {
       "kit": "toolchain-cpp",
-      "sha256": "b0efc3562959a7dc2fee17fe269fec9b1e47b3caeb2038332f0a15de77b75f31"
+      "sha256": "2d2e0b55a0f509707c3b91b01d86bb93875a3e4807198f57caba00952fccdef5"
     },
     ".claude/skills/create-todo/SKILL.md": {
       "kit": "todo",
@@ -162,11 +162,11 @@
     },
     ".claude/skills/process-todo-section/SKILL.md": {
       "kit": "todo",
-      "sha256": "97ec8b75489006d06d155f102c58e79eadd0df542040b1722f3c2984b90416f4"
+      "sha256": "a8afad804c9123ef4945f1c5f36f9f30b897ecab5f74eb542420ddc7dbef48bc"
     },
     ".claude/skills/review-todo-section/SKILL.md": {
       "kit": "todo",
-      "sha256": "69187f500c0275664083ae1b8658fa524e5c463699279220b3d21b2ddd06deac"
+      "sha256": "053d39de0edf5d20dffa93c7308ce88e809c7ee23550800acac7b973d06a9cb2"
     },
     ".codex/hooks.json": {
       "kit": "todo",
@@ -174,7 +174,7 @@
     },
     ".codex/rules/codex-output-and-safety.md": {
       "kit": "base",
-      "sha256": "18750ed32093cd90e0a432f0137c16cd3f09f6cf9860dea8f90dbdba930f113a"
+      "sha256": "5654de1ddc8629888696f7e8c2b1e218b906e428a142edcd5af58ab36b1eec65"
     },
     ".codex/skills/add-todo/SKILL.md": {
       "kit": "todo",
@@ -198,7 +198,7 @@
     },
     ".codex/skills/cpp-toolchain/SKILL.md": {
       "kit": "toolchain-cpp",
-      "sha256": "b0efc3562959a7dc2fee17fe269fec9b1e47b3caeb2038332f0a15de77b75f31"
+      "sha256": "2d2e0b55a0f509707c3b91b01d86bb93875a3e4807198f57caba00952fccdef5"
     },
     ".codex/skills/cpp-toolchain/agents/openai.yaml": {
       "kit": "toolchain-cpp",
@@ -278,7 +278,7 @@
     },
     ".codex/skills/process-todo-section/SKILL.md": {
       "kit": "todo",
-      "sha256": "c92639a524ddd42db2dfc8ce5c89f74a13281ee47574c67322b57e1aa4e3426a"
+      "sha256": "0b56da3c7ab40221fe98832d981d5ca7f216e8641eed9871dd0e5fb3095bf732"
     },
     ".codex/skills/process-todo-section/agents/openai.yaml": {
       "kit": "todo",
@@ -286,11 +286,19 @@
     },
     ".codex/skills/review-todo-section/SKILL.md": {
       "kit": "todo",
-      "sha256": "1c787b86fafd8a6715e7531d968316682c0e56745b69d20e07368654e9b30207"
+      "sha256": "43c10555776c7d120bb9929ff55fa5a39ed6db43e59ed5b301ab0a933c1e62b6"
     },
     ".codex/skills/review-todo-section/agents/openai.yaml": {
       "kit": "todo",
       "sha256": "116f9fb393b30931ec41fe9f51d289b18257f8435467083ab2df039f6e682dde"
+    },
+    ".conclave/.gitignore": {
+      "kit": "base",
+      "sha256": "4ba605f63bc9cf3695e61c19f7cfa1b36a70b49c2084900f988bedc031103991"
+    },
+    ".conclave/local.example.toml": {
+      "kit": "base",
+      "sha256": "f956b266dfccdc006e803ff2d372acbd481651ae23bf427e5826406ae489db2c"
     },
     ".conclave/lsp.json": {
       "kit": "lsp",
@@ -342,7 +350,7 @@
     },
     "docs/review-round-prompt.md": {
       "kit": "reviewer",
-      "sha256": "97ead3a1a15d87d91d40edfa0d122e0da159369be05beb8ec63682b427e73657"
+      "sha256": "d31e04a1bf7025d4dafcb101af8cd133ba39688ce4685cbe1a0485b5e8a27795"
     },
     "docs/todo-workflow.md": {
       "kit": "todo",
@@ -350,7 +358,7 @@
     },
     "docs/toolchain-cpp.md": {
       "kit": "toolchain-cpp",
-      "sha256": "31dce906289a9ad57b30a4c8ceb8a667264c0907a409f432fc996acdd78e1d8a"
+      "sha256": "7bd86a47b3b61726ea694571c335ac4ff9b315c520c172b0f5a105befa21c3e1"
     },
     "scripts/cache-stats.py": {
       "kit": "toolchain-cpp",
@@ -378,11 +386,19 @@
     },
     "scripts/compdb-check.py": {
       "kit": "toolchain-cpp",
-      "sha256": "2ede9afa834f3d5e816e45d99ddeb49976da70c1e4a0810a077fe7ed4b02426c"
+      "sha256": "e14981503bfbf7dee761b97aad661460dbc9b968b3308b53b13571a7d029ae64"
+    },
+    "scripts/design-lint.py": {
+      "kit": "base",
+      "sha256": "3fec8aa7a238a9ea4e95383debfb122ea89e52f15ce25e9748ea00135d51d53f"
+    },
+    "scripts/hardening-check.py": {
+      "kit": "toolchain-cpp",
+      "sha256": "eec1ae76267123b14d17c9fcf35ead9ea6a2681f36c8027eff0dc859cec2fc25"
     },
     "scripts/hooks/pre-commit": {
       "kit": "todo",
-      "sha256": "a75d05fb9f59e0298c8f2331cca4007cd25c74cd43a9e3212974beada7ddfde7"
+      "sha256": "6bae3c6aa9f64856d9ec5385accf8c0bb0af151d673ee2204df59f484c93bced"
     },
     "scripts/lib/lsp_client.py": {
       "kit": "lsp",
@@ -436,6 +452,54 @@
       "kit": "reviewer",
       "sha256": "844b97dd86710e96ade5ac3e5c3fdb22fbeeb1fdc08abe4c352271f13a4e6b03"
     },
+    "scripts/tests/fixtures/README.md": {
+      "kit": "toolchain-cpp",
+      "sha256": "0b03f907bde3c06bf57ffd0e88ca72f96a888349e739b3d8044ac5b678dde91e"
+    },
+    "scripts/tests/fixtures/elf-asan.bin": {
+      "kit": "toolchain-cpp",
+      "sha256": "1656de5f8917592b0bb93b768ad6f4014893fe04fa24da5dab243d843a9d9a31"
+    },
+    "scripts/tests/fixtures/elf-hardened.bin": {
+      "kit": "toolchain-cpp",
+      "sha256": "c9b9b8056c8e961d89f8a29374f350930288a50d8c4aedf680b332c41bba7268"
+    },
+    "scripts/tests/fixtures/elf-plain.bin": {
+      "kit": "toolchain-cpp",
+      "sha256": "b6e0912dbaa3d7b9edca6ad71be2279e8dd6744b78885839308a708faf4f688f"
+    },
+    "scripts/tests/fixtures/elf-static.bin": {
+      "kit": "toolchain-cpp",
+      "sha256": "bd3e221a3b877162ac69c0f7e1f4aab3acd56d0b7c29d88edb3790acf6b55e86"
+    },
+    "scripts/tests/fixtures/elf-ubsan-static.bin.gz": {
+      "kit": "toolchain-cpp",
+      "sha256": "ba29d6dc2aa741ba0fc71d397d0f9ec5472c9c268393202e8b0b50314ba50fa5"
+    },
+    "scripts/tests/fixtures/pe-asan.exe.bin": {
+      "kit": "toolchain-cpp",
+      "sha256": "28b931677c577eb6908f471194d5d2c3d39fd666e6c46acdbb43b862f41797c7"
+    },
+    "scripts/tests/fixtures/pe-delay.exe.bin": {
+      "kit": "toolchain-cpp",
+      "sha256": "3c53efbfeefde3320fe2c9e50dbf61abbe9ddd49dccc403d39315311501d2002"
+    },
+    "scripts/tests/fixtures/pe-hardened.exe.bin": {
+      "kit": "toolchain-cpp",
+      "sha256": "ae321fe1529b993644a2d37c925910c5f2b0a95d833e4aed3c7c86846b2f91ca"
+    },
+    "scripts/tests/fixtures/pe-plain.exe.bin": {
+      "kit": "toolchain-cpp",
+      "sha256": "2108709f342a75b13cebe14e4f8b82555be39704e59fd7856b9b01af205bdcbf"
+    },
+    "scripts/tests/fixtures/pe32-delay.exe.bin": {
+      "kit": "toolchain-cpp",
+      "sha256": "d1c08963fa9ca486b1ea554b0afe054be68e0bf5c6b7a2fac62d86df3f7cf143"
+    },
+    "scripts/tests/fixtures/pe32-hardened.exe.bin": {
+      "kit": "toolchain-cpp",
+      "sha256": "794d9f0535320bcbb1e63436f0ade3593dc1f216f44b05ba6eb44847b0ba3e42"
+    },
     "scripts/tests/test_cc_cache.py": {
       "kit": "toolchain-cpp",
       "sha256": "33aea64a5852b365c4f536aca9e58b79fc1b4ea3df29f2e62b574ac95bc40651"
@@ -443,6 +507,14 @@
     "scripts/tests/test_compdb_check.py": {
       "kit": "toolchain-cpp",
       "sha256": "78ec368d6e16bd6e7c80a3fe1ae6db497d250470a00fa2e08c00188f601df814"
+    },
+    "scripts/tests/test_design_lint.py": {
+      "kit": "base",
+      "sha256": "05814eadc751ae12017225916139bd1428e4192414c215eb4d399080ee302ded"
+    },
+    "scripts/tests/test_hardening_check.py": {
+      "kit": "toolchain-cpp",
+      "sha256": "f5c16f4fbd0e0b1a1db281ba822506c22605d911affd180e08273d63d726f198"
     },
     "scripts/tests/test_lsp_diagnostics.py": {
       "kit": "lsp",
@@ -470,7 +542,7 @@
     },
     "scripts/tests/test_review_prompt.py": {
       "kit": "reviewer",
-      "sha256": "1ba20bbcbc1eb5bc72675f55be116bc00987dcb3c590bf27367fa613ce898b2a"
+      "sha256": "e719ad68093ed4278ba0e4de897fc7a99b5ba7d62947a634cc237faa77d8c03f"
     },
     "scripts/tests/test_three_pass.py": {
       "kit": "reviewer",
@@ -478,7 +550,7 @@
     },
     "scripts/tests/test_toolchain_check.py": {
       "kit": "toolchain-cpp",
-      "sha256": "1097fb19ef23d06b1393b694cce8581e4ff2f0aa51e70e6b9b8a8993018a73a5"
+      "sha256": "e9aafb8ba51caf9c153572c9baf59f0c0726caeb272738cacf5675304d2efc45"
     },
     "scripts/todo-graph.py": {
       "kit": "todo",
@@ -486,7 +558,7 @@
     },
     "scripts/toolchain-check.py": {
       "kit": "toolchain-cpp",
-      "sha256": "ff27d54cdc3c0d87129ea5b9ff74580de7ea234936077749eb906a2ea233290a"
+      "sha256": "bc50edc82f4672840a7c9c2840334fb560e2dcb2dcddc387c2bb91796ba1705d"
     },
     "scripts/verify-agent-tiers.mjs": {
       "kit": "base",
@@ -494,7 +566,7 @@
     },
     "todo/README.md": {
       "kit": "todo",
-      "sha256": "e686afbd64154cd133a0f5107221a9f74dbfc1da3524462b7e575949eeb9968c"
+      "sha256": "951a89c40c3baceeae833c0ca72d2295b4563926bea7b58b5e5002519c7ed16e"
     },
     "todo/TODO-00-INDEX.md": {
       "kit": "todo",
@@ -521,7 +593,7 @@
         "codex"
       ],
       "host": null,
-      "sdk_commit": "d89c6fe64a4f1b1fbbbaa85bb73ad344c57d6694"
+      "sdk_commit": "394878c66bdfccbbf4757fc90a9f624d9270ab00"
     },
     "lsp": {
       "agents": [
@@ -539,7 +611,7 @@
         "codex"
       ],
       "host": null,
-      "sdk_commit": "d89c6fe64a4f1b1fbbbaa85bb73ad344c57d6694"
+      "sdk_commit": "394878c66bdfccbbf4757fc90a9f624d9270ab00"
     },
     "todo": {
       "agents": [
@@ -548,7 +620,7 @@
         "codex"
       ],
       "host": null,
-      "sdk_commit": "d89c6fe64a4f1b1fbbbaa85bb73ad344c57d6694"
+      "sdk_commit": "394878c66bdfccbbf4757fc90a9f624d9270ab00"
     },
     "toolchain-cpp": {
       "agents": [
@@ -557,7 +629,7 @@
         "codex"
       ],
       "host": null,
-      "sdk_commit": "d89c6fe64a4f1b1fbbbaa85bb73ad344c57d6694"
+      "sdk_commit": "394878c66bdfccbbf4757fc90a9f624d9270ab00"
     }
   },
   "schema_version": 1
