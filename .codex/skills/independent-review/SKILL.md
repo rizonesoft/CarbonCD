@@ -9,10 +9,10 @@ Your own review is not enough for a nontrivial change: a different model reviews
 
 | Work written by | `--writer` | Reviewer (as installed) | Fallback |
 | --- | --- | --- | --- |
-| Claude Code | `claude` | `astra`: `gpt-6-astra` through `codex`, medium then low | none |
-| Antigravity | `agy` (or `gemini`) | `astra`: `gpt-6-astra` through `codex`, medium then low | none |
+| Claude Code | `claude` | `astra`: `gpt-6.2-astra` through `codex`, medium then low | none |
+| Antigravity | `agy` (or `gemini`) | `astra`: `gpt-6.2-astra` through `codex`, medium then low | none |
 
-Claude Code and Antigravity write; Codex only reviews. The installed pin routes both writers to GPT-6 Astra through the Codex CLI in a read-only sandbox. Codex has no writer route. A route names exactly one reviewer of another model family.
+Claude Code and Antigravity write; Codex only reviews. The installed pin routes both writers to GPT-6.2 Astra through the Codex CLI in a read-only sandbox. Codex has no writer route. A route names exactly one reviewer of another model family.
 
 The pin's `[schedule]` sets each pass's lenses and optional reasoning effort, so the writer never picks them, and it has two shapes. The installed pin gives Astra medium effort for plan and initial round reviews, then low for completion and reconciliation. Check which one applies first: `python scripts/review_pin.py --check` loads the pin, and `[schedule] policy` says which flow runs. `python scripts/review_pin.py --lenses <kind>` prints a three-pass pin's lenses for a pass and `--caps` prints its `pass_cap` and `no_progress_cap`.
 
