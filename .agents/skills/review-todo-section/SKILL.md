@@ -62,7 +62,7 @@ The passes run in this order for the section's findings file (`<receipts>/<NN-do
 2. **The round**, after the build, its gates and its commit. Fill the prompt into a scratch file from `docs/review-round-prompt.md` with `review-prompt.py` (the candidate, the section through `--ref`, what the change is for and the governing documents), then run it with the candidate (required) and your own agent as the writer, adding `--surface` on a `Surface: yes` section so the `design` lens joins:
 
 ```bash
-python3 scripts/review-prompt.py --kind round --candidate <full tip SHA> --ref "D<NN> T<NN> §<N>" --purpose "<one or two sentences>" --governing <the spec or plan> --out <scratch-round-prompt.md>
+python3 scripts/review-prompt.py --kind round --candidate <full tip SHA> --ref "D<NN> T<NN> §<N>" [--fidelity <design source>] --purpose "<one or two sentences>" --governing <the spec or plan> --out <scratch-round-prompt.md>
 python3 scripts/review-dispatch.py --kind round --candidate <full tip SHA> --writer <claude|codex|agy> [--surface] --prompt <scratch-round-prompt.md> --record <receipts>/<NN-domain>/D<NN>-T<NN>-s<N>.md
 ```
 
@@ -115,7 +115,7 @@ Then, before any regular round, implement every `missing-in-scope` gap and every
 The dispatcher picks each round's lenses and effort from the pin's schedule (the lens table below is the vocabulary), at least one round by the pinned independent reviewer. Fill the prompt into a scratch file from `docs/review-round-prompt.md` with `review-prompt.py` (the commit under review as `--candidate`, which the filler needs although a rotation round passes none to the dispatcher; the section through `--ref`), then run it, naming your own agent as the writer:
 
 ```bash
-python3 scripts/review-prompt.py --kind round --candidate <full SHA under review> --ref "D<NN> T<NN> §<N>" --purpose "<one or two sentences>" --governing <the spec or plan> --out <scratch-review-prompt.md>
+python3 scripts/review-prompt.py --kind round --candidate <full SHA under review> --ref "D<NN> T<NN> §<N>" [--fidelity <design source>] --purpose "<one or two sentences>" --governing <the spec or plan> --out <scratch-review-prompt.md>
 python3 scripts/review-dispatch.py --writer <claude|codex|agy> --prompt <scratch-review-prompt.md> --record <receipts>/<NN-domain>/D<NN>-T<NN>-s<N>.md
 ```
 

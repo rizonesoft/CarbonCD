@@ -4,7 +4,7 @@ The `todo/` tree is the live execution plan for building the project. Markdown i
 
 One rule governs everything below: **a TODO section must be implementable by someone with zero conversation context.** A fresh session starts with none. If a section only makes sense to someone who was in the room, it is not done.
 
-This system is seeded by `R:\GitHub\Conclave-SDK` in its clean strict form: one validator that refuses malformed work, a generated plan, and stamps backed by review receipts. The governing product documents stay where they are: architecture and milestones in `docs/plans/`, the interface in `design/SPEC.md`. TODO files execute those documents; they do not restate them.
+This system is seeded by Conclave-SDK in its clean strict form: one validator that refuses malformed work, a generated plan, and stamps backed by review receipts. The governing product documents stay where they are: architecture and milestones in `docs/plans/`, the interface in `design/SPEC.md`. TODO files execute those documents; they do not restate them.
 
 ## Tree shape
 

@@ -7,7 +7,7 @@ description: Process exactly one TODO section end to end in Antigravity. Resolve
 
 The section is the contract, and a contract is checked before it is signed.
 
-Processing a section is two jobs, in order. First establish that the plan is sound: internally consistent, still true of the code and of its governing documents, buildable as written, and verifiable when built. Then implement it. Do not improvise around the plan, and do not implement a plan you have found to be wrong. Correct it in the file, visibly, then build the corrected version.
+Processing a section is two jobs, in order. Under Orchestrator (Carbon), Carbon performs Steps 1 to 3 in Plan Mode (reading the TODO file, dependencies, and the repository's design contract, validating the 7 questions against the codebase, and writing exact design token names, shared `Chrome:` controls, UI states, and verification commands into the handoff plan) before calling `exit_plan_mode` for that one section, and sets `Re-plan if:` so Hydrogen hands back to Carbon (1) after `stamp`, push (when applicable), `merge_prs.py`, and `ci_status.py` before resolving the next ready row whether `Surface` is `yes` or `no`, (2) when a needed design token or shared `Chrome:` control does not exist, (3) when the pinned reviewer returns `COMPLETION: gaps` or a `P1` or `P2` architectural or design-contract finding, or (4) when Hydrogen fails twice on the same fix. First establish that the plan is sound: internally consistent, still true of the code and of its governing documents, buildable as written, and verifiable when built. Then implement it. Do not improvise around the plan, and do not implement a plan you have found to be wrong. Correct it in the file, visibly, then build the corrected version.
 
 ## Use this skill when
 
@@ -49,7 +49,7 @@ Write `Started:` now. If the section body carries no `> **Started:**` line, add 
 - **Never mark `[x]` without evidence.** The Implementation Order row flips only through `stamp`, after review. This skill never flips a row itself.
 - **User data first.** Every file write follows the project's saving rule (its governing plan or `AGENTS.md`): temporary file in the destination folder, then atomic replace (`ReplaceFileW`, `MoveFileExW`, or `os.replace`). Read back what was written. Destructive paths are confirmed. The checkpoint exercises a failure path, not only the happy path.
 - **The layer rules hold.** Respect the module boundaries and thread-safety contract in `AGENTS.md` and the project's governing plan. A fix that violates the module table is wrong even when it works.
-- **Fidelity is the bar on surfaces.** Build against `design/SPEC.md` and its screenshot, using tokens from `design/tokens/` only. No raw hex value on a control.
+- **Fidelity is the bar on surfaces.** Build against the project's design contract (`design/SPEC.md`, `DESIGN.md`, `docs/design/SPEC.md`, `docs/design-contract.md` or `standards/design-contract.md`) and its renders, using its tokens or theme resources with no raw hex color on a control (and no raw font, size, radius or spacing literal on custom token-system apps), and run `python scripts/design-lint.py` before committing whenever that script exists.
 
 ## Workflow
 

@@ -727,6 +727,74 @@ class CompdbKeyTests(Fixture):
                                 caught.exception)
 
 
+class HardeningKeyTests(Fixture):
+    """D04 T03 section 1: the pin file's `hardening`, which hardening-check.py reads."""
+
+    def document(self, **top):
+        return {"schema_version": 1, "tools": [self.tool()], **top}
+
+    def test_a_pin_file_without_hardening_has_none_and_one_with_it_loads_the_policy(self):
+        plain = tc.load_pin_file(self.pins(self.document()))
+        self.assertIsNone(plain["hardening"])
+        loaded = tc.load_pin_file(self.pins(self.document(hardening={"compile": ["_MSVC_STL_HARDENING=1"]})))
+        self.assertEqual(loaded["hardening"], {"compile": ["_MSVC_STL_HARDENING=1"], "sources": ["."], "exclude": [],
+                                               "binaries": [], "image": [], "test_binaries": []})
+        policy = {"compile": ["_GLIBCXX_ASSERTIONS", "-fstack-protector-strong", "/guard:cf", "_FORTIFY_SOURCE=3"],
+                  "sources": ["src", "lib/core"], "exclude": ["src/vendor"], "binaries": ["out/app.exe", "out/*.dll"],
+                  "image": ["GUARD_CF", "CET_COMPAT", "PIE"], "test_binaries": ["out/*_test.exe"]}
+        path = self.pins(self.document(hardening=policy))
+        loaded = tc.load_pin_file(path)
+        self.assertEqual(loaded["hardening"], policy)
+        # D04 T03 section 2: an image-only policy, and compile left out.
+        image_only = tc.load_pin_file(self.pins(self.document(hardening={"binaries": ["bin/app"]})))["hardening"]
+        self.assertEqual((image_only["compile"], image_only["binaries"], image_only["image"]), ([], ["bin/app"], []))
+        self.assertEqual(loaded["tools"], plain["tools"])
+        self.prints("ninja", "1.11.1\n")
+        (tool,) = tc.check_tools(tc.load_pins(path))
+        self.assertEqual((tool["name"], tool["status"]), ("ninja", "ok"))
+
+    def test_a_hardening_the_format_does_not_allow_is_refused_naming_the_file_and_the_key(self):
+        cases = [(["-fstack-protector"], "an object with at least one of the keys compile and binaries"),
+                 ({}, "declares neither compile nor binaries"),
+                 ({"sources": ["src"]}, "declares neither compile nor binaries"),
+                 ({"compile": ["A"], "linker": ["/guard:cf"]}, "unknown key 'linker'"),
+                 ({"binaries": []}, "binaries: a list of at least one file inside the project"),
+                 ({"binaries": "app.exe"}, "binaries: a list of at least one file inside the project"),
+                 ({"binaries": ["../app.exe"]}, "binaries: a file inside the project, not '../app.exe'"),
+                 ({"binaries": ["."]}, "binaries: a file inside the project, not '.'"),
+                 ({"binaries": ["out*/app.exe"]}, "binaries: 'out*/app.exe' has a * in a folder"),
+                 ({"binaries": ["a", "a"]}, "binaries: 'a' is listed twice"),
+                 ({"binaries": ["a"], "test_binaries": []}, "test_binaries: a list of at least one file"),
+                 ({"binaries": ["a"], "test_binaries": ["/abs/t"]}, "test_binaries: a file inside the project"),
+                 ({"compile": ["A"], "image": ["GUARD_CF"]}, "image: names properties of binaries the policy does"),
+                 ({"binaries": ["a"], "image": []}, "image: a list of at least one property, from DYNAMIC_BASE"),
+                 ({"binaries": ["a"], "image": ["SAFESEH"]}, "image: 'SAFESEH' is not a property this check reads"),
+                 ({"binaries": ["a"], "image": ["PIE", "PIE"]}, "image: 'PIE' is listed twice"),
+                 ({"compile": []}, "compile: a list of at least one definition or option"),
+                 ({"compile": "_GLIBCXX_ASSERTIONS"}, "compile: a list of at least one definition or option"),
+                 ({"compile": ["A", 3]}, "compile: each entry is a definition or option on one line"),
+                 ({"compile": [""]}, "compile: each entry is a definition or option on one line"),
+                 ({"compile": [" -fPIE"]}, "compile: each entry is a definition or option on one line"),
+                 ({"compile": ["-D\nX"]}, "compile: each entry is a definition or option on one line"),
+                 ({"compile": ["1BAD"]}, "compile: '1BAD' is neither a definition"),
+                 ({"compile": ["-D"]}, "compile: '-D' names no definition"),
+                 ({"compile": ["A", "A"]}, "compile: 'A' is listed twice"),
+                 ({"compile": ["A"], "sources": []}, "sources: a list of folders inside the project, at least one"),
+                 ({"compile": ["A"], "sources": "src"}, "sources: a list of folders inside the project"),
+                 ({"compile": ["A"], "sources": ["../other"]}, "sources: a folder inside the project, not '../other'"),
+                 ({"compile": ["A"], "sources": ["/srv/src"]}, "sources: a folder inside the project"),
+                 ({"compile": ["A"], "exclude": ["C:/vendor"]}, "exclude: a folder inside the project"),
+                 ({"compile": ["A"], "exclude": ["src\\vendor"]}, "exclude: a folder inside the project"),
+                 ({"compile": ["A"], "exclude": [5]}, "exclude: a folder inside the project, not 5")]
+        for hardening, expected in cases:
+            with self.subTest(hardening=hardening):
+                path = self.pins(self.document(hardening=hardening))
+                with self.assertRaises(tc.PinError) as caught:
+                    tc.load_pin_file(path)
+                self.assertTrue(str(caught.exception).startswith(f"{path.as_posix()}: hardening: {expected}"),
+                                caught.exception)
+
+
 class InProcessTests(Fixture):
     def test_main_prints_the_same_report_in_process(self):
         self.prints("ninja", "1.11.1\n")

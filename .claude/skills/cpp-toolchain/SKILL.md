@@ -27,6 +27,15 @@ clangd takes every flag from `compile_commands.json`. Check it before trusting a
 - Exit 2: the pin file does not load. Correct what the message names; never delete the file.
 - Never edit `compile_commands.json` or `.clangd` to silence a diagnostic. Fix the code, or the build that wrote the flags.
 
+## Memory safety
+
+The project declares its hardening in the pin file's `hardening` key; `docs/toolchain-cpp.md` (Memory safety) has the options for each compiler family and where each was measured.
+
+- Prove an option by the result it changes, beside a control build without it, never by reading the flag back. A runtime check: a probe program commits the error on purpose and must end in that check's own trap, where the control build ends otherwise. An initialising option such as `-ftrivial-auto-var-init=zero`: a probe reads the value it sets (0, where the control build reads stack contents). A link property: `python scripts/hardening-check.py` reads it from the linked image.
+- Apply hardening to the project's own targets, and a sanitizer only in a test preset: a sanitizer build is a test build, named in `test_binaries`, and never ships.
+- The doctor is not a release gate: `python forge.py doctor --strict` passes `unknown` image rows. Call a build shippable only when `python scripts/hardening-check.py` exits 0 with status `ok`, under a policy that declares both `compile` and `binaries` and names every shipped binary: status `none` means nothing was required, and `unknown` is not evidence.
+- Plan a crash message with any hardening that ships. A hardened process that hits a check ends at once and reaches no handler inside it, so the program's next start must be able to say that the last run stopped.
+
 ## The cache
 
 `scripts/cc-cache.py` is evaluated by the build script (the lines are in the document), and `python scripts/cache-stats.py --min-hit-rate <percent>` says whether a rebuild used it.

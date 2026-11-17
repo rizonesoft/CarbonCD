@@ -13,6 +13,7 @@ The build itself is the project's. Nothing here chooses a build system, writes a
 | `scripts/compdb-check.py` | Says whether `compile_commands.json` can be trusted; runs and writes nothing |
 | `scripts/cc-cache.py` | Puts ccache or sccache in front of the compilers a build names |
 | `scripts/cache-stats.py` | Prints the cache's hit rate; can fail a rebuild that did not use the cache |
+| `scripts/hardening-check.py` | Says whether compile commands and built binaries carry the declared hardening |
 | `.clangd` | clangd's configuration: where the compile database is |
 
 ## Are the tools there?
@@ -121,6 +122,175 @@ python scripts/cache-stats.py --json
 
 `--zero` resets the statistics before a build. After it, the second line prints hits, misses and the rate, and exits 3 when the rate is below the figure or no compile went through the cache at all. It reads the cache the setup chose.
 
+## Memory safety
+
+A C or C++ program can be built so that the commonest memory errors end the process at once instead of corrupting it: bounds checks in the standard library, a stack protector, control-flow guards and an image the loader can randomise. The project declares the hardening it builds with in the pin file's `hardening` key, and one command says whether the compile commands and the built binaries really carry it:
+
+```text
+python scripts/hardening-check.py
+python scripts/hardening-check.py --json
+```
+
+It reads `compile_commands.json` and the binaries the policy names, and runs and writes nothing. It exits 0 when every requirement holds (`ok`) or nothing is required (`none`), 1 when an answer cannot be told (`unknown`), 3 when a requirement is missing, and 2 when the pin file does not load. The first line is the compile check, then one line per requirement; then the image check, then one line per binary:
+
+```text
+hardening:compile: none: no policy declared: add a `hardening` key to the pin file (docs/toolchain-cpp.md, Memory safety)
+hardening:compile: ok: compile_commands.json: 3 requirement(s) on 12 first-party entries; 4 excluded, 0 outside the sources
+hardening:compile: missing: compile_commands.json: 1 of 3 requirement(s) missing on 12 first-party entries; 4 excluded, 0 outside the sources
+hardening:compile: unknown: the compile database is stale, so the flags it holds may not be the build's: ...
+```
+
+### The policy
+
+`compile` lists what every compile command of the project's own sources must carry: a definition (`NAME` or `NAME=VALUE`, matched in its `-D` or `/D` form) or an option (starting with `-` or `/`). `sources` are the project's own folders under the pin file's `root` (default `.`), and `exclude` the folders under them that are not (vendored code). `binaries` lists the built files to read (a `*` is allowed in the file name), `image` the properties each must have, and `test_binaries` the built files allowed a sanitizer runtime. A policy declares `compile`, `binaries` or both; a build is shippable only under both.
+
+How a command is read: the last occurrence of an option wins (`-fstack-protector-strong ... -fno-stack-protector` lacks it); `-fno-stack-protector` undoes every stack protector level, and a stronger level satisfies a weaker one (`-fstack-protector-all` carries `-fstack-protector-strong`); `-U` after `-D` removes a definition; a response file (`@flags.rsp`) is read; the `/` spellings are read for `cl` and `clang-cl` only, after a ccache or sccache launcher; arguments for the linker (`-Wl,...`) are not compile flags. An entry whose command cannot be read (a missing response file, an unbalanced quote) is counted and the others are still checked: a requirement a readable entry lacks is `missing` whatever the unreadable one holds.
+
+The check reads what each command passes, not what a compiler turns on by itself. Ubuntu's GCC 15.2.0 enables `-fstack-protector-strong`, `_FORTIFY_SOURCE=3`, PIE and `-z now` without a flag, and Ubuntu's Clang 19.1.7 does not: declare each option the project depends on in its own build, so the binary is the same on any compiler, and the check sees it.
+
+MSVC, with the image read from the linked `.exe`:
+
+```json
+{"hardening": {"compile": ["_MSVC_STL_HARDENING=1", "/guard:cf", "/sdl"], "sources": ["src"],
+               "binaries": ["build/Release/*.exe"],
+               "image": ["DYNAMIC_BASE", "HIGH_ENTROPY_VA", "NX_COMPAT", "GUARD_CF", "CET_COMPAT"]}}
+```
+
+Clang with libc++ on llvm-mingw (Windows), where Control Flow Guard and the shadow stack are Windows image properties:
+
+```json
+{"hardening": {"compile": ["_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_FAST", "-fstack-protector-strong",
+                           "-ftrivial-auto-var-init=zero", "-mguard=cf"], "sources": ["src"],
+               "binaries": ["build/*.exe"], "image": ["DYNAMIC_BASE", "NX_COMPAT", "GUARD_CF", "CET_COMPAT"]}}
+```
+
+Clang on Linux, with libstdc++ (its default there; with `-stdlib=libc++`, the libc++ macro replaces `_GLIBCXX_ASSERTIONS`). `-mguard=cf` is refused for a Linux target:
+
+```json
+{"hardening": {"compile": ["_GLIBCXX_ASSERTIONS", "-fstack-protector-strong", "-ftrivial-auto-var-init=zero",
+                           "_FORTIFY_SOURCE=3", "-fPIE"], "sources": ["src"], "binaries": ["build/app"],
+               "image": ["PIE", "RELRO", "BIND_NOW", "NX_STACK", "STACK_PROTECTOR"]}}
+```
+
+GCC with libstdc++, on Linux:
+
+```json
+{"hardening": {"compile": ["_GLIBCXX_ASSERTIONS", "-fstack-protector-strong", "_FORTIFY_SOURCE=3", "-fPIE"],
+               "sources": ["src"], "exclude": ["src/third_party"], "binaries": ["build/app"],
+               "image": ["PIE", "RELRO", "BIND_NOW", "NX_STACK", "STACK_PROTECTOR"],
+               "test_binaries": ["build/tests/*"]}}
+```
+
+`_FORTIFY_SOURCE` works only with optimisation (`-O1` or higher); where the compiler predefines it, write `-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3` so the build does not warn of a redefinition.
+
+### The options, and where each was measured
+
+Clang rows hold for Clang on Linux and on llvm-mingw unless a row says llvm-mingw only, the libc++ macro only with libc++ (llvm-mingw's default, `-stdlib=libc++` elsewhere); GCC rows hold for GCC with libstdc++ on Linux. Each was proved by the result it changes beside a build without it: a probe that commits the error on purpose ends in the option's own trap, a probe reads the value an initialising option sets, or `hardening-check.py` reads the property from the linked image.
+
+| Family | Option | Effect | Measured on |
+| --- | --- | --- | --- |
+| MSVC | `/D_MSVC_STL_HARDENING=1` | Library bounds checks; ends the process | MSVC 19.52 (`0xC0000409`) |
+| MSVC | `/guard:cf` (compile and link) | Control Flow Guard | MSVC 19.52 (image flag) |
+| MSVC | `/CETCOMPAT` (link) | Shadow stack compatible | MSVC 19.52 (image flag) |
+| MSVC | `/sdl` | Extra checks; an uninitialised read becomes error C4700 | MSVC 19.52 |
+| Clang | `-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_FAST` | libc++ bounds checks | llvm-mingw 23.1.1 |
+| Clang | `-fstack-protector-strong` | Stack protector | Clang 19.1.7 on Linux; not on llvm-mingw |
+| Clang | `-ftrivial-auto-var-init=zero` | Locals start as zero | Clang 19.1.7 on Linux; not on llvm-mingw |
+| Clang | `-mguard=cf` | Control Flow Guard; llvm-mingw only | llvm-mingw 23.1.1 (image flag) |
+| Clang | `-Wl,-Xlink=-cetcompat` | Shadow stack; llvm-mingw only (not `-Wl,--cetcompat`) | llvm-mingw 23.1.1 |
+| GCC | `-D_GLIBCXX_ASSERTIONS` | Library bounds checks; ends with exit 134 | GCC 15.2.0 |
+| GCC | `-fstack-protector-strong` | Stack protector (`stack smashing detected`) | GCC 15.2.0, Clang 19.1.7 |
+| GCC | `-D_FORTIFY_SOURCE=2` or `=3` | Checked string and memory calls | GCC 15.2.0, Clang 19.1.7 (glibc) |
+| GCC | `-Wl,-z,relro,-z,now` | Full RELRO | GCC 15.2.0 (image) |
+
+### The probes
+
+The programs and commands that measured the table, run 2026-11-16 and 2026-11-17, to repeat on another compiler before relying on a row. Each runs beside its control, and the option holds only when the two results differ as shown. `A` stands for a 69-character argument (`AAAA...`); `cc` is `gcc` or `clang`.
+
+`oob.cpp` reads past the end of a `std::vector`, for the library bounds checks:
+
+```cpp
+#include <vector>
+#include <cstdio>
+int main(int argc, char **) { std::vector<int> v(4); std::printf("%d\n", v[argc + 7]); return 0; }
+```
+
+```text
+cl /nologo /EHsc /O2 oob.cpp /Fe:msvc0.exe                                  # msvc0.exe exits 0
+cl /nologo /EHsc /O2 /D_MSVC_STL_HARDENING=1 oob.cpp /Fe:msvc1.exe          # msvc1.exe exits 0xC0000409
+x86_64-w64-mingw32-clang++ -O2 oob.cpp -o oob0.exe                          # exits 0
+x86_64-w64-mingw32-clang++ -O2 -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_FAST oob.cpp -o oob1.exe   # exits 0xC000001D
+g++ -O2 oob.cpp -o g0 && ./g0                                               # exits 0
+g++ -O2 -D_GLIBCXX_ASSERTIONS oob.cpp -o g1 && ./g1                         # stl_vector.h assertion, exit 134
+```
+
+`smash.c` overruns a stack buffer:
+
+```c
+#include <string.h>
+#include <stdio.h>
+__attribute__((noinline)) void f(const char *s) { char buf[8]; strcpy(buf, s); puts(buf); }
+int main(int argc, char **argv) { f(argc > 1 ? argv[1] : "x"); return 0; }
+```
+
+```text
+cc -O0 -fno-stack-protector smash.c -o s0 && ./s0 A                         # segmentation fault, exit 139
+cc -O0 -fstack-protector-strong smash.c -o s1 && ./s1 A                     # *** stack smashing detected ***, exit 134
+cc -O2 -fno-stack-protector -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 smash.c -o f0 && ./f0 A   # exit 139
+cc -O2 -fno-stack-protector -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2 smash.c -o f2 && ./f2 A   # *** buffer overflow detected ***, exit 134
+cc -O2 -fno-stack-protector -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 smash.c -o f3 && ./f3 A   # *** buffer overflow detected ***, exit 134
+```
+
+`uninit.c` fills the stack, then reads a local it never set:
+
+```c
+#include <stdio.h>
+__attribute__((noinline)) int g(int c) { int x; if (c > 5) x = 1; return x; }
+__attribute__((noinline)) void dirty(void) { volatile int junk[64]; for (int i = 0; i < 64; i++) junk[i] = 0x5a5a5a5a; }
+int main(int argc, char **argv) { (void)argv; dirty(); printf("%d\n", g(argc)); return 0; }
+```
+
+```text
+cc -O0 uninit.c -o u0 && ./u0                                               # stack contents (2067949718 on GCC 15.2.0)
+cc -O0 -ftrivial-auto-var-init=zero uninit.c -o u1 && ./u1                  # 0
+```
+
+`sdl.c` reads an uninitialised local, for MSVC:
+
+```c
+#include <stdio.h>
+int main(void) { int x; printf("%d\n", x); return 0; }
+```
+
+```text
+cl /nologo sdl.c                                                            # warning C4700, and it builds
+cl /nologo /sdl sdl.c                                                       # error C4700, and it does not
+```
+
+The link properties are read from the image by `scripts/hardening-check.py`, with a pin file that names the binaries built in `build/`:
+
+```text
+gcc -O1 -fPIE -pie -Wl,-z,relro,-z,now smash.c -o build/full
+gcc -O1 -fPIE -pie -Wl,-z,relro,-z,lazy smash.c -o build/lazy
+x86_64-w64-mingw32-clang -O1 smash.c -o build/plain.exe
+x86_64-w64-mingw32-clang -O1 -mguard=cf smash.c -o build/cfg.exe
+x86_64-w64-mingw32-clang -O1 -Wl,-Xlink=-cetcompat smash.c -o build/cet.exe
+x86_64-w64-mingw32-clang -O1 -Wl,--cetcompat smash.c -o build/x.exe         # lld: error: unknown argument: --cetcompat
+
+.conclave/toolchain-cpp.json:
+{"schema_version": 1, "tools": [],
+ "hardening": {"binaries": ["build/full", "build/lazy"], "image": ["RELRO", "BIND_NOW"]}}
+python scripts/hardening-check.py   # build/full ok; build/lazy (ELF) lacks BIND_NOW; exit 3
+
+with "binaries": ["build/plain.exe", "build/cfg.exe", "build/cet.exe"], "image": ["GUARD_CF", "CET_COMPAT"]:
+python scripts/hardening-check.py   # plain.exe lacks both; cfg.exe lacks CET_COMPAT; cet.exe lacks GUARD_CF
+```
+
+MSVC's `/guard:cf` and `/CETCOMPAT` were read the same way, from images built by the commands in `scripts/tests/fixtures/README.md` (`pe-hardened.exe` and its control `pe-plain.exe`), and confirmed with `dumpbin`.
+### What hardening does not cover
+
+Hardening covers bounds and control flow, not object lifetime: a use after free or a double free is found by a sanitizer test build (`-fsanitize=address`) and by fuzzing, and neither ships. Name a sanitizer build in `test_binaries`; a sanitizer runtime in any other binary is a finding. A hardened process that hits a check ends at once and reaches no handler inside the process, so a shipped program needs a way for its next start to say that the last run stopped.
+
 ## What is left to the project
 
 - The build system and every build command: Make, Ninja, CMake or anything else.
@@ -128,4 +298,4 @@ python scripts/cache-stats.py --json
 - Installing and upgrading tools. The check names what is missing and how to install it; a person installs it.
 - Target flags, include paths and clang-tidy checks in `.clangd`.
 
-From a Conclave-SDK checkout, `python forge.py doctor <project> toolchain-cpp` reports all of the above in one list: each file, each pinned tool, the compile database, and whether clangd is wired to it.
+From a Conclave-SDK checkout, `python forge.py doctor <project> toolchain-cpp` reports all of the above in one list: each file, each pinned tool, the compile database, whether clangd is wired to it, and the hardening policy (`hardening-policy`, then `hardening:compile` and `hardening:image` when one is declared). The doctor passes `--strict` with `unknown` hardening rows, so it is no release gate: a build is shippable when `python scripts/hardening-check.py` exits 0 with status `ok`.

@@ -11,9 +11,9 @@ This skill does not ship a section and does not write a stamp. It audits, then c
 
 ## The loop
 
-One continuous loop. You do not stop between sections or phases:
+One continuous campaign loop held by the run guard, with Orchestrator (Carbon) planning one TODO section per `exit_plan_mode` turn:
 
-1. Audit (below), start the run guard (below), then start `process-phase` on the first phase with a ready row, in this same turn.
+1. Audit (below), start the run guard (below), and enter `process-phase` for the first phase with a ready row. Under Orchestrator (Carbon), Carbon plans one ready TODO section at a time before calling `exit_plan_mode`, and Hydrogen hands back to Carbon after each section's `stamp`, `merge_prs.py`, and `ci_status.py` check before resolving the next ready row (whether `Surface` is `yes` or `no`).
 2. After that phase's closeout or park, re-run `python scripts/todo-graph.py query ready --have auto` and start the next phase with a ready row: with `--have auto` it lists only the rows whose Needs this session meets (the kit's host probes, the project's `probes` in `todo/plan.json`, and what `CONCLAVE_HAVE` declares, such as `attended`), so a row it leaves out for a host is a leftover here.
 3. Stop only when no phase has a ready row: every remaining `[ ]` row is blocked or waiting in this context, or the plan is done. That, and an operator stop, are the only halts.
 

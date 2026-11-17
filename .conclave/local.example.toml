@@ -1,0 +1,31 @@
+# Settings that belong to one machine or one owner. Copy this file to `.conclave/local.toml` and fill it in.
+# `.conclave/local.toml` is ignored by git (`.conclave/.gitignore`), so nothing here is ever committed.
+# Every key is optional: one left out keeps the default this file shows. No secret goes in this file,
+# only where to find it.
+
+[paths]
+# Where temporary files and full logs go, outside the repository. Empty: the operating system's temporary folder.
+scratch = ""
+
+[vault]
+# The vault command line tool: a name found on PATH, or an absolute path.
+cli = "conclave-op"
+# The vault that holds this project's credentials.
+name = "Conclave"
+
+[alert]
+# Read by the automations kit's failure email (`.conclave/automations/alert.py`). It refuses to send until all
+# three are set.
+# The verified SMTP2GO sender address the email comes from.
+sender = ""
+# Who receives the email.
+to = ""
+# The vault reference of the item whose `credential` field holds the SMTP2GO API key: "op://<vault>/<item id>".
+key_item = ""
+
+[wordpress]
+# Read by the WordPress kit's `wordpress-connect` skill. Both are optional paths to projects on this machine.
+# A connected project whose `docs/production-access.md` is the model for a new site's setup.
+reference = ""
+# A project whose `scripts/production-sync.py` and `docs/connections.md` are ported for each new site.
+port_source = ""

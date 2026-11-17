@@ -105,16 +105,66 @@ def _same_file_key(path):
         return _lexical_key(path)
 
 
-def check_database(project, pin_file, path=None, build_files=None, read_limit=READ_LIMIT, sources=None):
+def database_path(project, pin_file, path=None):
+    """Where a loaded pin file's compile database is: `path`, relative to the project, overrides it."""
+    project = Path(project).resolve()
+    return (project / path) if path is not None else (project / pin_file["root"] / pin_file["compdb"]["path"])
+
+
+def read_database(database, shown, read_limit=READ_LIMIT):
+    """A compile database read and checked: (entries, written, None) where `written` is its time in nanoseconds,
+    or (None, None, (status, detail)) when it is `missing`, `invalid` or larger than `read_limit` (`unknown`).
+    `shown` is how the file is named in the detail. No fault of the file system raises: it is a status. The one
+    reader of the format: hardening-check.py reads through it too."""
+    try:
+        with open(database, "rb") as handle:
+            raw = handle.read(read_limit + 1)   # bounded: the file is whatever the project holds
+        written = Path(database).stat().st_mtime_ns
+    except FileNotFoundError:
+        return None, None, ("missing", f"{shown} does not exist")
+    except OSError as exc:
+        return None, None, ("invalid", f"{shown} cannot be read ({_reason(exc)})")
+    if len(raw) > read_limit:
+        return None, None, ("unknown", f"{shown} is larger than the {read_limit} bytes this check reads, so it "
+                                       "was not checked")
+    try:
+        entries = json.loads(raw.decode("utf-8"))
+    except UnicodeDecodeError as exc:
+        return None, None, ("invalid", f"{shown} is not UTF-8 ({exc.reason})")
+    except (ValueError, RecursionError) as exc:
+        return None, None, ("invalid", f"{shown} is not JSON ({exc})")
+    if not isinstance(entries, list):
+        return None, None, ("invalid", f"{shown} is not a JSON list of entries")
+    if not entries:
+        return None, None, ("invalid", f"{shown} holds no entry, so it describes no build")
+    for number, entry in enumerate(entries, 1):
+        fault = entry_fault(entry)
+        if fault:
+            return None, None, ("invalid", f"{shown}: entry {number}: {fault}")
+    return entries, written, None
+
+
+def entry_source(entry, database):
+    """The source file an entry of a compile database compiles: its `file`, under its `directory`, which is under
+    the database's folder when relative."""
+    directory = Path(entry["directory"])
+    if not directory.is_absolute():
+        directory = Path(database).parent / directory
+    source_file = Path(entry["file"])
+    return source_file if source_file.is_absolute() else directory / source_file
+
+
+def check_database(project, pin_file, path=None, build_files=None, read_limit=READ_LIMIT, sources=None,
+                   entries_out=None):
     """The state of the compile database of a project whose pin file is loaded: {"path", "status", "detail",
     "entries", "newer", "gone", "unlisted", "regenerate"}. `path` and `build_files`, relative to the project,
     override the pin file's. `sources`, relative to the project, are files that must each have an entry: one
-    without is listed under "unlisted" and makes the database stale. No fault of the file system raises: it is
-    a status."""
+    without is listed under "unlisted" and makes the database stale. `entries_out`, a list, receives the entries
+    read (hardening-check.py checks them in the same read). No fault of the file system raises: it is a status."""
     project = Path(project).resolve()
     base = project / pin_file["root"]
     compdb = pin_file["compdb"]
-    database = (project / path) if path is not None else (base / compdb["path"])
+    database = database_path(project, pin_file, path)
     result = {"path": _shown(database, project), "status": None, "detail": "", "entries": None, "newer": [],
               "gone": [], "unlisted": [], "regenerate": list(compdb["regenerate"])}
 
@@ -122,31 +172,11 @@ def check_database(project, pin_file, path=None, build_files=None, read_limit=RE
         result.update(status=status, detail=detail)
         return result
 
-    try:
-        with open(database, "rb") as handle:
-            raw = handle.read(read_limit + 1)   # bounded: the file is whatever the project holds
-        written = database.stat().st_mtime_ns
-    except FileNotFoundError:
-        return ended("missing", f"{result['path']} does not exist")
-    except OSError as exc:
-        return ended("invalid", f"{result['path']} cannot be read ({_reason(exc)})")
-    if len(raw) > read_limit:
-        return ended("unknown", f"{result['path']} is larger than the {read_limit} bytes this check reads, so it "
-                                "was not checked")
-    try:
-        entries = json.loads(raw.decode("utf-8"))
-    except UnicodeDecodeError as exc:
-        return ended("invalid", f"{result['path']} is not UTF-8 ({exc.reason})")
-    except (ValueError, RecursionError) as exc:
-        return ended("invalid", f"{result['path']} is not JSON ({exc})")
-    if not isinstance(entries, list):
-        return ended("invalid", f"{result['path']} is not a JSON list of entries")
-    if not entries:
-        return ended("invalid", f"{result['path']} holds no entry, so it describes no build")
-    for number, entry in enumerate(entries, 1):
-        fault = entry_fault(entry)
-        if fault:
-            return ended("invalid", f"{result['path']}: entry {number}: {fault}")
+    entries, written, refused = read_database(database, result["path"], read_limit)
+    if refused:
+        return ended(*refused)
+    if entries_out is not None:
+        entries_out.extend(entries)
     result["entries"] = len(entries)
 
     # The build files: named ones must be readable, the usual ones are compared where they exist.
@@ -171,12 +201,7 @@ def check_database(project, pin_file, path=None, build_files=None, read_limit=RE
 
     gone, hidden, listed = {}, {}, set()
     for entry in entries:
-        directory = Path(entry["directory"])
-        if not directory.is_absolute():
-            directory = database.parent / directory
-        source_file = Path(entry["file"])
-        if not source_file.is_absolute():
-            source_file = directory / source_file
+        source_file = entry_source(entry, database)
         listed.add(_same_file_key(source_file))
         if source_file in gone or source_file in hidden:
             continue

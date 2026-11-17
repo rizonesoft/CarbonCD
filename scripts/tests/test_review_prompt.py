@@ -125,6 +125,8 @@ class FillEachKind(Filler):
 
     def test_fidelity_defaults_to_no_surface(self):
         self.assertIn("- Fidelity: `none (Surface: no)`.", self.ok("plan", "--ref", REF, "--todo", TODO))
+        self.assertIn("- Fidelity: `none (Surface: no)`.", self.ok("round", "--ref", REF))
+        self.assertIn("- Fidelity: `design/SPEC.md`.", self.ok("round", "--ref", REF, "--fidelity", "design/SPEC.md"))
 
     def test_single_commit_versus_range(self):
         single = self.ok("round", "--ref", REF)

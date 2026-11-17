@@ -1,6 +1,6 @@
 # Claude Output and Safety Rule
 
-- Bound every shell command output (`Select-Object -First` on Windows, `head` or `tail` on WSL, filtered test cases) and redirect full logs to scratch, never the repository: `R:\scratch` on Windows, `/mnt/r/scratch` on WSL (the same folder), or the session scratchpad when one is given; `build/` holds derived project output.
+- Bound every shell command output (`Select-Object -First` on Windows, `head` or `tail` on WSL, filtered test cases) and redirect full logs to scratch, never the repository: the session scratchpad when one is given, otherwise the folder `paths.scratch` names in `.conclave/local.toml`, otherwise the operating system's temporary folder; `build/` holds derived project output.
 - Treat `git status` as a concurrency lock: never write over unfamiliar uncommitted changes from another session without asking the user first.
 - Never use em dashes or en dashes anywhere: prose, code, comments, commit messages and generated files. Use a comma, colon, parentheses or a full stop. Write one line per Markdown paragraph and list item.
 - Use atomic temporary-file-then-replace writes for all persistent data files.

@@ -19,6 +19,9 @@ if [ -z "$python" ]; then
     echo "pre-commit: Python is needed to check the TODO graph" >&2
     exit 1
 fi
+if [ -f "$root/scripts/design-lint.py" ]; then
+    "$python" "$root/scripts/design-lint.py" --staged || exit 1
+fi
 # The graph names the folder, so the hook and the graph never disagree; a layout it cannot read is its refusal. The
 # commit holds the staged todo/plan.json, and the check reads the working tree's, so both folders are watched: when
 # they differ, todo/plan.json itself is unstaged and the check below refuses until it is staged.
